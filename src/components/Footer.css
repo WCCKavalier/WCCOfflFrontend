@@ -1,0 +1,118 @@
+/* Footer.css */
+.footer {
+  width: 100%;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2f2f2f 100%);
+  color: #fff;
+  padding: 40px 20px;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+  border-top: 3px solid #ffd700;
+  box-shadow: 0 -5px 20px rgba(255, 215, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.side1,
+.side2 {
+  flex: 1;
+  margin: 10px 20px;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #ffd700;
+  text-shadow: 0 0 10px #ffd700, 0 0 20px rgba(255, 215, 0, 0.8);
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.footer-text {
+  font-size: 1rem;
+  margin-top: 5px;
+  color: #cccccc;
+}
+
+.footer-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffd700;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #cccccc;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.footer-links a:hover {
+  color: #ffd700;
+  text-shadow: 0 0 5px #ffd700, 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+.gotop {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: rgba(255, 215, 0, 0.8);
+  color: #1a1a1a;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  animation: bounce 2s infinite;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.gotop:hover {
+  background: #ffd700;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+  transform: translateY(-5px);
+}
+
+/* Glorious Bounce Animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}

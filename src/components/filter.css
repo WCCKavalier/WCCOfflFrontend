@@ -1,0 +1,317 @@
+/* Base Table Container */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    background: linear-gradient(145deg, #1a1a1a, #0c0c0c);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.05);
+    backdrop-filter: blur(10px);
+    margin: 30px 0;
+    padding: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #f0f0f0;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Headers & Cells */
+.table th,
+.table td {
+    padding: 16px 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: background 0.3s ease;
+}
+
+.table th {
+    background: linear-gradient(145deg, #222, #111);
+    color: #FFD700; /* rare gold for headers */
+    font-weight: 600;
+    position: relative;
+    backdrop-filter: blur(6px);
+    z-index: 1;
+    cursor: pointer;
+}
+
+.table th:hover {
+    background-color: rgba(60, 60, 60, 0.8);
+}
+
+/* Filter Icon */
+.table th .filter-icon {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #888;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.table th.active-filter .filter-icon {
+    color: #FFD700;
+    transform: rotate(180deg);
+}
+
+/* Dropdowns */
+.date-dropdowns select,
+select {
+    background-color: #1e1e1e;
+    color: #f8f8f8;
+    border: 1px solid #FFD700;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    appearance: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+select:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+/* Filter Buttons */
+.filter-buttons {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.filter-done-btn,
+.filter-clear-btn {
+    padding: 10px 18px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    border: none;
+    letter-spacing: 0.4px;
+    transition: all 0.25s ease;
+}
+
+.filter-done-btn {
+    background: linear-gradient(145deg, #34d404, #214e07);
+    color: #1a1a1a;
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.25);
+}
+
+.filter-done-btn:hover {
+    background: linear-gradient(145deg, #0c8c05, #44e400);
+}
+
+.filter-clear-btn {
+    background: linear-gradient(145deg, #ff4d4d, #7e1d08);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(255, 59, 48, 0.3);
+}
+
+.filter-clear-btn:hover {
+    background: linear-gradient(145deg, #7e1d08, #ff4d4d);
+}
+
+/* Selected Filters */
+.selected-filters {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-tag {
+    background-color: rgba(255, 215, 0, 0.08);
+    color: #FFD700;
+    padding: 6px 14px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    backdrop-filter: blur(4px);
+    border: 1px solid #FFD700;
+}
+
+.remove-tag-btn {
+    margin-left: 8px;
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.filter-download-container {
+    display: flex;
+    justify-content: center; /* Default for non-admins */
+    align-items: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    width: 100%; /* Ensure full width for proper centering on mobile */
+    gap: 20px;
+}
+
+/* When admin, align buttons left & right */
+.filter-download-container.admin-mode {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+.filter-download-btn,
+.filter-delete-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+    text-align: center;
+}
+
+.filter-download-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.filter-download-btn:hover {
+    background-color: #45a049;
+}
+
+.filter-delete-btn {
+    background-color: #b21c14;
+    color: white;
+}
+
+.filter-delete-btn:hover {
+    background-color: #ef0f0f;
+}
+
+
+.filter-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem; /* For small screens */
+}
+
+.filter-modal {
+    background: #111; /* Dark background */
+    color: white; /* White text */
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    max-width: 90vw;
+    width: 100%;
+    max-width: 400px; /* Restrict width */
+    box-sizing: border-box;
+}
+
+.filter-modal h3 {
+    margin-bottom: 0.5rem;
+}
+
+.filter-modal p {
+    margin-bottom: 1rem;
+}
+
+.filter-modal-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap; /* Helps buttons stack on small screens */
+}
+
+.filter-modal-buttons button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    min-width: 100px;
+}
+
+/* Specific button colors */
+.filter-modal-buttons button:first-child {
+    background-color: #e63946; /* red for delete */
+    color: white;
+}
+
+.filter-modal-buttons button:first-child:hover {
+    background-color: #d62828;
+}
+
+.filter-modal-buttons button:last-child {
+    background-color: #2a9d8f; /* teal for cancel */
+    color: white;
+}
+
+.filter-modal-buttons button:last-child:hover {
+    background-color: #21867a;
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+    .filter-modal {
+        padding: 1.5rem;
+    }
+
+    .filter-modal-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .filter-modal-buttons button {
+        width: 100%;
+    }
+}
+
+/* Responsive Dropdowns */
+.date-dropdowns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+/* Responsive Text Sizes */
+@media (min-width: 600px) {
+    .table th,
+    .table td {
+        font-size: 1.05rem;
+        padding: 16px 18px;
+    }
+    .filter-download-container.admin-mode {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .filter-download-btn,
+    .filter-delete-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    select {
+        max-width: 180px;
+    }
+}
+h5{
+    padding-bottom: 10px;
+}

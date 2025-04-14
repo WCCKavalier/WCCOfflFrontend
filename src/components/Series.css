@@ -1,0 +1,343 @@
+/* Glowing Gold Variables */
+:root {
+  --gold: #FFD700;
+  --gold-glow: rgba(255, 215, 0, 0.6);
+  --dark-bg: #121212;
+  --deep-blue: #1e3c72;
+  --dark-gradient: linear-gradient(-45deg, #383a3f, #363739, #cbcad4, #212124, #37373b);
+  --white-text: #f1f1f1;
+}
+
+/* Main Background */
+.homepage {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #121212;
+  background-size: 400% 400%;
+  animation: gradientAnimation 12s ease infinite;
+}
+
+/* Header Bar */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
+}
+
+/* Card Container */
+.team-card {
+  background: linear-gradient(135deg, #1b1b1b, #24243e);
+  border-radius: 20px;
+  padding: 16px;
+  text-align: center;
+  color: var(--white-text);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-card:hover {
+  transform: scale(1.10);
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+
+/* Buttons */
+button {
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--white-text);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.update-score-btn {
+  background-color:#0fad0d;
+  color: #ffffff;
+  box-shadow: 0 0 10px var(--gold-glow);
+}
+.update-score-btn:hover {
+  background-color: #0fad0d;
+}
+
+.reset-btn {
+  background-color: #b71c1c;
+}
+
+.end-btn {
+  background-color: #1e1e1e;
+}
+.admin-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.win-btn {
+  background-color:#ddebf0;
+  color: #000;
+  margin-right: 10px;
+}
+.loss-btn {
+  background-color: #052e1f;
+  color: white;
+  margin-right: 10px;
+}
+
+/* Alert Box */
+.alert-box {
+  background-color: var(--gold);
+  color: black;
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+.alert-box.error {
+  background-color: #f44336;
+  color: white;
+}
+
+.alert-box button {
+  background-color: black;
+  color: var(--gold);
+}
+.alert-box button:hover {
+  background-color: #333;
+}
+
+/* Collapsible Series Section */
+.past-series-heading {
+  color: var(--gold);
+  border-left: 6px solid var(--gold);
+}
+
+.collapsible-header {
+  background: linear-gradient(135deg, #1f1f1f, #2a2a2a);
+  color: var(--white-text);
+  border: 1px solid #444;
+  /* width: 100%; */
+  text-align: center;
+  /* padding: 16px 24px; */
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  /* position: relative; */
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.15);
+  /* display: flex; */
+  /* justify-content: space-between; */
+  align-items: center;
+  /* flex-wrap: wrap; */
+  /* gap: 10px; */
+  /* justify-content: center; */
+  margin-top: 20px;
+  width: 100%;
+}
+
+.collapsible-header:hover {
+  background: linear-gradient(135deg, #2a2a2a, #333);
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+}
+
+.collapsible-header.active::after {
+  transform: rotate(180deg);
+}
+
+/* Match Entry */
+.match-entry {
+  background: #1a1a1a;
+  color: var(--white-text);
+  border-left: 5px solid var(--gold);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.08);
+}
+
+.match-entry h3 {
+  color: var(--gold);
+}
+
+/* Result Status */
+.results span.win {
+  background-color: #4caf50;
+}
+.results span.loss {
+  background-color: #f44336;
+}
+
+/* Glow Animations */
+@keyframes glow-gold {
+  from {
+    box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold);
+  }
+  to {
+    box-shadow: 0 0 20px var(--gold), 0 0 40px var(--gold);
+  }
+}
+
+/* Apply glow to elements if needed */
+.glow-gold {
+  animation: glow-gold 1.5s ease-in-out infinite alternate;
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow-x: auto;
+  transition: max-height 0.4s ease-out;
+  border-radius: 8px;
+  }
+  
+  .collapsible-content.open {
+  max-height: 1000px;
+  transition: max-height 0.5s ease-in;
+  margin-top: 0.75rem;
+  }
+  
+  .series-table {
+  /* width: 100%; */
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background-color: #181818;
+  color: #e0e0e0;
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  }
+  .series-table-wrapper {
+    max-height: 300px; /* Adjust as needed */
+    overflow-y: auto;
+    margin-top: 1rem;
+    border-radius: 8px;
+    border: 1px solid #333;
+  }
+  
+  /* Optional - add scrollbars styling for webkit browsers */
+  .series-table-wrapper::-webkit-scrollbar {
+    width: 8px;
+  }
+  .series-table-wrapper::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+  }
+  
+  .series-table thead {
+  background-color: #242424;
+  color: #ffcc00;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  }
+  
+  .series-table th,
+  .series-table td {
+  padding: 12px 14px;
+  border: 1px solid #2e2e2e;
+  text-align: left;
+  }
+  
+  .series-table tr:hover {
+  background-color: #2c2c2c;
+  transition: background-color 0.2s ease;
+  }
+  .team.team-a {
+  color: #00bfff; 
+  font-weight: 500;
+  }
+  
+  .team.team-b {
+  color: #ff7f50; /* Coral Orange */
+  font-weight: 500;
+  }
+  
+  .winner {
+  color: #90ee90; /* Light Green */
+  font-weight: bold;
+  }
+  
+  /* Score badges */
+  .score-badge {
+  display: inline-block;
+  margin: 0 2px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  }
+  
+  .score-badge.w {
+  background-color: #2e7d32; /* Green */
+  color: #a5d6a7;
+  }
+  
+  .score-badge.l {
+  background-color: #c62828; /* Red */
+  color: #ef9a9a;
+  }
+  
+  .score-badge {
+  background-color: #f9a825; /* Amber */
+  color: #fff59d;
+  }
+  
+  .vs-separator {
+  margin: 0 6px;
+  font-weight: 500;
+  color: #aaa;
+  }
+  
+  /* Responsive Tweaks */
+  @media screen and (max-width: 600px) {
+  .series-table th,
+  .series-table td {
+  padding: 10px 8px;
+  font-size: 0.85rem;
+  }
+
+  .admin-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .past-series-heading {
+  font-size: 1.4rem;
+  }
+
+  .collapsible-header {
+    font-size: 0.95rem;
+    padding: 12px 16px;
+  }
+  
+  
+  .score-badge {
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  }
+  
+  .vs-separator {
+  display: block;
+  text-align: center;
+  margin: 4px 0;
+  }
+  }
+
+/* Continue the rest of your CSS here... */
+.cancel-cross{
+  background-color:transparent
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

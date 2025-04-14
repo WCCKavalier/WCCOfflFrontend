@@ -1,0 +1,17 @@
+Team name       Team name2
+Captain         Captain
+Score    +-     Score    [reset]
+wlw             lwl      l           array[1,-1,1]
+Core Team       Core Team
+1               1
+2               2
+3               3
+4               4
+5               5
+change Core     change Core
+Kava winner       --
+[update kava winner]    [update kava winner]
+Previous Winner: winning team name
+        End Series  
+
+        <blank> if prevSeries?true: 

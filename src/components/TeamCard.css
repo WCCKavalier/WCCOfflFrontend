@@ -1,0 +1,217 @@
+.team-container {
+  display: flex;
+  align-items: stretch;
+  gap: 13px;
+  flex-wrap: nowrap;
+  padding: 10px;
+  width: 100%;
+}
+
+.team-card {
+  flex: 1 1 45%;
+  min-width: 0;
+  background: linear-gradient(135deg, #2a2a2a, #1b1b1b);
+  border-radius: 20px;
+  padding: 16px;
+  text-align: center;
+  color: #f5f5f5;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.1);
+}
+
+.team-card:hover {
+  transform: scale(1.10);
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .team-card {
+    flex: 1 1 50%;
+    padding: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    font-size: 11px;
+  }
+
+  .team-card {
+    flex: 1 1 48%;
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .team-card h2 {
+    font-size: 12px;
+  }
+}
+
+h2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #FFD700;
+  position: relative;
+  word-break: break-word;
+  white-space: pre-line;
+  max-width: 100%;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #FFD700;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-icon:hover {
+  color: #C9A634;
+  transform: rotate(360deg);
+}
+
+.score {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #FFD700;
+}
+
+.results {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.results span {
+  transform: perspective(1000px) rotateX(20deg) rotateY(20deg);
+}
+
+.result {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 0 12px #FFD700;
+}
+
+.win {
+  background: #1f3d1f;
+  color: #a1eaa1;
+  text-shadow: 0 0 8px #a1eaa1;
+  box-shadow: 0 0 10px #00c800;
+}
+
+.loss {
+  background: #3d1f1f;
+  color: #ff6666;
+  text-shadow: 0 0 8px #ff6666;
+  box-shadow: 0 0 10px #ff1a1a;
+}
+
+.neutral {
+  background: #2e2e2e;
+  color: #dcdcdc;
+  text-shadow: 0 0 8px #aaa;
+  box-shadow: 0 0 10px #555;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+li {
+  padding: 8px 0;
+}
+
+.edit-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.edit-mode input,
+.edit-mode textarea {
+  width: 90%;
+  padding: 10px;
+  margin-top: 8px;
+  border: 1px solid #777;
+  border-radius: 6px;
+  background-color: #1e1e1e;
+  color: #fff;
+  text-align: center;
+}
+
+.edit-buttons {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.save-btn {
+  padding: 10px 15px;
+  background: linear-gradient(135deg, #C9A634, #FFD700);
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+  background: linear-gradient(135deg, #FFD700, #C9A634);
+  box-shadow: 0 0 15px #FFD700;
+}
+
+.cancel-btn-team {
+  padding: 10px 15px;
+  background: linear-gradient(135deg, #5a2a2a, #ff0000);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn-team:hover {
+  background: linear-gradient(135deg, #ff0000, #5a2a2a);
+  box-shadow: 0 0 15px #ff4d4d;
+}
+
+label {
+  font-size: 14px;
+  color: #d1d4d4;
+  margin-top: 8px;
+  display: block;
+  text-align: left;
+  width: 100%;
+}
+
+.error-msg {
+  color: #ff4d4d;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}

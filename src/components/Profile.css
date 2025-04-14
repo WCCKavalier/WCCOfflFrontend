@@ -1,0 +1,228 @@
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* Background Style (Dark with Gradient) */
+.bg-gray-50 {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-size: 300% 300%;
+  color: #f7f7f7;
+}
+
+/* Page Title */
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fbf8f8;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* Player Scroll Wrapper */
+.player-scroll-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  height: 150px;
+  margin: 20px 0;
+  scroll-behavior: smooth;
+  touch-action: pan-x;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: auto !important;
+  scrollbar-width: none; 
+}
+
+/* Hide horizontal scrollbar */
+.player-scroll-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* Player Scroll Container */
+.player-scroll-container {
+  display: flex;
+  width: max-content;
+}
+
+/* Player Photo */
+.player-photo {
+  width: 22vw;
+  max-width: 120px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin: 0 10px;
+  border-radius: 50%;
+  transition: transform 0.3s ease-in-out, border 0.3s;
+  border: 3px solid transparent;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.player-photo:hover {
+  transform: scale(1.1);
+}
+
+/* Active Player */
+.player-photo.active {
+  transform: scale(1.1);
+  border: 3px solid #b27606;
+}
+
+/* Player Details Section */
+.player-details {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 600px;
+  display: inline-block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.player-details h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #c49d02;
+}
+
+.player-details p {
+  font-size: 1rem;
+  color: #ddd;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Close Button */
+.close-btn {
+  background: #c68f06;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease-in-out;
+}
+
+.close-btn:hover {
+  background: #735203;
+}
+
+/* Background Blur */
+.bg-gray-50.blur {
+  filter: blur(5px);
+  pointer-events: none;
+  transition: filter 0.3s ease-in-out;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive Heading */
+h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 20px;
+  color: #061c59;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .player-scroll-wrapper {
+    max-width: 100%;
+  }
+}
+
+/* Prevent Horizontal Scrolling on Small Devices */
+@media (max-width: 480px) {
+  .bg-gray-50 {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .player-photo {
+    width: 100px;
+    height: 100px;
+  }
+}
+/* Profile Container - Add space at the top */
+.profile-container {
+  padding-top: 40px; /* Adjust as needed */
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Heading Styles for Player Profiles */
+h2 {
+  font-size: 1.8rem; /* Adjust to make it distinct but not too big */
+  font-weight: bold;
+  padding: 20px;
+  color: #061c59; /* Accent color */
+  text-align: center;
+  margin-bottom: 20px; /* Space below the heading */
+  text-transform: uppercase; /* Adds emphasis */
+  letter-spacing: 2px; /* Small letter spacing for a clean look */
+}
+@media (min-width: 768px) {
+  .bg-gray-50 {
+    justify-content: flex-start;
+    padding-top: 60px;
+  }
+}
+/* New: Meta Info Section for DOB and Feared For */
+.player-meta {
+  margin: 16px 0;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ddd;
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+/* Optional: Make key titles stand out */
+.player-meta p {
+  margin: 8px 0;
+}
+
+.player-meta strong {
+  color: #fff;
+  font-weight: 600;
+}

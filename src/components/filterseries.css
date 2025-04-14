@@ -1,0 +1,60 @@
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 10px 0;
+    color: black;
+}
+
+.filter-dropdown label {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.filter-buttons {
+    margin: 10px 0;
+}
+
+.date-dropdowns {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.filter-done-btn,
+.filter-clear-btn {
+    margin-right: 10px;
+    padding: 6px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter-clear-btn {
+    background-color: #dc3545;
+}
+
+.selected-filters {
+    margin: 10px 0;
+}
+
+.filter-tag {
+    background-color: #e0e0e0;
+    padding: 6px 10px;
+    border-radius: 15px;
+    margin: 5px;
+    display: inline-flex;
+    align-items: center;
+    color: black;
+}
+
+.remove-tag-btn {
+    background: transparent;
+    border: none;
+    margin-left: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #ff0000;
+}
