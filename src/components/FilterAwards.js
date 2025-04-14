@@ -4,7 +4,7 @@ import "./award.css";
 import "./filter.css"
 import { downloadExcel } from "./Excel";
 
-const FILTER_API = "https://wccbackend.onrender.com/api/image";
+const FILTER_API = "https://wccbackendoffl.onrender.com/api/image";
 
 const FilterAwards = ({ initialData, isAdmin,fetchData }) => {
     const [filteredData, setFilteredData] = useState(initialData);

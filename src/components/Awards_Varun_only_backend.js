@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./award.css";
 
-const PICTURE_API = "https://wccbackend.onrender.com/api";
+const PICTURE_API = "https://wccbackendoffl.onrender.com/api";
 
 const Awards = () => {
     const [image, setImage] = useState(null);

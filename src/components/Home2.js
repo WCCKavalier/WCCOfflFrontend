@@ -18,8 +18,8 @@ const Home2 = () => {
 
     const navigate = useNavigate(); // Hook for navigation
 
-    const API_BASE_URL = "https://wccbackend.onrender.com";
-    const PICTURE_API = "https://wccbackend.onrender.com/api";
+    const API_BASE_URL = "https://wccbackendoffl.onrender.com";
+    const PICTURE_API = "https://wccbackendoffl.onrender.com/api";
 
     useEffect(() => {
         fetchTeams();

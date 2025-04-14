@@ -13,7 +13,7 @@ const Home = () => {
     const [lastWinner, setLastWinner] = useState(null);
     const [errorMessage, setErrorMessage] = useState("");
     const [winner, setWinner] = useState(null);
-    const API_BASE_URL = "https://wccbackend.onrender.com";
+    const API_BASE_URL = "https://wccbackendoffl.onrender.com";
 
     useEffect(() => {
         fetchTeams();

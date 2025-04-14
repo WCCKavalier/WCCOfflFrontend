@@ -3,7 +3,7 @@ import axios from "axios";
 import "./Series.css";
 import "./filterseries.css";
 
-const API_BASE_URL = "https://wccbackend.onrender.com";
+const API_BASE_URL = "https://wccbackendoffl.onrender.com";
 
 const FilterSeries = ({ initialData, isOpen, filterTableRefreshKey }) => {
   const [filteredData, setFilteredData] = useState(initialData || []);

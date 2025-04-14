@@ -7,7 +7,7 @@ import FilterSeries from "./FilterSeries";
 import "./Series.css";
 import ConfirmModal from "./ConfirmModal";
 
-const API_BASE_URL = "https://wccbackend.onrender.com";
+const API_BASE_URL = "https://wccbackendoffl.onrender.com";
 
 const Series = () => {
   const [teamA, setTeamA] = useState({

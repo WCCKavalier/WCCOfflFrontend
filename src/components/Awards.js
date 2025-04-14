@@ -6,7 +6,7 @@ import FilterAwards from "./FilterAwards";
 import kavaHistoryData from "./data";
 import { Link, useNavigate } from "react-router-dom";
 
-const PICTURE_API = "https://wccbackend.onrender.com/api";
+const PICTURE_API = "https://wccbackendoffl.onrender.com/api";
 
 const Awards = () => {
     const [showForm, setShowForm] = useState(false);

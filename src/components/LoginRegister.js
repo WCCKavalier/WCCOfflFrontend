@@ -4,7 +4,7 @@ import axios from "axios";
 import "./loginregister1.css"
 import PasswordEye from "./PasswordEye";
 
-const API_URL = "https://wccbackend.onrender.com/api/auth";
+const API_URL = "https://wccbackendoffl.onrender.com/api/auth";
 
 const LoginRegister = ({ onClose }) => {
     const [email, setEmail] = useState("");

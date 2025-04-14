@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TeamCard.css";
 
-const API_BASE_URL = "https://wccbackend.onrender.com";
+const API_BASE_URL = "https://wccbackendoffl.onrender.com";
 
 const TeamCard = ({
   teamId,
