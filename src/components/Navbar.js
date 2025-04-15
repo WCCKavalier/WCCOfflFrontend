@@ -79,6 +79,13 @@ function Navbar() {
               {isAuthenticated ? (
                 <>
                   <li><Link className={isActive("/chat")} to="/chat" onClick={() => setIsNavOpen(false)}>Discussions</Link></li>
+                  {admin === "Y" && (
+                    <li>
+                      <Link className={isActive("/scorecards")} to="/scorecards" onClick={() => setIsNavOpen(false)}>
+                        Scorecards
+                      </Link>
+                    </li>
+                  )}
                   <li><button onClick={handleLogout} className="logout-button">Logout ({username})</button></li>
                 </>
               ) : (
