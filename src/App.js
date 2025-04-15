@@ -14,11 +14,18 @@ import Chat from "./components/Chat";
 import Teams from "./components/Series";
 import Profile_Page from "./components/Profile_Page";
 import LoginRegister from "./components/LoginRegister";
+import ScoreCardDisplay from "./components/ScoreCardDisplay";
 
 // ProtectedRoute: redirects to / if user not logged in
 const ProtectedRoute = ({ element }) => {
   const isAuthenticated = sessionStorage.getItem("username");
   return isAuthenticated ? element : <Navigate to="/" replace />;
+};
+
+const AdminRoute = ({ element }) => {
+  const user = sessionStorage.getItem("username");
+  const admin = sessionStorage.getItem("admin");
+  return user && admin === "Y" ? element : <Navigate to="/" replace />;
 };
 
 // LoginWrapper: handles login inside "/" route
@@ -71,6 +78,10 @@ const AppRoutes = () => {
         <Route
           path="/chat"
           element={<ProtectedRoute element={<Chat />} />}
+        />
+        <Route
+          path="/scorecards"
+          element={<AdminRoute element={<ScoreCardDisplay />} />}
         />
         <Route path="/login" element={<Navigate to="/" replace />} />
       </Routes>
