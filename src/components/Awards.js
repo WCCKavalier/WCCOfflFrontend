@@ -87,6 +87,12 @@ const Awards = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            const fileType = file.type.split('/')[0]; 
+            if (fileType !== 'image') {
+                alert('Please upload only image files!');
+                e.target.value = '';
+                return;
+            }
             const imageUrl = URL.createObjectURL(file);
             setImagePreview(imageUrl);
             setNewData({ ...newData, img: imageUrl });

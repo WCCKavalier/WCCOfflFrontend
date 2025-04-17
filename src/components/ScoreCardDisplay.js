@@ -52,19 +52,39 @@ function ScoreCardDisplay() {
     formData.append('pdf', file);
 
     setUploading(true);
+
     try {
-      const res = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard', {
+      // Step 1: Validate with Gemini (STUMPS check)
+      const validationRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/validateStumpsReport', {
         method: 'POST',
         body: formData,
       });
-      const data = await res.json();
-      alert('Uploaded successfully!');
+
+      if (!validationRes.ok) {
+        const errorData = await validationRes.json();
+        throw new Error(errorData.error || 'PDF validation failed.');
+      }
+
+      const { isValid } = await validationRes.json();
+      if (!isValid) {
+        alert('❌ This PDF is not a STUMPS match report. Please upload a valid STUMPS report.');
+        return;
+      }
+
+      // Step 2: Upload the PDF
+      const uploadRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await uploadRes.json();
+      alert('✅ Uploaded successfully!');
       setFile(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
       await fetchScorecards();
     } catch (err) {
       console.error(err);
-      alert('Upload failed');
+      alert(err.message || 'Upload failed.');
     } finally {
       setUploading(false);
     }
@@ -82,8 +102,8 @@ function ScoreCardDisplay() {
           onChange={(e) => setFile(e.target.files[0])}
           disabled={uploading}
         />
-        <button onClick={handleUpload} disabled={uploading}>
-          {uploading ? 'Uploading...' : 'Upload PDF'}
+        <button onClick={handleUpload} disabled={uploading || !file}>
+          {uploading ? <span className="score-spinner"></span> : 'Upload PDF'}
         </button>
       </div>
 
