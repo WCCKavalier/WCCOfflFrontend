@@ -5,6 +5,8 @@ import CustomAlert from "./CustomAlert";
 import { Link, useNavigate } from "react-router-dom";
 import FilterSeries from "./FilterSeries";
 import "./Series.css";
+import "./ScoreCard.css";
+import ScoreCard from './ScoreCard';
 import ConfirmModal from "./ConfirmModal";
 
 const API_BASE_URL = "https://wccbackendoffl.onrender.com";
@@ -41,6 +43,9 @@ const Series = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [filterTableRefreshKey, setFilterTableRefreshKey] = useState(0);
+  const [allScorecards, setAllScorecards] = useState([]);
+  const [showAllPopup, setShowAllPopup] = useState(false);
+  const [selectedScorecard, setSelectedScorecard] = useState(null);
   const [alert, setAlert] = useState({
     message: "",
     type: "",
@@ -55,6 +60,7 @@ const Series = () => {
   useEffect(() => {
     fetchAllSeriesHistory();
     fetchTeams();
+    fetchScorecards();
     const adminStatus = sessionStorage.getItem("admin") === "Y";
     const userLoggedIn = sessionStorage.getItem("username") !== null;
     setIsAdmin(adminStatus);
@@ -68,6 +74,15 @@ const Series = () => {
         () => setAlert({ message: "", type: "", persistent: false }),
         2000
       );
+    }
+  };
+
+  const fetchScorecards = async () => {
+    try {
+      const res = await axios.get(`${API_BASE_URL}/api/uploadScorecard`);
+      setAllScorecards(res.data);
+    } catch (err) {
+      console.error('Failed to load scorecards', err);
     }
   };
 
@@ -150,6 +165,41 @@ const Series = () => {
         setConfirmModal({ show: false, action: null, message: "" });
       }
     }, "Are you sure you want to revert the last result?");
+  };
+  const formatResult = (result) => {
+    if (!result) return '';
+  
+    // 1. Remove any 4-digit year-like numbers (2023, 2024, etc.)
+    result = result.replace(/\d{4}/g, ' ');
+    result = result.replace(/notout/gi, 'not out');
+    // 2. Insert spaces where needed (camelCase or glued words)
+    result = result
+      .replace(/([a-z])([A-Z])/g, '$1 $2')
+      .replace(/([a-zA-Z])(\d+)/g, '$1 $2')
+      .replace(/(\d+)([a-zA-Z])/g, '$1 $2')
+      .replace(/(won|lost|beat|lostwith|wonwith)(by|with)/g, '$1 $2');
+  
+    // 3. Trim and normalize whitespace
+    result = result.trim().replace(/\s+/g, ' ');
+  
+    // 4. Fix team name casing: convert uppercase words like TEAMJAYANTH → Team Jayanth
+    result = result
+      .split(' ')
+      .map((word) => {
+        if (/^TEAM[A-Z]{3,}$/.test(word)) {
+          const namePart = word.replace(/^TEAM/, '');
+          return 'Team ' + namePart.charAt(0).toUpperCase() + namePart.slice(1).toLowerCase();
+        } else if (/^[A-Z]{3,}$/.test(word)) {
+          return word
+            .charAt(0)
+            .toUpperCase() + word.slice(1).toLowerCase();
+        } else {
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        }
+      })
+      .join(' ');
+  
+    return result;
   };
   
   const handleEndSeries = async () => {
@@ -259,6 +309,59 @@ const Series = () => {
           )}
         </div>
       )}
+      <div className="series-container">
+      <h1>Series Scorecards</h1>
+
+      {/* Preview of Scorecards (up to 3) */}
+      <div className="scorecard-preview-container">
+        {allScorecards.slice(0, 3).map((card, index) => (
+          <div
+            key={index}
+            className="scorecard-box"
+            onClick={() => setSelectedScorecard(card)}
+          >
+            {card.matchInfo?.teams?.join(" vs ")}<br />
+            <small>{formatResult(card.matchInfo?.result)}</small>
+            <p>{card.result}</p>
+          </div>
+        ))}
+        {allScorecards.length > 3 && (
+          <button className="view-all-btn" onClick={() => setShowAllPopup(true)}>
+            View All
+          </button>
+        )}
+      </div>
+
+      {/* Popup to Show All Scorecards */}
+      {showAllPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <button className="series-close-btn" onClick={() => setShowAllPopup(false)}>✖</button>
+            <h2>All Matches</h2>
+            <div className="scorecard-popup-grid">
+              {allScorecards.map((card, index) => (
+                <div
+                  key={index}
+                  className="scorecard-box"
+                  onClick={() => {
+                    setSelectedScorecard(card);
+                    setShowAllPopup(false);
+                  }}
+                >
+                  {card.matchInfo?.teams?.join(" vs ")}<br />
+                  <small>{formatResult(card.matchInfo?.result)}</small>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Popup for Scorecard Details */}
+      {selectedScorecard && (
+        <ScoreCard currentMatch={selectedScorecard} onClose={() => setSelectedScorecard(null)} />
+      )}
+    </div>
 
       <div className="match-coverage-container">
         {loading && <p>Loading series history...</p>}
