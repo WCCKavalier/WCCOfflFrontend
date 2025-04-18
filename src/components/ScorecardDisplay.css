@@ -1,154 +1,146 @@
-/* ScorecardManager Scoped Theme - Black & Gold */
-.scorecard-manager {
-    padding: 20px;
-    max-width: 1200px;
-    margin: auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #000;
-    color: #ffd700;
-  }
-  
-  /* Upload Section */
-  .scorecard-manager .upload-container {
-    background-color: #111;
-    border: 2px solid #ffd700;
-    padding: 20px;
-    margin-bottom: 30px;
-    border-radius: 12px;
-    text-align: center;
-  }
-  
-  .scorecard-manager .upload-container input[type="file"] {
-    background-color: #222;
-    color: #ffd700;
-    border: 1px solid #444;
-    padding: 10px;
-    margin-right: 10px;
-    border-radius: 5px;
-  }
+/* ScoreCardDisplay.css */
+.scorecard-display-container {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #000;
+  color: #fff;
+  padding: 1rem;
+  max-width: 600px;
+  margin: auto;
+}
 
-  .score-spinner {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    border: 3px solid rgba(0, 0, 0, 0.2);
-    border-top-color: #000;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    vertical-align: middle;
-    margin: 0 auto;
+.scorecard-display-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.scorecard-display-upload input[type="file"] {
+  background: #111;
+  color: #fff;
+  border: 1px solid gold;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.scorecard-display-upload button {
+  background: gold;
+  color: #000;
+  border: none;
+  padding: 0.5rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.scorecard-display-upload button:disabled {
+  background: #888;
+  cursor: not-allowed;
+}
+
+.score-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 3px solid #fff;
+  border-top: 3px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .scorecard-manager .upload-container button {
-    background-color: #ffd700;
-    color: #000;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s ease;
-  }
-  
-  .scorecard-manager .upload-container button:hover {
-    background-color: #e6c200;
-  }
-  
-  /* Scorecard Display */
-  .scorecard-manager .scorecards {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  }
-  
-  .scorecard-manager .match-card {
-    background-color: #111;
-    border: 1px solid #ffd700;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-  }
-  
-  .scorecard-manager .match-card h2 {
-    margin-top: 0;
-    color: #ffd700;
-  }
-  
-  .scorecard-manager .match-card p {
-    margin: 6px 0;
-  }
-  
-  .scorecard-manager .innings {
-    margin-top: 20px;
-    padding-top: 10px;
-    border-top: 1px solid #444;
-  }
-  
-  .scorecard-manager .innings h3 {
-    color: #ffa500;
-    margin-bottom: 10px;
-  }
-  
-  .scorecard-manager table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .scorecard-manager th,
-  .scorecard-manager td {
-    border: 1px solid #444;
-    padding: 8px;
-    text-align: center;
-    color: #ffd700;
-  }
-  
-  .scorecard-manager th {
-    background-color: #222;
-    font-weight: bold;
-  }
-  
-  .scorecard-manager td {
-    background-color: #000;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .scorecard-manager {
-      padding: 10px;
-    }
-  
-    .scorecard-manager .upload-container input[type="file"] {
-      display: block;
-      margin: 0 auto 10px;
-      width: 100%;
-    }
-  
-    .scorecard-manager .upload-container button {
-      width: 100%;
-      margin-top: 10px;
-    }
-  
-    .scorecard-manager table,
-    .scorecard-manager thead,
-    .scorecard-manager tbody,
-    .scorecard-manager th,
-    .scorecard-manager td,
-    .scorecard-manager tr {
-      font-size: 12px;
-      word-break: break-word;
-    }
-  
-    .scorecard-manager th, 
-    .scorecard-manager td {
-      padding: 6px 4px;
-    }
-  }
-  
+}
+
+.scorecard-display-match-card {
+  background: #111;
+  border: 1px solid gold;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.scorecard-display-match-card h2 {
+  color: gold;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.scorecard-display-innings {
+  margin-top: 1.5rem;
+}
+
+.scorecard-display-innings h3 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.scorecard-display-innings table {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-collapse: collapse;
+}
+
+.scorecard-display-innings th,
+.scorecard-display-innings td {
+  padding: 0.3rem;
+  text-align: left;
+  border-bottom: 1px solid #333;
+  font-size: 0.9rem;
+}
+
+.scorecard-display-innings th {
+  color: gold;
+}
+
+.scorecard-display-nav {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.scorecard-display-nav button {
+  background: none;
+  border: 1px solid gold;
+  color: gold;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.scorecard-display-nav button:hover {
+  background: gold;
+  color: black;
+}
+
+.scorecard-display-collapse-toggle {
+  width: 100%;
+  background: #222;
+  border: none;
+  color: gold;
+  padding: 0.6rem;
+  margin: 1rem 0 0.3rem;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.scorecard-display-collapse-toggle:hover {
+  background: #333;
+}
+
+.scorecard-display-result {
+  border-top: 1px solid #333;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  font-size: 1rem;
+  color: gold;
+}
