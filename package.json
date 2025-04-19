@@ -18,6 +18,7 @@
     "react-scroll": "^1.9.3",
     "sheetjs-style": "^0.15.8",
     "socket.io-client": "^4.8.1",
+    "string-similarity": "^4.0.4",
     "styled": "^1.0.0",
     "styled-components": "^6.1.16",
     "web-vitals": "^2.1.4",
