@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { io } from 'socket.io-client';
 import './ScorecardDisplay.css';
+import stringSimilarity from 'string-similarity';
 
 const socket = io('https://wccbackendoffl.onrender.com');
 
@@ -44,44 +45,115 @@ function ScoreCardDisplay() {
     };
   }, []);
 
+  const promptUserForNameSuggestions = async (suggestions) => {
+    // Prompt the user for name corrections or accept the suggested names
+    const updated = [];
+  
+    for (const { original, suggested } of suggestions) {
+      const userInput = prompt(
+        `Missing Player: "${original}"\nSuggested Match: "${suggested}"\n\nPress OK to accept or type a corrected name:`,
+        suggested
+      );
+  
+      if (userInput === null) {
+        // User cancelled
+        return null;
+      }
+  
+      updated.push({ original, updated: userInput });
+    }
+  
+    return updated;
+  };
+  
   const handleUpload = async () => {
     if (!file) return alert('Please select a PDF!');
     if (file.type !== 'application/pdf') return alert('Only PDF files are allowed!');
-
+  
     const formData = new FormData();
     formData.append('pdf', file);
-
     setUploading(true);
-
+  
     try {
-      // Step 1: Validate with Gemini (STUMPS check)
       const validationRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/validateStumpsReport', {
         method: 'POST',
         body: formData,
       });
-
-      if (!validationRes.ok) {
-        const errorData = await validationRes.json();
-        throw new Error(errorData.error || 'PDF validation failed.');
-      }
-
+  
       const { isValid } = await validationRes.json();
       if (!isValid) {
         alert('❌ This PDF is not a STUMPS match report. Please upload a valid STUMPS report.');
         return;
       }
-
-      // Step 2: Upload the PDF
+  
+      const extractionRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/extractPlayerNames', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      const { playerNames: extractedNames } = await extractionRes.json();
+  
+      const validationPlayerNamesRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/validatePlayerNames', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerNames: extractedNames }),
+      });
+  
+      const data = await validationPlayerNamesRes.json();
+      const missingPlayers = data.missingPlayers || [];
+  
+      if (missingPlayers.length > 0) {
+        const playerStatsRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/playerstat');
+        const playerStats = await playerStatsRes.json();
+        const allNamesFromDB = playerStats.map(p => p.name);
+  
+        // Replace promptUserForNameSuggestions with dropdown selection
+        const userConfirmedUpdates = [];
+  
+        for (const missing of missingPlayers) {
+          const selected = window.prompt(
+            `Select the correct name for "${missing}" from the player list (copy/paste one):\n\n` + 
+            allNamesFromDB.join('\n')
+          );
+  
+          if (!selected) {
+            alert('Upload cancelled.');
+            return;
+          }
+  
+          userConfirmedUpdates.push({ original: selected, updated: missing });
+        }
+  
+        const updateRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/updatePlayerNames', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ updates: userConfirmedUpdates }),
+        });
+  
+        const updateData = await updateRes.json();
+        if (updateData.success) {
+          alert('✅ Player names updated successfully!');
+          const nameList = extractedNames.map(name => {
+            const updatedEntry = userConfirmedUpdates.find(u => u.original === name);
+            return updatedEntry ? `${updatedEntry.original} → ${updatedEntry.updated}` : name;
+          });
+          alert("📋 Final player name list:\n\n" + nameList.join("\n"));
+        } else {
+          throw new Error('Failed to update player names.');
+        }
+      }
+  
       const uploadRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard', {
         method: 'POST',
         body: formData,
       });
-
-      const data = await uploadRes.json();
+  
+      const uploadData = await uploadRes.json();
       alert('✅ Uploaded successfully!');
       setFile(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
       await fetchScorecards();
+  
     } catch (err) {
       console.error(err);
       alert(err.message || 'Upload failed.');
@@ -89,6 +161,9 @@ function ScoreCardDisplay() {
       setUploading(false);
     }
   };
+  
+  
+  
 
   const formatResult = (result) => {
     if (!result) return '';
