@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./award.css";
-import CustomAlert from "./CustomAlert";
+import NotificationAlert from "./NotificationAlert";
 import FilterAwards from "./FilterAwards";
 import kavaHistoryData from "./data";
 import { Link, useNavigate } from "react-router-dom";
@@ -163,13 +163,23 @@ const Awards = () => {
             return () => clearTimeout(timer);
         }
     }, [message, successMessage]);
+    const [alert, setAlert] = useState(null);
 
+    const displayNotification = (message, type = 'success') => {
+      setAlert({ message, type });
+      setTimeout(() => {
+        setAlert(null); // Hide the notification after 4 seconds
+      }, 4000);
+    };
+    
     return (
         <>
+        {alert && <NotificationAlert message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
+
             {/* Main Title */}
             <div className="awards-container">
                 <h2>Kava Awards</h2>
-
+                
                 {/* Award Section */}
                 <div className="award-container">
                     <div className="award-section">
