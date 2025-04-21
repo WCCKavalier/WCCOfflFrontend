@@ -11,6 +11,7 @@ import ConfirmModal from "./ConfirmModal";
 import NotificationAlert from "./NotificationAlert";
 
 const API_BASE_URL = "https://wccbackendoffl.onrender.com";
+const socket = io('https://wccbackendoffl.onrender.com');
 
 const Series = () => {
   const [teamA, setTeamA] = useState({
@@ -73,6 +74,21 @@ const Series = () => {
     const userLoggedIn = sessionStorage.getItem("username") !== null;
     setIsAdmin(adminStatus);
     setIsLoggedIn(userLoggedIn);
+    const handleNewScorecard = () => {
+      console.log('📥 New scorecard received');
+      fetchScorecards();
+    };
+
+    socket.on('connect', () => {
+      console.log('🟢 Connected to socket');
+    });
+
+    socket.on('newScorecard', handleNewScorecard);
+
+    return () => {
+      socket.off('newScorecard', handleNewScorecard);
+      socket.disconnect();
+    };
   }, []);
 
   const showAlert = (message, type = "success", persistent = false) => {
@@ -428,6 +444,20 @@ const displayNotification = (message, type = 'success') => {
 
               {!showWinButtons && (
                 <>
+                  <button
+                    className="reset-btn"
+                    onClick={handleResetLatestScore}
+                    disabled={!lastWinner || actionLoading}
+                  >
+                    Revert Last Result
+                  </button>
+                  <button
+                    className="end-btn"
+                    onClick={handleEndSeries}
+                    disabled={actionLoading}
+                  >
+                    End-Series
+                  </button>
                   <div className="scorecard-display-upload">
                     <input
                       type="file"
@@ -447,20 +477,6 @@ const displayNotification = (message, type = 'success') => {
                       )}
                     </button>
                   </div>
-                  <button
-                    className="reset-btn"
-                    onClick={handleResetLatestScore}
-                    disabled={!lastWinner || actionLoading}
-                  >
-                    Revert Last Result
-                  </button>
-                  <button
-                    className="end-btn"
-                    onClick={handleEndSeries}
-                    disabled={actionLoading}
-                  >
-                    End-Series
-                  </button>
                 </>
               )}
             </div>
