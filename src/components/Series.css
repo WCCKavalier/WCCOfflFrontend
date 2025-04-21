@@ -3,7 +3,7 @@
   --gold: #FFD700;
   --gold-glow: rgba(255, 215, 0, 0.6);
   --dark-bg: #121212;
-  --deep-blue: #1e3c72;
+  --deep-blue: #03070e;
   --dark-gradient: linear-gradient(-45deg, #383a3f, #363739, #cbcad4, #212124, #37373b);
   --white-text: #f1f1f1;
 }
@@ -34,7 +34,7 @@
 
 /* Card Container */
 .team-card {
-  background: linear-gradient(135deg, #1b1b1b, #24243e);
+  background: linear-gradient(135deg, #1b1b1b, #19191a);
   border-radius: 20px;
   padding: 16px;
   text-align: center;
@@ -116,6 +116,7 @@ button:hover {
 .alert-box button:hover {
   background-color: #333;
 }
+
 
 /* Collapsible Series Section */
 .past-series-heading {
@@ -340,4 +341,336 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
+}
+:root {
+  --dark-bg: #121212;
+  --card-bg: #1e1e1e;
+  /* --gold: #d4af37; */
+  --soft-gold: #f5d88c;
+  --white: #ffffff;
+  --grey: #999999;
+  --grey-light: #cccccc;
+  --hover-glow: rgba(212, 175, 55, 0.3);
+}
+
+/* Main Section */
+.results-section {
+  padding: 30px;
+  background-color: var(--dark-bg);
+  color: var(--white);
+}
+
+.section-title {
+  font-size: 2.2rem;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Card Grid */
+.results-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Match Cards */
+.result-card {
+  background: var(--card-bg);
+  border: 1px solid var(--grey-light);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  padding: 18px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: 300px;
+  position: relative;
+}
+
+.result-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 12px var(--hover-glow);
+  border-color: var(--gold);
+}
+
+.teams {
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: var(--white);
+  font-weight: 500;
+}
+
+.vs {
+  color: var(--soft-gold);
+  font-weight: normal;
+  margin: 0 8px;
+}
+
+.result-summary {
+  font-size: 1rem;
+  color: var(--soft-gold);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.match-meta {
+  font-size: 0.9rem;
+  color: var(--grey);
+}
+
+.view-all-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.view-all-button {
+  background-color: transparent;
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  padding: 12px 28px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.1); /* soft gold glow */
+}
+
+.view-all-button:hover {
+  background-color: var(--gold);
+  color: var(--dark-bg);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); /* stronger glow on hover */
+  transform: scale(1.03);
+}
+
+
+/* Popup */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-box {
+  background-color: var(--card-bg);
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  color: var(--white);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+  position: relative;
+  border: 1px solid var(--grey-light);
+}
+
+.popup-title {
+  color: var(--soft-gold);
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.popup-results-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Close Button */
+.close-popup {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 1.5rem;
+  border: none;
+  background: none;
+  color: var(--gold);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.close-popup:hover {
+  transform: rotate(90deg);
+}
+.teams {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.result-card {
+  width: 300px;
+  padding: 18px 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+.popup-box {
+  background: #1c1c1c;
+  padding: 20px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  position: relative; /* ✅ important so close button can be positioned relative to this */
+}
+
+.close-popup {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.5rem;
+  border: none;
+  background: none;
+  color: gold; /* or white */
+  cursor: pointer;
+  z-index: 10; /* ✅ make sure it's clickable above others */
+}
+.admin-section {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.admin-toggle-btn {
+  background-color: transparent;
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.admin-toggle-btn:hover {
+  background-color: var(--gold);
+  color: var(--dark-bg);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+}
+
+.admin-controls {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.update-score-btn,
+.reset-btn,
+.end-btn,
+.match-btn {
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-transform: uppercase;
+}
+
+.update-score-btn {
+  background-color: var(--gold);
+  color: var(--dark-bg);
+}
+
+.reset-btn {
+  background-color: #555;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+}
+
+.end-btn {
+  background-color: #b00020;
+  color: white;
+}
+
+.win-btns-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.match-btn.win-btn {
+  background-color: #228B22;
+  color: white;
+}
+
+.match-btn.loss-btn {
+  background-color: #b00020;
+  color: white;
+}
+
+.cancel-cross {
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.cancel-cross:hover {
+  transform: scale(1.2);
+}
+.alert-error {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffe0e0;
+  color: #b30000;
+  border: 1px solid #ffb3b3;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10000;
+  animation: fadeInOut 5s ease-in-out forwards;
+}
+
+/* Optional: subtle fade effect */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    top: 10px;
+  }
+  10% {
+    opacity: 1;
+    top: 20px;
+  }
+  90% {
+    opacity: 1;
+    top: 20px;
+  }
+  100% {
+    opacity: 0;
+    top: 10px;
+  }
 }

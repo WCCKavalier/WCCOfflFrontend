@@ -1,0 +1,43 @@
+.notification-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    width: 300px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .notification-error {
+    border-left: 5px solid red;
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .notification-success {
+    border-left: 5px solid green;
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .notification-message {
+    font-size: 16px;
+    flex: 1;
+  }
+  
+  .notification-button {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 5px;
+    text-decoration: underline;
+  }
+  

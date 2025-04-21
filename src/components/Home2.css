@@ -31,11 +31,30 @@
 }
 
 .home2-team-top {
-    background-color: #252525; /* Deepened card */
+    background-color: #252525;
     border-radius: 8px;
     padding: 9px 14px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    margin-top: 70px;
+}
+
+@media (min-width: 768px) {
+    .home2-team-top {
+        margin-top: 50px; /* more space on tablets and larger screens */
+    }
+}
+
+@media (min-width: 1024px) {
+    .home2-team-top {
+        /* margin-top: 70px; full space on desktop */
+    }
+}
+
+.home2-teams {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 100%;
+    margin-top: 20px;
 }
 
 .home2-team-bottom {

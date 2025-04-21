@@ -79,10 +79,6 @@ const AppRoutes = () => {
           path="/chat"
           element={<ProtectedRoute element={<Chat />} />}
         />
-        <Route
-          path="/scorecards"
-          element={<AdminRoute element={<ScoreCardDisplay />} />}
-        />
         <Route path="/login" element={<Navigate to="/" replace />} />
       </Routes>
       <Footer />
