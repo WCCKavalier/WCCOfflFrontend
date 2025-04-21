@@ -9,6 +9,7 @@ import "./ScoreCard.css";
 import ScoreCard from './ScoreCard';
 import ConfirmModal from "./ConfirmModal";
 import NotificationAlert from "./NotificationAlert";
+import { io } from 'socket.io-client';
 
 const API_BASE_URL = "https://wccbackendoffl.onrender.com";
 const socket = io('https://wccbackendoffl.onrender.com');
