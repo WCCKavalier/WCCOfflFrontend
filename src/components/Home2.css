@@ -326,3 +326,40 @@
     border-radius: 10px;
     color: gold;
 }
+@media (max-width: 480px) {
+    .home2-title {
+        font-size: 1.15rem;
+        margin-bottom: 10px; /* Reduce bottom gap */
+    }
+
+    .home2-scorecard {
+        flex-direction: column; /* Stack items */
+        padding: 10px;          /* Adjust for mobile space */
+        align-items: center;    /* Center everything */
+    }
+
+    .home2-teams {
+        width: 100% !important;
+        margin-top: 0;          /* Remove extra gap */
+        gap: 10px;              /* Less gap for mobile */
+    }
+
+    .home2-award {
+        width: 100% !important;
+        margin-top: 10px;
+    }
+
+    .home2-team {
+        width: 100%;
+        margin-bottom: 10px;    /* Maintain spacing between teams */
+    }
+
+    .home2-score-history {
+        flex-wrap: wrap;        /* Allow wrapping */
+        justify-content: center;
+        overflow-x: hidden;
+        gap: 4px;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
