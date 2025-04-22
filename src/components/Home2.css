@@ -37,18 +37,6 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-@media (min-width: 768px) {
-    .home2-team-top {
-        margin-top: 50px; /* more space on tablets and larger screens */
-    }
-}
-
-@media (min-width: 1024px) {
-    .home2-team-top {
-        /* margin-top: 70px; full space on desktop */
-    }
-}
-
 .home2-teams {
     display: flex;
     flex-direction: column;
