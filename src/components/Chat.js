@@ -4,12 +4,8 @@ import { io } from "socket.io-client";
 import axios from "axios";
 import "./chat.css";
 import { MESSAGE_API, SOCKET_URL } from "./config";
+import socket from "./socket";
 
-const socket = io(SOCKET_URL, {
-  transports: ["websocket"],
-  autoConnect: false,
-  withCredentials: true,
-});
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);

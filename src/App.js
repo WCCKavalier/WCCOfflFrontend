@@ -15,6 +15,7 @@ import Teams from "./components/Series";
 import Profile_Page from "./components/Profile_Page";
 import LoginRegister from "./components/LoginRegister";
 import ScoreCardDisplay from "./components/ScoreCardDisplay";
+import NotFound from "./components/NotFound"; 
 
 // ProtectedRoute: redirects to / if user not logged in
 const ProtectedRoute = ({ element }) => {
@@ -80,6 +81,7 @@ const AppRoutes = () => {
           element={<ProtectedRoute element={<Chat />} />}
         />
         <Route path="/login" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>
