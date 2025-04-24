@@ -7,11 +7,7 @@
     color: gold;
 }
 
-.home2-scorecard {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
+
 
 .home2-teams {
     display: flex;
@@ -21,14 +17,15 @@
 }
 
 .home2-team {
-    background-color: #252525; /* Deepened card */
-    border-radius: 8px;
-    padding: 9px 14px;
+    flex: 1 1 300px; /* Allows it to shrink/grow and sets a base width */
+    /* max-width: 400px; */
+    background-color: #252525;
+    /* border-radius: 8px; */
+    /* padding: 14px; */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    min-width: 250px;
 }
+
 
 .home2-team-top {
     background-color: #252525;
@@ -39,11 +36,12 @@
 
 .home2-teams {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row; /* This arranges children horizontally */
+    flex-wrap: wrap;     /* Ensures responsiveness */
+    justify-content: center; /* Optional: centers the teams horizontally */
     max-width: 100%;
-    margin-top: 20px;
 }
+
 
 .home2-team-bottom {
     background-color: #252525; /* Deepened card */
@@ -77,19 +75,19 @@
 
 .home2-score-history {
     display: flex;
-    flex-wrap: wrap;              /* Allows items to wrap on smaller screens */
-    justify-content: center;      /* Centers the items horizontally */
-    gap: 8px;                     /* Space between spans */
-    width: 100%;                  /* Full width of the parent */
-    padding: 10px 0;              /* Optional: vertical padding */
-    box-sizing: border-box;       /* Ensures padding doesn't overflow */
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 10px; /* Optional: space between results */
+    max-width: 100%; /* Ensures it stays within container */
 }
 
 .home2-score-history span {
-    flex: 1 0 32px;               /* Allows span to shrink or grow, base width 32px */
-    max-width: 40px;             /* Prevents span from growing too much */
-    min-width: 24px;             /* Prevents span from shrinking too small */
-    aspect-ratio: 1 / 1;         /* Keeps square shape */
+    flex: 1 1 auto;             /* Allow it to shrink and grow based on space */
+    width: 100%;                /* Take up available space equally */
+    max-width: 40px;            /* Limit max size */
+    min-width: 20px;            /* Allow tighter squeeze if needed */
+    aspect-ratio: 1 / 1;        /* Square */
+    
     font-size: 0.9rem;
     font-weight: bold;
     font-family: monospace;
@@ -156,17 +154,20 @@
   }
   
 
-.home2-team-head{
-    font-size: 1.25rem;
+  .home2-team-head {
+    font-weight: bold;
+    width: 100%;          /* Ensures it stays on its own line */
+    text-align: center;   /* Centers the heading */
 }
 
+
 .home2-award {
-    width: 65%;
+    margin-top: 20px;
+    width: 100%;
     background-color: #252525;
     border-radius: 8px;
     padding: 14px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    margin-top: 10px;
 }
 
 .home2-award-title {
@@ -195,171 +196,12 @@
     font-size: 0.75rem;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .home2-title {
-        font-size: 1.35rem;
-    }
 
-    .home2-scorecard {
-        flex-wrap: nowrap;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .home2-teams {
-        width: 30%;
-    }
-
-    .home2-award {
-        width: 65%;
-    }
-
-    .home2-team {
-        width: 100%;
-        padding: 7px 11px;
-    }
-
-    .home2-team-header {
-        font-size: 0.75rem;
-    }
-
-    .home2-score-history {
-        flex-wrap: wrap;
-        gap: 5px;
-    }
-
-    .home2-award-title {
-        font-size: 0.85rem;
-    }
-
-    .home2-award-details p {
-        font-size: 0.65rem;
-    }
-
-    .home2-award-img {
-        max-width: 100%;
-        height: auto;
-    }
-}
-
-@media (max-width: 480px) {
-    .home2-wrapper {
-        padding: 10px;
-    }
-
-    .home2-title {
-        font-size: 1.15rem;
-    }
-
-    .home2-team-header {
-        font-size: 0.7rem;
-    }
-
-    .home2-team-name {
-        font-size: 0.85rem;
-    }
-    .home2-team-top {
-        margin-top: 05px;
-    }
-    .home2-team-bottom{
-        margin-bottom: 05px;
-    }
-
-    .home2-team-points {
-        font-size: 0.75rem;
-    }
-
-    .home2-team-head{
-        font-size: 0.55rem;
-    }
-    .home2-score-history {
-        flex-wrap: nowrap;               /* Prevent wrapping */
-        overflow-x: hidden;              /* Hide horizontal scroll */
-        justify-content: space-between; /* Spread spans evenly */
-        gap: 2px;                        /* Smaller gap */
-      }
-    
-      .home2-score-history span {
-        flex: 1 1 auto;
-        min-width: 16px;
-        max-width: 24px;
-        font-size: 0.65rem;
-        aspect-ratio: 1 / 1;             /* Maintain square shape */
-        padding: 2px;
-      }
-
-    /* .home2-score-history .win {
-        background-color: #00ff5e15;
-        box-shadow: 0 0 8px 3px rgba(0, 255, 94, 0.7);
-    }
-
-    .home2-score-history .loss {
-        background-color: #ff003c15;
-        box-shadow: 0 0 8px 3px rgba(255, 0, 60, 0.7);
-    } */
-
-    .home2-award-title {
-        font-size: 0.75rem;
-    }
-
-    .home2-award-details p {
-        font-size: 0.55rem;
-    }
-    .home2-detail-header {
-        font-size: 0.55rem;
-    }
-    .home2-teams {
-        width: 38%;
-    }
-
-    .home2-award {
-        width: 60%;
-    }
-}
 .home2-scorecard {
     font-family: 'Arial', sans-serif;
     max-width: 1000px;
     margin: 0px auto 0 auto;
-    padding: 20px;
     background-color: #2b2d2f;
     border-radius: 10px;
     color: gold;
-}
-@media (max-width: 480px) {
-    .home2-title {
-        font-size: 1.15rem;
-        margin-bottom: 10px; /* Reduce bottom gap */
-    }
-
-    .home2-scorecard {
-        flex-direction: column; /* Stack items */
-        padding: 10px;          /* Adjust for mobile space */
-        align-items: center;    /* Center everything */
-    }
-
-    .home2-teams {
-        width: 100% !important;
-        margin-top: 0;          /* Remove extra gap */
-        gap: 10px;              /* Less gap for mobile */
-    }
-
-    .home2-award {
-        width: 100% !important;
-        margin-top: 10px;
-    }
-
-    .home2-team {
-        width: 100%;
-        margin-bottom: 10px;    /* Maintain spacing between teams */
-    }
-
-    .home2-score-history {
-        flex-wrap: wrap;        /* Allow wrapping */
-        justify-content: center;
-        overflow-x: hidden;
-        gap: 4px;
-        padding-bottom: 0;
-        margin-bottom: 0;
-    }
 }
