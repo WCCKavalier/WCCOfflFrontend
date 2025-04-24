@@ -88,48 +88,37 @@ const Home2 = () => {
 
     return (
         <div className="home2-scorecard">
-            <div className="home2-teams-container">
+            <div className="home2-score-container">
                 {/* Make home2-teams clickable */}
                 <div className="home2-teams" onClick={handleTeamClick} style={{ cursor: "pointer" }}>
-                    {/* <div className="home2-team-head">CURRENT SERIES SCORE</div> */}
-                    <div className="home2-team-head"><h2>CURRENT SERIES SCORE</h2></div><br></br><br></br>
-                    <div className="home2-team-top">
-                        <div className="home2-team-header">
-                            <span className="home2-team-name">{teams?.team1?.captain.split(" ").length > 1 ? (
-                                <>
-                                    {teams?.team1?.captain.split(" ")[0]} {teams?.team1?.captain.split(" ").slice(1).join(" ")}
-                                </>
-                            ) : (
-                                teams?.team1?.captain
-                            )}</span>
-                            <span className="home2-team-points">{teams?.team1?.points || 0}</span>
+                    <div className="home2-team-head"><h2>CURRENT SERIES SCORE</h2></div>
+                    <div className="home2-team-wrapper">
+                        <div className="home2-team-box">
+                            <div className="home2-team-header">
+                                <span className="home2-team-name">{teams?.team1?.captain}</span>
+                                <span className="home2-team-points">{teams?.team1?.points}</span>
+                            </div>
+                            <div className="home2-score-history">
+                                {trimScores(teams?.team1?.score).map((result, index) => (
+                                    <span key={index} className={result === "W" ? "winh2" : result === "L" ? "lossh2" : "neutralh2"}>
+                                        {result}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
-                        <div className="home2-score-history">
-                            {trimScores(teams?.team1?.score).map((result, index) => (
-                                <span key={index} className={result === "W" ? "win" : result === "L" ? "loss" : "neutral"}>
-                                    {result}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
 
-                    <div className="home2-team-bottom">
-                        <div className="home2-team-header">
-                            <span className="home2-team-name">{teams?.team2?.captain.split(" ").length > 1 ? (
-                                <>
-                                    {teams?.team2?.captain.split(" ")[0]} {teams?.team2?.captain.split(" ").slice(1).join(" ")}
-                                </>
-                            ) : (
-                                teams?.team2?.captain
-                            )}</span>
-                            <span className="home2-team-points">{teams?.team2?.points || 0}</span>
-                        </div>
-                        <div className="home2-score-history">
-                            {trimScores(teams?.team2?.score).map((result, index) => (
-                                <span key={index} className={result === "W" ? "win" : result === "L" ? "loss" : "neutral"}>
-                                    {result}
-                                </span>
-                            ))}
+                        <div className="home2-team-box">
+                            <div className="home2-team-header">
+                                <span className="home2-team-points">{teams?.team2?.points}</span>
+                                <span className="home2-team-name">{teams?.team2?.captain}</span>
+                            </div>
+                            <div className="home2-score-history">
+                                {trimScores(teams?.team2?.score).map((result, index) => (
+                                    <span key={index} className={result === "W" ? "winh2" : result === "L" ? "lossh2" : "neutralh2"}>
+                                        {result}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,6 +134,7 @@ const Home2 = () => {
                 </div>
             </div>
         </div>
+
     );
 };
 
