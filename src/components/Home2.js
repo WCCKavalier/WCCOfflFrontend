@@ -5,8 +5,8 @@ import "./Home2.css"; // Import CSS
 
 const Home2 = () => {
     const [teams, setTeams] = useState({
-        team1: { teamName: "Team A", points: 0, score: ["-", "-", "-", "-", "-"] },
-        team2: { teamName: "Team B", points: 0, score: ["-", "-", "-", "-", "-"] }
+        team1: { captain: "A", points: 0, score: ["-", "-", "-", "-", "-"] },
+        team2: { captain: "B", points: 0, score: ["-", "-", "-", "-", "-"] }
     });
 
     const [awardData, setAwardData] = useState({
@@ -41,8 +41,8 @@ const Home2 = () => {
         try {
             const response = await axios.get(`${API_BASE_URL}/api/teams`);
             setTeams(response.data || {
-                team1: { teamName: "CSK", points: 20, score: ["-", "-", "-", "-"] },
-                team2: { teamName: "MI", points: 15, score: ["-", "-", "-", "-"] }
+                team1: { captain: "CSK", points: 20, score: ["-", "-", "-", "-"] },
+                team2: { captain: "MI", points: 15, score: ["-", "-", "-", "-"] }
             });
         } catch (error) {
             console.error("Error fetching teams:", error);
@@ -87,20 +87,21 @@ const Home2 = () => {
     };
 
     return (
-            <div className="home2-scorecard">
+        <div className="home2-scorecard">
+            <div className="home2-teams-container">
                 {/* Make home2-teams clickable */}
                 <div className="home2-teams" onClick={handleTeamClick} style={{ cursor: "pointer" }}>
                     {/* <div className="home2-team-head">CURRENT SERIES SCORE</div> */}
-                    <h2>SERIES</h2>
+                    <div className="home2-team-head"><h2>CURRENT SERIES SCORE</h2></div><br></br><br></br>
                     <div className="home2-team-top">
                         <div className="home2-team-header">
-                            <span className="home2-team-name">{teams?.team1?.teamName.split(" ").length > 1 ? (
+                            <span className="home2-team-name">{teams?.team1?.captain.split(" ").length > 1 ? (
                                 <>
-                                    {teams?.team1?.teamName.split(" ")[0]} <br /> {teams?.team1?.teamName.split(" ").slice(1).join(" ")}
+                                    {teams?.team1?.captain.split(" ")[0]} {teams?.team1?.captain.split(" ").slice(1).join(" ")}
                                 </>
-                                ) : (
-                                    teams?.team1?.teamName
-                                )}</span>
+                            ) : (
+                                teams?.team1?.captain
+                            )}</span>
                             <span className="home2-team-points">{teams?.team1?.points || 0}</span>
                         </div>
                         <div className="home2-score-history">
@@ -114,13 +115,13 @@ const Home2 = () => {
 
                     <div className="home2-team-bottom">
                         <div className="home2-team-header">
-                            <span className="home2-team-name">{teams?.team2?.teamName.split(" ").length > 1 ? (
+                            <span className="home2-team-name">{teams?.team2?.captain.split(" ").length > 1 ? (
                                 <>
-                                    {teams?.team2?.teamName.split(" ")[0]} <br /> {teams?.team2?.teamName.split(" ").slice(1).join(" ")}
+                                    {teams?.team2?.captain.split(" ")[0]} {teams?.team2?.captain.split(" ").slice(1).join(" ")}
                                 </>
-                                ) : (
-                                    teams?.team2?.teamName
-                                )}</span>
+                            ) : (
+                                teams?.team2?.captain
+                            )}</span>
                             <span className="home2-team-points">{teams?.team2?.points || 0}</span>
                         </div>
                         <div className="home2-score-history">
@@ -132,18 +133,18 @@ const Home2 = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* Make home2-award clickable */}
-                <div className="home2-award" onClick={handleAwardClick} style={{ cursor: "pointer" }}>
-                    <p className="home2-award-title">🏆 Kava of the Week</p>
-                    <img src={awardData.img} alt="Award" className="home2-award-img" />
-                    <div className="home2-award-details">
-                        <p><span className="home2-detail-header">Winner:</span> {awardData.winner}</p>
-                        <p><span className="home2-detail-header">Date:</span> {formatDate(awardData.date)}</p>
-                        {/* <p><span className="home2-detail-header">Team:</span> {awardData.team}</p> */}
-                    </div>
+            </div>
+            {/* Make home2-award clickable */}
+            <div className="home2-award" onClick={handleAwardClick} style={{ cursor: "pointer" }}>
+                <p className="home2-award-title">🏆 Kava of the Week</p>
+                <img src={awardData.img} alt="Award" className="home2-award-img" />
+                <div className="home2-award-details">
+                    <p><span className="home2-detail-header">Winner:</span> {awardData.winner}</p>
+                    <p><span className="home2-detail-header">Date:</span> {formatDate(awardData.date)}</p>
+                    {/* <p><span className="home2-detail-header">Team:</span> {awardData.team}</p> */}
                 </div>
             </div>
+        </div>
     );
 };
 
