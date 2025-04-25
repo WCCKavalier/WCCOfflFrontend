@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import TeamCard from "./TeamCard";
-import CustomAlert from "./CustomAlert";
 import { Link, useNavigate } from "react-router-dom";
 import FilterSeries from "./FilterSeries";
 import "./Series.css";
@@ -10,6 +9,8 @@ import ScoreCard from './ScoreCard';
 import ConfirmModal from "./ConfirmModal";
 import NotificationAlert from "./NotificationAlert";
 import socket from "./socket";
+import { showPlayerSelectionModal } from './PlayerSelectModal';
+import './selectModal.css';
 
 const API_BASE_URL = "https://wccbackendoffl.onrender.com";
 
@@ -54,6 +55,7 @@ const Series = () => {
   const [uploading, setUploading] = useState(false);
   const [scorecards, setScorecards] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showUploadOptions, setShowUploadOptions] = useState(false);
   const fileInputRef = useRef(null);
 
   const [alert, setAlert] = useState({
@@ -93,7 +95,7 @@ const Series = () => {
   }, []);
 
   const showAlert = (message, type = "success", persistent = false) => {
-    setAlert({ message, type});
+    setAlert({ message, type });
     if (!persistent) {
       setTimeout(
         () => setAlert({ message: "", type: "", persistent: false }),
@@ -275,102 +277,103 @@ const Series = () => {
     };
   }, [showAllPopup]);
 
-const [alert2, setAlert2] = useState(null);
+  const [alert2, setAlert2] = useState(null);
 
-const displayNotification = (message, type = 'success') => {
-  setAlert2({ message, type });
-  setTimeout(() => {
-    setAlert2(null); // Hide the notification after 4 seconds
-  }, 4000);
-};
-
+  const displayNotification = (message, type = 'success') => {
+    setAlert2({ message, type });
+    setTimeout(() => {
+      setAlert2(null); // Hide the notification after 4 seconds
+    }, 4000);
+  };
 
   const handleUpload = async () => {
     if (!file) return displayNotification('Please select a PDF!', 'error');
     if (file.type !== 'application/pdf') return displayNotification('Only PDF files are allowed!', 'error');
-  
+
     const formData = new FormData();
     formData.append('pdf', file);
     setUploading(true);
-  
+
+    const fetchJSON = async (url, options = {}) => {
+      const res = await fetch(url, options);
+      return await res.json();
+    };
+
     try {
-      const validationRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/validateStumpsReport', {
+      // Step 1: Validate STUMPS report
+      const { isValid } = await fetchJSON('https://wccbackendoffl.onrender.com/api/uploadScorecard/validateStumpsReport', {
         method: 'POST',
         body: formData,
       });
-  
-      const { isValid } = await validationRes.json();
+
       if (!isValid) {
         return displayNotification('❌ This PDF is not a STUMPS match report. Please upload a valid STUMPS report.', 'error');
       }
-  
-      const extractionRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/extractPlayerNames', {
+
+      // Step 2: Extract player names
+      const { playerNames: extractedNames } = await fetchJSON('https://wccbackendoffl.onrender.com/api/uploadScorecard/extractPlayerNames', {
         method: 'POST',
         body: formData,
       });
-  
-      const { playerNames: extractedNames } = await extractionRes.json();
-  
-      const validationPlayerNamesRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/validatePlayerNames', {
+
+      // Step 3: Validate player names
+      const { missingPlayers = [] } = await fetchJSON('https://wccbackendoffl.onrender.com/api/uploadScorecard/validatePlayerNames', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerNames: extractedNames }),
       });
-  
-      const data = await validationPlayerNamesRes.json();
-      const missingPlayers = data.missingPlayers || [];
-  
+
+      // Step 4: Handle missing players with dropdown selection
       if (missingPlayers.length > 0) {
-        const playerStatsRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/playerstat');
-        const playerStats = await playerStatsRes.json();
+        const playerStats = await fetchJSON('https://wccbackendoffl.onrender.com/api/uploadScorecard/playerstat');
         const allNamesFromDB = playerStats.map(p => p.name);
-  
+
         const userConfirmedUpdates = [];
-  
+
         for (const missing of missingPlayers) {
-          const selected = window.prompt(
-            `Select the correct name for "${missing}" from the player list (copy/paste one):\n\n` +
-            allNamesFromDB.join('\n')
-          );
-  
+          const selected = await new Promise((resolve) => {
+            showPlayerSelectionModal(missing, allNamesFromDB, resolve, () => resolve(null));
+          });
+
           if (!selected) {
             displayNotification('Upload cancelled.', 'error');
             return;
           }
-  
+
           userConfirmedUpdates.push({ original: selected, updated: missing });
         }
-  
-        const updateRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/updatePlayerNames', {
+
+
+
+        const updateRes = await fetchJSON('https://wccbackendoffl.onrender.com/api/uploadScorecard/updatePlayerNames', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ updates: userConfirmedUpdates }),
         });
-  
-        const updateData = await updateRes.json();
-        if (updateData.success) {
+
+        if (updateRes.success) {
           displayNotification('✅ Player names updated successfully!');
           const nameList = extractedNames.map(name => {
-            const updatedEntry = userConfirmedUpdates.find(u => u.original === name);
-            return updatedEntry ? `${updatedEntry.original} → ${updatedEntry.updated}` : name;
+            const updated = userConfirmedUpdates.find(u => u.original === name);
+            return updated ? `${updated.original} → ${updated.updated}` : name;
           });
           displayNotification("📋 Final player name list:\n\n" + nameList.join("\n"));
         } else {
           throw new Error('Failed to update player names.');
         }
       }
-  
-      const uploadRes = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard', {
+
+      // Step 5: Final upload
+      const uploadData = await fetchJSON('https://wccbackendoffl.onrender.com/api/uploadScorecard', {
         method: 'POST',
         body: formData,
       });
-  
-      const uploadData = await uploadRes.json();
+
       displayNotification('✅ Uploaded successfully!');
       setFile(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
       await fetchScorecards();
-  
+
     } catch (err) {
       console.error(err);
       displayNotification(err.message || 'Upload failed.', 'error');
@@ -378,7 +381,8 @@ const displayNotification = (message, type = 'success') => {
       setUploading(false);
     }
   };
-  
+
+
 
 
   return (
@@ -459,24 +463,42 @@ const displayNotification = (message, type = 'success') => {
                   >
                     End-Series
                   </button>
-                  <div className="scorecard-display-upload">
-                    <input
-                      type="file"
-                      accept="application/pdf"
-                      ref={fileInputRef}
-                      onChange={(e) => setFile(e.target.files[0])}
-                      disabled={uploading}
-                    />
-                    <button onClick={handleUpload} disabled={uploading || !file}>
-                      {uploading ? (
-                        <>
-                          <span className="score-spinner"></span>
-                          <p>Validating and Uploading</p>
-                        </>
-                      ) : (
-                        'Upload PDF'
-                      )}
-                    </button>
+                  <div className="scorecard-upload-container">
+                    {!showUploadOptions ? (
+                      <button onClick={() => setShowUploadOptions(true)} className="main-upload-btn">
+                        Upload Scorecard
+                      </button>
+                    ) : (
+                      <div className="scorecard-display-upload">
+                        <input
+                          type="file"
+                          accept="application/pdf"
+                          ref={fileInputRef}
+                          onChange={(e) => setFile(e.target.files[0])}
+                          disabled={uploading}
+                        />
+                        <button onClick={handleUpload} disabled={uploading || !file}>
+                          {uploading ? (
+                            <>
+                              <span className="score-spinner"></span>
+                              <p>Validating and Uploading</p>
+                            </>
+                          ) : (
+                            'Upload PDF'
+                          )}
+                        </button>
+                        <button
+                          onClick={() => {
+                            setShowUploadOptions(false);
+                            setFile(null);
+                          }}
+                          className="cancel-btn"
+                        >
+                          Cancel
+                        </button>
+                        {/* You can add a "Submit" button here as needed */}
+                      </div>
+                    )}
                   </div>
                 </>
               )}

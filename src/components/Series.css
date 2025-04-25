@@ -674,3 +674,41 @@ button:disabled {
     top: 10px;
   }
 }
+.scorecard-upload-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: rgb(0, 0, 0);
+}
+
+.main-upload-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: rgb(199, 109, 7);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.scorecard-display-upload input[type="file"] {
+  margin-bottom: 10px;
+}
+
+.score-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.scorecard-display-upload {
+  flex-direction: row;
+}
