@@ -52,6 +52,12 @@
     color: black;
     border: none;
   }
+
+  .button-group #newPlayerBtn {
+    background: gold;
+    color: black;
+    border: none;
+  }
   
   .button-group #cancelBtn {
     background: #333;
