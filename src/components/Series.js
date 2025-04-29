@@ -140,6 +140,13 @@ const Series = () => {
       const { team1, team2 } = response.data || {};
       setTeamA({ ...teamA, ...team1 });
       setTeamB({ ...teamB, ...team2 });
+      if (team1.isRevert) {
+        setLastWinner('team1');
+      } else if (team2.isRevert) {
+        setLastWinner('team2');
+      } else {
+        setLastWinner(null);
+      }
       showAlert("Teams updated!");
     } catch (error) {
       console.error("Error fetching teams:", error);
@@ -154,8 +161,18 @@ const Series = () => {
     setActionLoading(true);
     try {
       await axios.put(`${API_BASE_URL}/api/team/update-points`, { winnerId: team === "A" ? "team1" : "team2" });
-      setLastWinner(team === "A" ? "team1" : "team2");
-      fetchTeams();
+  
+      const response = await axios.get(`${API_BASE_URL}/api/teams`);
+      const { team1, team2 } = response.data || {};
+  
+      setTeamA((prev) => ({ ...prev, ...team1 }));
+      setTeamB((prev) => ({ ...prev, ...team2 }));
+  
+      // 🔥 Update lastWinner based on isRevert field
+      if (team1.isRevert) setLastWinner("team1");
+      else if (team2.isRevert) setLastWinner("team2");
+      else setLastWinner(null);
+  
       showAlert(`Team ${team} wins!`);
     } catch (error) {
       console.error("Error updating points:", error);
@@ -176,10 +193,19 @@ const Series = () => {
         const response = await axios.put(`${API_BASE_URL}/api/team/revert`, {
           lastWinnerId: lastWinner,
         });
-
+  
         if (response.status === 200) {
-          setLastWinner(null);
-          fetchTeams();
+          // 🔥 Re-fetch team data and update lastWinner based on isRevert
+          const teamsResponse = await axios.get(`${API_BASE_URL}/api/teams`);
+          const { team1, team2 } = teamsResponse.data || {};
+  
+          setTeamA((prev) => ({ ...prev, ...team1 }));
+          setTeamB((prev) => ({ ...prev, ...team2 }));
+  
+          if (team1.isRevert) setLastWinner("team1");
+          else if (team2.isRevert) setLastWinner("team2");
+          else setLastWinner(null);
+  
           showAlert("Last result reverted successfully!");
         } else {
           showAlert("Error reverting latest result.", "error");
@@ -192,7 +218,7 @@ const Series = () => {
         setConfirmModal({ show: false, action: null, message: "" });
       }
     }, "Are you sure you want to revert the last result?");
-  };
+  };  
   const formatResult = (result) => {
     if (!result) return '';
 
