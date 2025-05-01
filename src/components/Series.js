@@ -219,6 +219,42 @@ const Series = () => {
       }
     }, "Are you sure you want to revert the last result?");
   };  
+
+  const handleRevertLastMatch = async () => {
+    if (!isAdmin) return;
+  
+    confirmAction(async () => {
+      setActionLoading(true);
+      try {
+        const response = await axios.post(`${API_BASE_URL}/api/uploadScorecard/revertscorecard`);
+  
+        if (response.status === 200) {
+          // 🔄 Re-fetch team data after revert
+          const teamsResponse = await axios.get(`${API_BASE_URL}/api/teams`);
+          const { team1, team2 } = teamsResponse.data || {};
+  
+          setTeamA((prev) => ({ ...prev, ...team1 }));
+          setTeamB((prev) => ({ ...prev, ...team2 }));
+  
+          // Clear last winner info since match was deleted
+          if (team1.isRevert) setLastWinner("team1");
+          else if (team2.isRevert) setLastWinner("team2");
+          else setLastWinner(null);
+  
+          showAlert("✅ Last match, stats, and points successfully reverted!");
+        } else {
+          showAlert("❌ Failed to revert last match.", "error");
+        }
+      } catch (error) {
+        console.error("Error reverting last match:", error);
+        showAlert("❌ Error reverting last match.", "error");
+      } finally {
+        setActionLoading(false);
+        setConfirmModal({ show: false, action: null, message: "" });
+      }
+    }, "Are you sure you want to completely revert the last match?");
+  };
+  
   const formatResult = (result) => {
     if (!result) return '';
 
@@ -488,6 +524,13 @@ const Series = () => {
                     disabled={actionLoading}
                   >
                     End-Series
+                  </button>
+                  <button
+                    className="reset-btn"
+                    onClick={handleRevertLastMatch}
+                    disabled={!lastWinner || actionLoading}
+                  >
+                    Revert Last Result ScoreCard
                   </button>
                   <div className="scorecard-upload-container">
                     {!showUploadOptions ? (
