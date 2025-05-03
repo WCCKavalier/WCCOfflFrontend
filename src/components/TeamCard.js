@@ -95,7 +95,9 @@ const TeamCard = ({
             type="text"
             value={editedName}
             onChange={(e) => setEditedName(e.target.value)}
+            disabled={true}
           />
+         <span className="dismissal-info">Team Name will be auto-generated based on the Captain Name in scorecard.</span> 
           <label>Captain</label>
           <input
             type="text"

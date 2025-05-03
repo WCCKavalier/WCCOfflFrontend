@@ -79,19 +79,18 @@ const ScoreCard = ({ currentMatch, onClose }) => {
                   <thead>
                     <tr>
                       <th>Batsman</th>
-                      <th>R</th><th>B</th><th>4s</th><th>6s</th><th>SR</th><th>Dismissal</th>
+                      <th>R</th><th>B</th><th>4s</th><th>6s</th><th>SR</th>
                     </tr>
                   </thead>
                   <tbody>
                     {inn.batsmen?.map((p, idx) => (
                       <tr key={idx}>
-                        <td>{p.name}</td>
+                        <td>{p.name}<br /> <span className="dismissal-info">{formatResult(p.outDesc)}</span></td>
                         <td>{p.runs}</td>
                         <td>{p.balls}</td>
                         <td>{p.fours}</td>
                         <td>{p.sixes}</td>
                         <td>{p.sr}</td>
-                        <td>{formatResult(p.outDesc)}</td>
                       </tr>
                     ))}
                   </tbody>
