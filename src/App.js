@@ -14,8 +14,9 @@ import Chat from "./components/Chat";
 import Teams from "./components/Series";
 import Profile_Page from "./components/Profile_Page";
 import LoginRegister from "./components/LoginRegister";
-import ScoreCardDisplay from "./components/ScoreCardDisplay";
+import {StatsPage} from "./components/StatsPage";
 import NotFound from "./components/NotFound"; 
+import matchesData from "./components/matchData.json"; // Adjust the path as needed
 
 // ProtectedRoute: redirects to / if user not logged in
 const ProtectedRoute = ({ element }) => {
@@ -76,6 +77,7 @@ const AppRoutes = () => {
         <Route path="/teams" element={<Teams />} />
         <Route path="/profile_page" element={<Profile_Page />} />
         <Route path="/awards" element={<Awards />} />
+         <Route path="/stats" element={<StatsPage matches={matchesData} />} />
         <Route
           path="/chat"
           element={<ProtectedRoute element={<Chat />} />}

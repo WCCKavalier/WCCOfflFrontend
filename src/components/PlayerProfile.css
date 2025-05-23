@@ -1,0 +1,100 @@
+/* components/PlayerProfile.css */
+
+.player-profile-container {
+  max-width: 900px; /* Slightly wider for more content */
+  margin: 25px auto; /* Centered with a bit more vertical margin */
+  padding: 30px; /* More generous padding */
+  background-color: #2c2c2c; /* Dark grey background for the profile card */
+  border-radius: 12px; /* Soft rounded corners */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); /* Stronger, darker shadow */
+  border: 1px solid #444; /* Subtle border for definition */
+  color: #e0e0e0; /* Light grey text for readability */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font */
+}
+
+.back-button {
+  background-color: #FFD700; /* Gold button background */
+  color: #1a1a1a; /* Dark text on gold */
+  border: none;
+  padding: 12px 25px; /* Larger padding for better touch targets */
+  border-radius: 30px; /* Pill-shaped button */
+  cursor: pointer;
+  margin-bottom: 30px; /* More space below the button */
+  font-size: 1em; /* Standard font size */
+  font-weight: 600; /* Bolder text */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+  display: inline-block;
+}
+
+.back-button:hover {
+  background-color: #FFEA00; /* Brighter gold on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.profile-title {
+  text-align: center;
+  color: #FFD700; /* Gold color for the player's name */
+  margin-bottom: 35px; /* More space below title */
+  font-size: 2.5em; /* Larger title */
+  font-weight: 700; /* Bolder */
+  letter-spacing: 1.5px; /* Spacing for premium feel */
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3); /* Soft gold glow */
+}
+
+.profile-section {
+  margin-bottom: 30px; /* Consistent spacing between sections */
+  border: 1px solid #3a3a3a; /* Darker grey border for sections */
+  border-radius: 10px; /* Rounded corners for sections */
+  padding: 20px; /* Padding inside sections */
+  background-color: #222222; /* Slightly darker background for sections */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
+}
+
+.profile-section:last-child {
+  margin-bottom: 0; /* No bottom margin for the last section */
+}
+
+.profile-section h3 {
+  color: #FFD700; /* Gold color for section headings */
+  margin-bottom: 20px; /* More space below heading */
+  border-bottom: 2px solid #555; /* Subtle grey line below heading */
+  padding-bottom: 10px;
+  font-size: 1.6em; /* Larger heading font */
+  font-weight: 600; /* Bolder heading */
+  letter-spacing: 0.5px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted min-width for stats */
+  gap: 15px 30px; /* More generous gap */
+}
+
+.stat-grid p {
+  margin: 0;
+  padding: 5px 0;
+  font-size: 1.05em; /* Slightly larger font for stats */
+  color: #e0e0e0; /* Light grey text for stat values */
+  line-height: 1.5;
+}
+
+.stat-grid p strong {
+  color: #FFD700; /* Gold color for stat labels */
+  min-width: 120px; /* Helps align values */
+  display: inline-block;
+  font-weight: 600; /* Bolder labels */
+}
+
+.no-player-found {
+  text-align: center;
+  padding: 25px;
+  color: #FFD700; /* Gold warning text */
+  font-weight: bold;
+  background-color: #3a3a3a; /* Dark grey background for warning */
+  border: 1px solid #FFD700; /* Gold border for warning */
+  border-radius: 8px;
+  font-size: 1.1em;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); /* Subtle gold glow for warning */
+}

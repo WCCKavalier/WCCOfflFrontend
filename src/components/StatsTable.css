@@ -1,0 +1,115 @@
+/* src/components/StatsTable.css */
+
+/* This container wraps the MaterialReactTable */
+.stats-table-container {
+  /* Inherit padding, max-width, margin from .stats-page-container or parent for consistency */
+  /* Remove conflicting styles if already defined globally or by MRT */
+  /*
+  margin: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  */
+}
+
+/* Style for the clickable player name link */
+/* This is important as it's defined within the component's CSS for direct control */
+.player-name-link {
+  cursor: pointer;
+  color: #FFD700; /* Gold color for player names */
+  text-decoration: none; /* No underline by default for a cleaner look */
+  font-weight: 700; /* Bolder name */
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.player-name-link:hover {
+  color: #FFEA00; /* Brighter gold on hover */
+  text-decoration: underline; /* Underline on hover for interactivity */
+}
+
+/* Material-React-Table's internal elements will largely be styled by the comprehensive
+   overrides in your main StatsPage.css or a global stylesheet.
+   You should generally avoid duplicating styles here unless absolutely necessary
+   for specificity reasons, or for styles truly unique to this component's wrapper. */
+
+   /* Add these styles to your StatsPage.css or global CSS file */
+
+/* --- Material-React-Table / Material UI Overrides for Dark Theme Visibility --- */
+
+/* Text color for headers (already somewhat covered, but ensure it's light/gold) */
+.MuiTableHead-root .MuiTableCell-head {
+  color: #FFD700 !important; /* Ensure header text is gold */
+}
+
+/* Icons within table headers (e.g., sort arrows, filter icons) */
+.MuiTableHead-root .MuiSvgIcon-root {
+  color: #FFD700 !important; /* Gold icons for sort/filter */
+}
+
+/* Pagination text and icons */
+.MuiTablePagination-root {
+  color: #e0e0e0 !important; /* Light grey for pagination text */
+}
+
+.MuiTablePagination-root .MuiSvgIcon-root {
+  color: #FFD700 !important; /* Gold icons for pagination arrows */
+}
+
+.MuiTablePagination-toolbar button {
+  color: #FFD700 !important; /* Gold color for pagination buttons */
+}
+
+/* Global search input (if enabled and present) */
+/* The input itself might be styled by your .filter-label input styles,
+   but this specifically targets the text and placeholder. */
+.MuiInputBase-root {
+  color: #FFD700 !important; /* Gold text in inputs */
+}
+
+.MuiInputBase-input::placeholder {
+  color: rgba(255, 215, 0, 0.7) !important; /* Lighter gold for placeholder */
+}
+
+/* Menu items (e.g., column visibility dropdown, column actions) */
+.MuiPopover-paper { /* This targets the paper background of popovers/menus */
+  background-color: #3a3a3a !important; /* Dark grey background for menus */
+  border: 1px solid #555 !important; /* Subtle border */
+}
+
+.MuiMenuItem-root {
+  color: #000000 !important; /* Light grey text for menu items */
+}
+
+.MuiMenuItem-root:hover {
+  background-color: #4a4a4a !important; /* Slightly lighter grey on hover */
+  color: #FFD700 !important; /* Gold text on hover */
+}
+
+/* Checkbox icons (e.g., for row selection or column visibility) */
+.MuiCheckbox-root {
+  color: #FFD700 !important; /* Gold color for checkboxes */
+}
+
+.MuiCheckbox-root.Mui-checked {
+  color: #FFD700 !important; /* Gold color when checked */
+}
+
+/* Clear all filters icon (if enabled) */
+.MuiIconButton-root .MuiSvgIcon-root {
+  color: #FFD700 !important; /* Ensure general icon buttons are gold */
+}
+
+/* Column dragging handle (if enabled) */
+.MuiTableSortLabel-icon {
+  color: #FFD700 !important; /* Specifically for sort icons */
+}
+
+/* Column actions icon (three dots) */
+.MuiDataGrid-columnHeader-actions .MuiIconButton-root .MuiSvgIcon-root {
+  color: #FFD700 !important;
+}
+
+/* General button icon color (if any other buttons with icons appear) */
+.MuiButtonBase-root .MuiSvgIcon-root {
+  color: #FFD700 !important;
+}
