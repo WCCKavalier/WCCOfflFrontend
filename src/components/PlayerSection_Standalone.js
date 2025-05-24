@@ -1,5 +1,7 @@
+// PlayerSection_Standalone.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom'; // Import Link
 import "./PlayerSection_Standalone.css";
 
 function PlayerSection({ players }) {
@@ -7,10 +9,11 @@ function PlayerSection({ players }) {
   const [playerStats, setPlayerStats] = useState([]);
 
   useEffect(() => {
-    if (players.length > 0) {
+    // Set the first player as selected by default if players array is not empty
+    if (players.length > 0 && !selectedPlayer) {
       setSelectedPlayer(players[0]);
     }
-  }, [players]);
+  }, [players, selectedPlayer]);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -21,7 +24,6 @@ function PlayerSection({ players }) {
         console.error("Failed to fetch player stats", error);
       }
     };
-
     fetchStats();
   }, []);
 
@@ -38,21 +40,23 @@ function PlayerSection({ players }) {
   return (
     <div className="player-section">
       <div className="player-container">
-        {/* Left - Player List */}
         <div className="player-list">
-          {players.map((player) => (
-            <div
-              key={player.id}
-              className={`player-item ${selectedPlayer?.id === player.id ? "active" : ""}`}
-              onMouseEnter={() => handlePlayerHover(player)}
-            >
-              {player.name}
-            </div>
-          ))}
+          {players.length > 0 ? (
+            players.map((player) => (
+              <div
+                key={player.id}
+                className={`player-item ${selectedPlayer?.id === player.id ? "active" : ""}`}
+                onMouseEnter={() => handlePlayerHover(player)}
+              >
+                {player.name}
+              </div>
+            ))
+          ) : (
+            <p className="no-players-message">No players available.</p>
+          )}
         </div>
 
-        {/* Right - Player Details */}
-        <div className="player-details fade-in">
+        <div className="player-details">
           {selectedPlayer ? (
             <>
               <img
@@ -64,46 +68,56 @@ function PlayerSection({ players }) {
                   e.target.src = "/img/no-dp.jpg";
                 }}
               />
-
               <h2>{selectedPlayer.name || "Unknown Player"}</h2>
-
               <div className="player-meta">
                 <p><strong>DOB:</strong> {selectedPlayer.dob || "--"}</p>
                 <p><strong>Feared For:</strong> {selectedPlayer.fearedFor || "--"}</p>
-                <p className="player-description">{selectedPlayer.details || "No details available."}</p>
+                <p className="player-description">{selectedPlayer.details || "No description available."}</p>
               </div>
 
-              {/* Player Stats */}
               {matchedStats ? (
-                <div className="player-stats">
+                <div className="player-stats-summary">
                   <h3>Batting Stats</h3>
-                  <p><strong>Matches:</strong> {matchedStats.batting.matches}</p>
-                  <p><strong>Runs:</strong> {matchedStats.batting.runs}</p>
-                  <p><strong>Balls:</strong> {matchedStats.batting.balls}</p>
-                  <p><strong>Fours:</strong> {matchedStats.batting.fours}</p>
-                  <p><strong>Sixes:</strong> {matchedStats.batting.sixes}</p>
-                  <p><strong>Strike Rate:</strong> {matchedStats.batting.strikeRate}</p>
-                  <p><strong>Not Outs:</strong> {matchedStats.batting.NOs}</p>
+                  <div className="stat-row"> {/* New wrapper for batting stats */}
+                    <div className="stat-item-pair">
+                      <strong>Matches:</strong> <span>{matchedStats.batting.matches}</span>
+                    </div>
+                    <div className="stat-item-pair">
+                      <strong>Runs:</strong> <span>{matchedStats.batting.runs}</span>
+                    </div>
+                    <div className="stat-item-pair">
+                      <strong>Strike Rate:</strong> <span>{matchedStats.batting.strikeRate}</span>
+                    </div>
+                    {/* Add more batting stats here if needed */}
+                  </div>
 
                   <h3>Bowling Stats</h3>
-                  <p><strong>Matches:</strong> {matchedStats.bowling.matches}</p>
-                  <p><strong>Overs:</strong> {matchedStats.bowling.overs}</p>
-                  <p><strong>Runs:</strong> {matchedStats.bowling.runs}</p>
-                  <p><strong>Wickets:</strong> {matchedStats.bowling.wickets}</p>
-                  <p><strong>Economy:</strong> {matchedStats.bowling.economy}</p>
-                  <p><strong>Maidens:</strong> {matchedStats.bowling.maidens}</p>
-                  <p><strong>Dots:</strong> {matchedStats.bowling.dots}</p>
-                  <p><strong>Fours:</strong> {matchedStats.bowling.fours}</p>
-                  <p><strong>Sixes:</strong> {matchedStats.bowling.sixes}</p>
-                  <p><strong>Wides:</strong> {matchedStats.bowling.wd}</p>
-                  <p><strong>No Balls:</strong> {matchedStats.bowling.nb}</p>
+                  <div className="stat-row"> {/* New wrapper for bowling stats */}
+                    <div className="stat-item-pair">
+                      <strong>Matches:</strong> <span>{matchedStats.bowling.matches}</span>
+                    </div>
+                    <div className="stat-item-pair">
+                      <strong>Wickets:</strong> <span>{matchedStats.bowling.wickets}</span>
+                    </div>
+                    <div className="stat-item-pair">
+                      <strong>Economy:</strong> <span>{matchedStats.bowling.economy}</span>
+                    </div>
+                    {/* Add more bowling stats here if needed */}
+                  </div>
+
+                  <div className="detailed-stats-link">
+                    {/* Updated Link to include player name */}
+                    <Link to={`/stats?player=${encodeURIComponent(selectedPlayer.name)}`}>
+                      View Detailed Stats for {selectedPlayer.name}
+                    </Link>
+                  </div>
                 </div>
               ) : (
-                <p className="text-white">Stats not available.</p>
+                <p className="no-stats-message">No detailed stats available for this player.</p>
               )}
             </>
           ) : (
-            <p className="text-white">No player selected.</p>
+            <p className="no-player-selected-message">Hover over a player on the left to see their profile.</p>
           )}
         </div>
       </div>

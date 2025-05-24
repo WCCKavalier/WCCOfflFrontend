@@ -1,0 +1,602 @@
+/* General Body and Container Styling */
+body {
+    background-color: #1a1a1a; /* Dark background, almost black */
+    color: #e0e0e0; /* Light grey text for contrast */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A modern, clean font */
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll from minor layout shifts */
+}
+
+.stats-page-container {
+    padding: 40px; /* More generous padding */
+    max-width: 1400px; /* Even wider container for a grander feel */
+    margin: 30px auto; /* Add vertical margin */
+    background-color: #2c2c2c; /* A slightly lighter black/dark grey for the main content area */
+    border-radius: 18px; /* More pronounced rounded corners */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7); /* Deeper, more dramatic shadow */
+    border: 1px solid #4f4f4f; /* Slightly more prominent subtle border */
+    position: relative; /* For potential absolute positioning of elements */
+    overflow: hidden; /* Ensure nothing spills out */
+}
+
+/* Page Title */
+.page-title {
+    text-align: center;
+    color: #FFD700; /* Gold color for the title */
+    margin-bottom: 50px; /* More space below title */
+    font-size: 3.5em; /* Significantly larger title */
+    font-weight: 800; /* Extra bold */
+    letter-spacing: 3px; /* Wider spacing for a premium feel */
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.3); /* Stronger gold glow */
+    animation: fadeInDown 1s ease-out forwards; /* Animation for title */
+}
+
+/* View Selector Buttons (Inline Tab-like UI for both PC and Mobile) */
+.view-selector {
+    text-align: center;
+    margin-bottom: 40px;
+    display: flex; /* Use flexbox for button layout */
+    justify-content: space-around; /* Distribute space evenly */
+    align-items: center; /* Center vertically */
+    gap: 0; /* Remove gap between buttons */
+    border: 1px solid #FFD700; /* Add a common border around the group */
+    border-radius: 8px; /* Slightly rounded corners for the tab container */
+    overflow: hidden; /* Hide overflow if a button goes beyond the border */
+    max-width: 450px; /* Limit width of the tab group on larger screens */
+    margin-left: auto;
+    margin-right: auto; /* Center the tab group */
+}
+
+.view-selector button {
+    flex-grow: 1; /* Make buttons grow to fill available space */
+    width: auto; /* Override previous width settings */
+    max-width: none; /* Override previous max-width settings */
+    margin: 0; /* Remove individual margins */
+    padding: 10px 20px; /* Compact padding for tab look */
+    font-size: 1.05em; /* Adjusted font size for tab look on PC */
+    border: none; /* Remove individual borders, use container border */
+    border-radius: 0; /* Remove individual border-radius */
+    background-color: #3a3a3a; /* Default background */
+    color: #FFD700; /* Default text color */
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: none; /* Remove shadows for a flat tab look */
+    position: relative; /* For the active/hover effects */
+    overflow: hidden; /* For the sheen effect */
+    transition: background-color 0.2s ease, color 0.2s ease; /* Faster transition for tabs */
+}
+
+/* Add borders between buttons to create separation */
+.view-selector button:not(:last-child) {
+    border-right: 1px solid #FFD700; /* Vertical separator */
+}
+
+/* Sheen effect (keeping it even for tabs, but subtle) */
+.view-selector button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.05), transparent); /* Very subtle sheen */
+    transition: all 0.5s ease-in-out;
+}
+
+.view-selector button:hover::before {
+    left: 100%;
+}
+
+.view-selector button:hover {
+    background-color: #FFD700; /* Gold background on hover */
+    color: #1a1a1a; /* Dark text on hover */
+    transform: none; /* Remove transform on hover for tab look */
+    box-shadow: none; /* Remove shadow on hover for tab look */
+}
+
+.view-selector button.active {
+    background-color: #FFD700; /* Active tab is gold */
+    color: #1a1a1a; /* Active tab text is dark */
+    box-shadow: none; /* Remove shadow */
+    transform: none; /* Remove transform */
+}
+
+/* Filters Container (PC Default: Centered and wrapping) */
+.filters-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow filters to wrap to next line on PC */
+    justify-content: center; /* Center filter elements on PC */
+    gap: 30px; /* Consistent spacing between filters on PC */
+    margin-bottom: 40px;
+    padding: 25px;
+    background-color: #3a3a3a; /* Darker grey background for filters */
+    border-radius: 12px; /* Rounded corners */
+    border: 1px solid #555; /* Subtle border */
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3); /* Deeper inner shadow */
+    animation: fadeIn 1s ease-out 0.2s forwards; /* Add fade in animation */
+    opacity: 0; /* Start invisible for animation */
+}
+
+.filter-label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600; /* Bolder label text */
+    color: #f0f0f0; /* Light grey label color */
+    flex-shrink: 0; /* Prevent filters from shrinking on mobile */
+    min-width: 200px; /* Minimum width for filter inputs on PC */
+    max-width: 300px; /* Max width for consistency on PC */
+    white-space: normal; /* Allow label text to wrap on PC */
+}
+
+.filter-label input,
+.filter-label select {
+    margin-top: 10px; /* More space below label */
+    padding: 12px 18px; /* Larger padding for inputs/selects */
+    border: 1px solid #777; /* Grey border */
+    background-color: #4a4a4a; /* Dark input background */
+    color: #FFD700; /* Gold text in inputs */
+    border-radius: 8px; /* More rounded input corners */
+    font-size: 1.1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.filter-label input::placeholder {
+    color: #b0b0b0; /* Lighter placeholder color */
+    opacity: 0.7;
+}
+
+.filter-label input:focus,
+.filter-label select:focus {
+    border-color: #FFD700; /* Gold border on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5); /* Stronger gold glow on focus */
+    background-color: #5a5a5a; /* Slightly lighter background on focus */
+}
+
+/* Table Context Info */
+.table-context-info {
+    margin-bottom: 25px;
+    font-size: 1.1em; /* Slightly larger font */
+    color: #a0a0a0; /* Softer grey for context info */
+    text-align: center;
+    font-style: italic;
+    animation: fadeIn 1s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+/* Player Click Hint */
+.player-click-hint {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.15em;
+    color: #FFD700; /* Gold color for the hint */
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+    animation: pulse 1.5s infinite alternate, fadeIn 1s ease-out 0.6s forwards; /* Pulse animation and fade in */
+    opacity: 0;
+}
+
+/* Player Name Link (for Material-React-Table's Cell) */
+.player-name-link {
+    cursor: pointer;
+    color: #FFD700; /* Gold color for player names */
+    text-decoration: none; /* No underline by default for a cleaner look */
+    font-weight: 700; /* Bolder name */
+    transition: color 0.2s ease, text-decoration 0.2s ease, transform 0.2s ease;
+    font-size: 0.95rem; /* Increased font size for player names */
+}
+
+.player-name-link:hover {
+    color: #FFEA00; /* Brighter gold on hover */
+    text-decoration: underline; /* Underline on hover for interactivity */
+    transform: translateX(3px); /* Subtle shift on hover */
+}
+
+/* Material-React-Table Overrides (Important for theming the table itself) */
+.MuiTableContainer-root {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Shadow for the entire table container */
+    border-radius: 12px; /* Match container border-radius */
+    overflow-x: auto; /* Enable horizontal scrolling for tables on small screens */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    animation: fadeIn 1s ease-out 0.8s forwards;
+    opacity: 0;
+}
+
+/* Table Header */
+.MuiTableHead-root .MuiTableCell-head {
+    background-color: #1a1a1a !important; /* Black header background */
+    color: #FFD700 !important; /* Gold header text */
+    font-weight: bold;
+    font-size: 1.2em !important; /* Larger header font */
+    border-bottom: 3px solid #FFD700 !important; /* Thicker gold line below header */
+    padding: 15px !important; /* More padding in header cells */
+    text-transform: uppercase; /* Uppercase header text */
+    letter-spacing: 1px;
+}
+
+/* Table Body Cells */
+.MuiTableCell-body {
+    background-color: #2c2c2c !important; /* Dark grey cell background */
+    color: #e0e0e0 !important; /* Light grey text */
+    font-size: 1em !important; /* Slightly larger font */
+    border-bottom: 1px solid #444 !important; /* Darker grey cell borders */
+    padding: 12px !important; /* More padding in body cells */
+}
+
+/* Alternating row colors for better readability */
+.MuiTableRow-root:nth-of-type(odd) .MuiTableCell-body {
+    background-color: #222222 !important; /* Slightly different dark grey for odd rows */
+}
+
+/* Table Footer (if enabled in MRT) */
+.MuiTableFooter-root .MuiTableCell-footer {
+    background-color: #1a1a1a !important;
+    color: #FFD700 !important;
+    border-top: 3px solid #FFD700 !important; /* Thicker border */
+    font-size: 1.1em !important;
+    font-weight: bold;
+}
+
+/* Player Profile Specific Styles */
+.player-profile-container {
+    padding: 30px;
+    background-color: #3a3a3a;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.player-profile-container h2 {
+    color: #FFD700;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.player-profile-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.profile-stat-item {
+    background-color: #4a4a4a;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 1px solid #666;
+    text-align: center;
+    min-width: 150px;
+    flex: 1; /* Allow items to grow */
+    max-width: 200px;
+}
+
+.profile-stat-item span {
+    display: block;
+    font-size: 0.9em;
+    color: #b0b0b0;
+    margin-bottom: 5px;
+}
+
+.profile-stat-item strong {
+    font-size: 1.6em;
+    color: #FFEA00; /* Bright gold for values */
+}
+
+.back-button {
+    display: block;
+    margin: 30px auto 0;
+    padding: 12px 25px;
+    background-color: #FFD700;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.back-button:hover {
+    background-color: #FFEA00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+.no-player-found {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2em;
+    color: #e0e0e0;
+}
+
+/* Scrollbar styling (for webkit browsers) */
+::-webkit-scrollbar {
+    width: 12px; /* Slightly wider scrollbar */
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #2a2a2a; /* Darker track */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FFD700;
+    border-radius: 10px;
+    border: 3px solid #2a2a2a; /* Thicker border to the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FFEA00;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.02);
+        opacity: 0.9;
+    }
+}
+
+
+/* --- Mobile-Friendly Adjustments for the "Epic" design --- */
+/* (Media queries mainly for shrinking fonts/paddings further for smaller screens) */
+@media (max-width: 1024px) {
+    .stats-page-container {
+        padding: 30px;
+        margin: 20px auto;
+        border-radius: 15px;
+    }
+
+    .page-title {
+        font-size: 2.8em;
+        margin-bottom: 40px;
+    }
+
+    /* Filters Container */
+    .filters-container {
+        padding: 20px;
+        gap: 20px; /* Slightly reduced gap for larger tablets */
+    }
+
+    .filter-label {
+        min-width: 180px; /* Slightly smaller min-width for larger tablets */
+        /* max-width is still active from global, no need to unset here */
+    }
+
+    .filter-label input,
+    .filter-label select {
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+
+    .MuiTableHead-root .MuiTableCell-head {
+        font-size: 1.1em !important;
+        padding: 12px !important;
+    }
+
+    .MuiTableCell-body {
+        font-size: 0.95em !important;
+        padding: 10px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-page-container {
+        padding: 20px;
+        margin: 15px auto;
+        border-radius: 10px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .page-title {
+        font-size: 2.2em;
+        margin-bottom: 30px;
+        letter-spacing: 2px;
+    }
+
+    .view-selector {
+        margin-bottom: 25px;
+    }
+
+    .view-selector button {
+        padding: 8px 10px; /* Reduced padding for compact look on mobile */
+        font-size: 0.85em; /* Smaller font size on mobile */
+    }
+
+    /* Filters Container - MOBILE SPECIFIC: Single scrollable line */
+    .filters-container {
+        flex-direction: row; /* Keep filters in a row */
+        flex-wrap: nowrap; /* Crucial: Prevent wrapping onto new lines */
+        justify-content: flex-start; /* Align to start */
+        gap: 15px; /* Consistent spacing between horizontal filters */
+        padding: 15px; /* Adjusted padding */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        padding-bottom: 10px; /* Ensure scrollbar doesn't overlap content */
+    }
+
+    .filter-label {
+        flex-shrink: 0; /* Prevent individual filters from shrinking */
+        width: 38vw; /* Default width for most filters */
+        min-width: unset; /* Remove min-width to allow 'width' to take effect */
+        max-width: unset; /* Remove max-width to allow 'width' to take effect */
+        white-space: nowrap; /* Keep label text on one line for horizontal flow */
+    }
+
+    /* Specific width for the year filter: now explicitly half of 38vw */
+    .year-filter-label {
+        width: 19vw; /* Half of 38vw */
+    }
+
+    /* Specific width for the series filter: double of 38vw */
+    .series-filter-label {
+        width: 56vw; /* Double of 38vw */
+    }
+
+
+    .filter-label input,
+    .filter-label select {
+        padding: 8px 12px; /* Smaller padding for inputs/selects on mobile */
+        font-size: 0.9em; /* Smaller font for inputs/selects on mobile */
+    }
+
+    .table-context-info,
+    .player-click-hint {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+
+    .MuiTableHead-root .MuiTableCell-head {
+        font-size: 0.95em !important;
+        padding: 10px !important;
+    }
+
+    .MuiTableCell-body {
+        font-size: 0.85em !important;
+        padding: 8px !important;
+    }
+
+    /* Player Profile specific mobile adjustments */
+    .player-profile-container {
+        padding: 20px;
+    }
+
+    .player-profile-container h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+    .profile-stat-item {
+        padding: 12px 15px;
+        min-width: unset;
+        width: 48%; /* Two items per row */
+        max-width: 180px;
+    }
+
+    .profile-stat-item strong {
+        font-size: 1.4em;
+    }
+
+    .back-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-page-container {
+        padding: 15px;
+        margin: 10px auto;
+        border-radius: 8px;
+    }
+
+    .page-title {
+        font-size: 1.8em;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+    }
+
+    .view-selector button {
+        padding: 7px 10px; /* Even smaller padding for very small screens */
+        font-size: 0.8em; /* Even smaller font */
+    }
+
+    /* Filters Container */
+    .filters-container {
+        padding: 10px;
+        gap: 10px; /* Smaller gap on very small screens */
+    }
+
+    .filter-label {
+        width: 45vw; /* Default width for most filters on very small screens */
+        min-width: unset;
+        max-width: unset;
+    }
+
+    /* Specific width for the year filter on very small screens: half of 45vw */
+    .year-filter-label {
+        width: 22.5vw; /* Half of 45vw */
+    }
+
+    /* Specific width for the series filter on very small screens: double of 45vw (capped at 90vw for safety) */
+    .series-filter-label {
+        width: 60vw; /* Double of 45vw, capped at 90vw to prevent overflowing the container */
+    }
+
+
+    .filter-label input,
+    .filter-label select {
+        padding: 7px 10px; /* Further reduced padding and font size */
+        font-size: 0.85em;
+    }
+
+    .table-context-info,
+    .player-click-hint {
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+
+    .MuiTableHead-root .MuiTableCell-head {
+        font-size: 0.85em !important;
+        padding: 8px !important;
+    }
+
+    .MuiTableCell-body {
+        font-size: 0.75em !important;
+        padding: 6px !important;
+    }
+
+    .player-profile-container {
+        padding: 15px;
+    }
+
+    .player-profile-container h2 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+
+    .profile-stat-item {
+        width: 100%; /* Stack items vertically on very small screens */
+        max-width: none;
+    }
+
+    .profile-stat-item strong {
+        font-size: 1.2em;
+    }
+
+    .back-button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+}

@@ -76,6 +76,7 @@ function Navbar() {
               <li><Link className={isActive("/teams")} to="/teams" onClick={() => setIsNavOpen(false)}>Series</Link></li>
               <li><Link className={isActive("/profile_page")} to="/profile_page" onClick={() => setIsNavOpen(false)}>Profile Search</Link></li>
               <li><Link className={isActive("/awards")} to="/awards" onClick={() => setIsNavOpen(false)}>Kava Awards</Link></li>
+               <li><Link className={isActive("/stats")} to="/stats" onClick={() => setIsNavOpen(false)}>Stats</Link></li>
               {isAuthenticated ? (
                 <>
                   <li><Link className={isActive("/chat")} to="/chat" onClick={() => setIsNavOpen(false)}>Discussions</Link></li>

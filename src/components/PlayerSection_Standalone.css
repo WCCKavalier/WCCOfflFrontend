@@ -1,168 +1,267 @@
-/* Global Styles */
-* {
-  box-sizing: border-box;
+/* Global Styles - Ensure these are consistent across your app or in a global file */
+body {
+  background-color: #1a1a1a; /* Consistent dark background */
+  color: #e0e0e0; /* Light grey text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
-  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-/* Main Container */
+/* Main Container for the Player Section */
 .player-section {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom right, #1a1a1a, #2e2e2e, #121212);
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-  width: 90%;
-  max-width: 1200px;
-  margin: 40px auto;
+  background: linear-gradient(145deg, #1f1f1f, #0a0a0a); /* Deeper, more luxurious gradient */
+  padding: 35px; /* More padding */
+  border-radius: 18px; /* Softer, larger rounded corners */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7); /* More dramatic shadow */
+  width: 95%; /* Take up more width */
+  max-width: 1400px; /* Wider max-width */
+  margin: 50px auto; /* More vertical margin */
+  border: 1px solid #333; /* Subtle dark border */
 }
 
-/* Player Container - Flex Layout */
+/* Player Container - Main Flex Layout */
 .player-container {
   display: flex;
-  gap: 20px;
+  gap: 30px; /* More space between list and details */
   width: 100%;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
   justify-content: center;
 }
 
-/* Player List - Left Side */
+/* Player List - Left Panel */
 .player-list {
-  width: 30%;
-  max-height: 400px;
+  flex: 0 0 28%; /* Flex basis for consistent width */
+  max-height: 550px; /* Taller list */
   overflow-y: auto;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03); /* Very subtle transparent white */
+  padding: 15px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3); /* Inner shadow for depth */
+  border: 1px solid rgba(255, 215, 0, 0.2); /* Subtle gold border */
   scroll-behavior: smooth;
 }
 
-/* Hide Scrollbar */
+/* Custom Scrollbar for Player List */
 .player-list::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
-
-.player-list::-webkit-scrollbar-thumb {
-  background: #888; /* Muted grey */
+.player-list::-webkit-scrollbar-track {
+  background: #2a2a2a; /* Dark track */
   border-radius: 10px;
 }
-
-/* Individual Player Item */
-.player-item {
-  padding: 12px 16px;
-  background: linear-gradient(135deg, #2e2e2e, #1a1a1a);
-  border-radius: 8px;
-  color: #eee;
-  font-weight: 500;
-  text-align: center;
-  cursor: pointer;
-  margin-bottom: 8px;
-  transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+.player-list::-webkit-scrollbar-thumb {
+  background: #FFD700; /* Gold thumb */
+  border-radius: 10px;
+  border: 2px solid #2a2a2a; /* Gold thumb border */
+}
+.player-list::-webkit-scrollbar-thumb:hover {
+  background: #FFEA00; /* Brighter gold on hover */
 }
 
-/* Hover and Active State */
+/* Individual Player Item in the List */
+.player-item {
+  padding: 15px 20px; /* More padding */
+  background: linear-gradient(135deg, #2e2e2e, #1a1a1a);
+  border-radius: 10px; /* Softer corners */
+  color: #c0c0c0; /* Softer grey for inactive items */
+  font-weight: 500;
+  font-size: 1.1em; /* Slightly larger font */
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px; /* More space between items */
+  transition: transform 0.3s ease-in-out, background 0.3s ease-in-out, color 0.3s ease;
+  border: 1px solid transparent; /* Prepare for border on hover/active */
+}
+
+/* Player Item Hover and Active State */
 .player-item:hover {
-  background: linear-gradient(135deg, #3a3a3a, #1f1f1f);
-  transform: scale(1.05) rotate(1deg);
+  background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+  transform: scale(1.03); /* Subtle lift */
+  color: #FFD700; /* Gold on hover */
+  border: 1px solid rgba(255, 215, 0, 0.4); /* Subtle gold border on hover */
 }
 
 .player-item.active {
-  background: linear-gradient(to right, #444444, #222);
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(100, 100, 100, 0.3);
-  color: gold;
+  background: linear-gradient(to right, #FFD700, #FFEA00); /* Bold gold gradient for active */
+  transform: scale(1.02); /* Less lift than hover to show stability */
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4); /* Stronger gold glow */
+  color: #1a1a1a; /* Dark text on active gold */
+  font-weight: 700; /* Bolder active text */
+  border: 1px solid #FFD700; /* Solid gold border */
 }
 
-
-/* Player Details Section - Right Side */
+/* Player Details Section - Right Panel */
 .player-details {
-  width: 65%;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 20px;
-  border-radius: 12px;
+  flex: 1; /* Takes remaining space */
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a); /* Deeper dark gradient */
+  padding: 30px; /* More padding */
+  border-radius: 14px;
   text-align: center;
   color: #f5f5f5;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6); /* More prominent shadow */
+  border: 1px solid #444; /* Subtle border */
+  /* Animation for content changes */
+  animation: fadeIn 0.8s ease-out; /* Applying fade-in directly */
 }
 
 /* Player Image */
 .player-image {
-  width: 150px;
-  height: 150px;
+  width: 180px; /* Larger image */
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 12px;
-  border: 3px solid #999;
+  margin-bottom: 20px; /* More space below image */
+  border: 4px solid #FFD700; /* Gold border for image */
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); /* Gold glow around image */
 }
 
-/* Smooth Fade-in Animation */
-.fade-in {
-  animation: fadeIn 0.8s ease-in-out;
+/* Player Name */
+.player-details h2 {
+  font-size: 2.8em; /* Larger name */
+  color: #FFD700; /* Gold name */
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
 
-/* Keyframe Animation */
+/* Player Meta Info Section (DOB, Feared For, Description) */
+.player-meta {
+  margin: 25px 0;
+  padding: 20px;
+  background-color: rgba(255, 215, 0, 0.05); /* Very subtle gold tint background */
+  border-radius: 12px;
+  text-align: left;
+  font-size: 1.05em; /* Slightly larger text */
+  line-height: 1.8; /* More comfortable line spacing */
+  color: #d0d0d0; /* Soft grey text */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3); /* Inner shadow for depth */
+  border: 1px solid rgba(255, 215, 0, 0.1); /* Extremely subtle gold border */
+}
+
+.player-meta p {
+  margin: 10px 0;
+}
+
+.player-meta strong {
+  color: #FFD700; /* Gold for labels */
+  font-weight: 700; /* Bolder labels */
+  margin-right: 8px; /* Space between label and value */
+  min-width: 120px; /* Aligning labels */
+  display: inline-block;
+}
+
+.player-description {
+  margin-top: 15px;
+  font-style: italic;
+  color: #a0a0a0; /* Softer grey for description */
+}
+
+/* Player Stats Section */
+.player-stats {
+  margin-top: 30px;
+  text-align: left; /* Align stats left */
+  background-color: #1a1a1a; /* Even darker background for stats block */
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  border: 1px solid #333;
+}
+
+.player-stats h3 {
+  color: #FFD700; /* Gold for stat headings */
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #444; /* Subtle separator */
+  padding-bottom: 10px;
+}
+
+.player-stats p {
+  font-size: 1.05em;
+  margin-bottom: 8px;
+  color: #e0e0e0; /* Light grey for stat values */
+}
+
+.player-stats p strong {
+  color: #c0c0c0; /* Lighter grey for stat labels */
+  min-width: 100px;
+  display: inline-block;
+  font-weight: 600;
+}
+
+/* No Player Selected / Stats Not Available Message */
+.text-white { /* Renamed for consistency with your theme, but can be adjusted */
+  color: #e0e0e0; /* Light grey for general messages */
+  font-size: 1.1em;
+  padding: 20px;
+  border: 1px solid #4a4a4a;
+  border-radius: 8px;
+  background-color: #3a3a3a;
+  margin-top: 20px; /* If it appears as a fallback */
+}
+
+/* Fade-in Animation for details */
 @keyframes fadeIn {
-  0% {
+  from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(20px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* Responsive Design for Mobile */
-@media (max-width: 768px) {
+
+/* Responsive Design for smaller screens */
+@media (max-width: 1024px) {
   .player-container {
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
   }
 
   .player-list {
+    flex: none; /* Remove flex-basis */
     width: 100%;
-    max-height: 200px;
+    max-height: 250px; /* Adjust max height for smaller screens */
   }
 
   .player-details {
+    flex: none;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 0; /* Already handled by gap */
+  }
+
+  .player-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 600px) {
+  .player-section {
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  .player-details h2 {
+    font-size: 2em;
   }
 
   .player-image {
     width: 120px;
     height: 120px;
   }
-}
 
-.player-details {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  transition: opacity 0.3s ease-in-out;
-}
-/* New: Meta Info Section for DOB and Feared For */
-.player-meta {
-  margin: 16px 0;
-  padding: 15px;
-  background-color: rgba(255, 255, 255, 0.03);
-  border-radius: 10px;
-  text-align: left;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #ddd;
-  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05);
-}
+  .player-meta,
+  .player-stats {
+    padding: 15px;
+    font-size: 0.95em;
+  }
 
-/* Optional: Make key titles stand out */
-.player-meta p {
-  margin: 8px 0;
-}
-
-.player-meta strong {
-  color: #fff;
-  font-weight: 600;
+  .player-stats h3 {
+    font-size: 1.5em;
+  }
 }

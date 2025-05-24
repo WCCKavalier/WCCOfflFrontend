@@ -1,0 +1,138 @@
+/* src/components/StatsTable.css */
+
+/* This container wraps the MaterialReactTable */
+.stats-table-container {
+  /* No specific styles needed here, as MRT handles its own layout */
+  /* Remove conflicting styles if already defined globally or by MRT */
+}
+
+/* Style for the clickable player name link */
+.player-name-link {
+  cursor: pointer;
+  color: #FFD700; /* Gold color for player names */
+  text-decoration: none; /* No underline by default for a cleaner look */
+  font-weight: 700; /* Bolder name */
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+  font-size: 0.95rem; /* Increased font size for player names */
+}
+
+.player-name-link:hover {
+  color: #FFEA00; /* Brighter gold on hover */
+  text-decoration: underline; /* Underline on hover for interactivity */
+}
+
+/* Material-React-Table / Material UI Overrides for Dark Theme Visibility */
+
+/* Text color for headers */
+.MuiTableHead-root .MuiTableCell-head {
+  color: #FFD700 !important; /* Ensure header text is gold */
+  background-color: #000000 !important; /* Ensure header background is black */
+  white-space: nowrap; /* Prevent wrapping of header text */
+}
+
+/* Icons within table headers (e.g., sort arrows, filter icons) */
+.MuiTableHead-root .MuiSvgIcon-root {
+  color: #FFD700 !important; /* Gold icons for sort/filter */
+}
+
+/* Pagination text and icons */
+.MuiTablePagination-root {
+  color: #e0e0e0 !important; /* Light grey for pagination text */
+  background-color: #000000 !important; /* Ensure pagination background is black */
+}
+
+.MuiTablePagination-root .MuiSvgIcon-root {
+  color: #FFD700 !important; /* Gold icons for pagination arrows */
+}
+
+.MuiTablePagination-toolbar button {
+  color: #FFD700 !important; /* Gold color for pagination buttons */
+}
+
+/* Global search input (if enabled and present) */
+.MuiInputBase-root {
+  color: #FFD700 !important; /* Gold text in inputs */
+}
+
+.MuiInputBase-input::placeholder {
+  color: rgba(255, 215, 0, 0.7) !important; /* Lighter gold for placeholder */
+}
+
+/* Menu items (e.g., column visibility dropdown, column actions) */
+.MuiPopover-paper { /* This targets the paper background of popovers/menus */
+  background-color: #3a3a3a !important; /* Dark grey background for menus */
+  border: 1px solid #555 !important; /* Subtle border */
+}
+
+.MuiMenuItem-root {
+  color: #e0e0e0 !important; /* Light grey text for menu items */
+}
+
+.MuiMenuItem-root:hover {
+  background-color: #4a4a4a !important; /* Slightly lighter grey on hover */
+  color: #FFD700 !important; /* Gold text on hover */
+}
+
+/* Checkbox icons (e.g., for row selection or column visibility) */
+.MuiCheckbox-root {
+  color: #FFD700 !important; /* Gold color for checkboxes */
+}
+
+.MuiCheckbox-root.Mui-checked {
+  color: #FFD700 !important; /* Gold color when checked */
+}
+
+/* Clear all filters icon (if enabled) */
+.MuiIconButton-root .MuiSvgIcon-root {
+  color: #FFD700 !important; /* Ensure general icon buttons are gold */
+}
+
+/* Column dragging handle (if enabled) */
+.MuiTableSortLabel-icon {
+  color: #FFD700 !important; /* Specifically for sort icons */
+}
+
+/* Column actions icon (three dots) */
+.MuiDataGrid-columnHeader-actions .MuiIconButton-root .MuiSvgIcon-root {
+  color: #FFD700 !important;
+}
+
+/* General button icon color (if any other buttons with icons appear) */
+.MuiButtonBase-root .MuiSvgIcon-root {
+  color: #FFD700 !important;
+}
+
+/* Ensure the main table background is black */
+.MuiBox-root,
+.MuiTableContainer-root,
+.MuiTable-root {
+  background-color: #000000 !important;
+  color: #e0e0e0; /* Ensure text within the table is light grey */
+}
+
+/* Table body cells */
+.MuiTableCell-body {
+  background-color: #000000 !important; /* Dark background for table body cells */
+  color: #e0e0e0 !important; /* Light grey text for body cells */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+}
+
+/* Reduce padding and font size for all cells on small screens */
+@media (max-width: 600px) { /* Adjust breakpoint as needed for 'sm' */
+  .MuiTableCell-root {
+    padding: 6px 4px !important; /* Smaller padding for all cells */
+    font-size: 0.7rem !important; /* Smaller font size for all cells */
+  }
+
+  /* Specific adjustments for header cells on small screens */
+  .MuiTableHead-root .MuiTableCell-head {
+    font-size: 0.75rem !important; /* Slightly larger font for headers */
+  }
+
+  /* Keep player name larger on small screens too */
+  .player-name-link {
+    font-size: 0.9rem !important; /* Slightly smaller than desktop, but still larger than other text */
+  }
+}
