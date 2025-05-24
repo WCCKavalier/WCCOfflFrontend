@@ -1,10 +1,12 @@
 // StatsPage.js
 import React, { useState, useMemo, useEffect } from 'react';
+import axios from "axios";
 import { useLocation } from 'react-router-dom'; // Import useLocation
 import { processMatchData } from './processStats';
 import { StatsTable } from './StatsTable';
 import { PlayerProfile } from './PlayerProfile';
 import './StatsPage.css';
+const API_BASE_URL = "https://wccbackendoffl.onrender.com";
 
 // Helper function to parse query parameters (can be in a utils file)
 function useQuery() {
@@ -12,10 +14,22 @@ function useQuery() {
   return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-export const StatsPage = ({ matches }) => {
+export const StatsPage = () => {
+  const [allScorecards, setAllScorecards] = useState([]);
+  useEffect(() => {
+      fetchScorecard();
+    }, []);
+  const fetchScorecard = async () => {
+    try {
+      const res = await axios.get(`${API_BASE_URL}/api/uploadScorecard/allscorecard`);
+      setAllScorecards(res.data);
+    } catch (err) {
+      console.error('Failed to load scorecards', err);
+    }
+  };
   const { overallPlayerStats, uniqueSeriesNames, uniqueYears } = useMemo(
-    () => processMatchData(matches),
-    [matches]
+    () => processMatchData(allScorecards),
+    [allScorecards]
   );
 
   const query = useQuery(); // Get query params
@@ -78,7 +92,7 @@ export const StatsPage = ({ matches }) => {
         setPlayerSearchTerm('');
         setSelectedPlayerName(null); // This would clear a player selected via table click
     }
-  }, [matches, playerNameToLoad]); // Added playerNameToLoad
+  }, [allScorecards, playerNameToLoad]); // Added playerNameToLoad
 
   const handlePlayerSelect = (playerName) => {
     setSelectedPlayerName(playerName);

@@ -77,7 +77,7 @@ const AppRoutes = () => {
         <Route path="/teams" element={<Teams />} />
         <Route path="/profile_page" element={<Profile_Page />} />
         <Route path="/awards" element={<Awards />} />
-         <Route path="/stats" element={<StatsPage matches={matchesData} />} />
+         <Route path="/stats" element={<StatsPage />} />
         <Route
           path="/chat"
           element={<ProtectedRoute element={<Chat />} />}
