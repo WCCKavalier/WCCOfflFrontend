@@ -161,18 +161,18 @@ const Series = () => {
     setActionLoading(true);
     try {
       await axios.put(`${API_BASE_URL}/api/team/update-points`, { winnerId: team === "A" ? "team1" : "team2" });
-  
+
       const response = await axios.get(`${API_BASE_URL}/api/teams`);
       const { team1, team2 } = response.data || {};
-  
+
       setTeamA((prev) => ({ ...prev, ...team1 }));
       setTeamB((prev) => ({ ...prev, ...team2 }));
-  
+
       // 🔥 Update lastWinner based on isRevert field
       if (team1.isRevert) setLastWinner("team1");
       else if (team2.isRevert) setLastWinner("team2");
       else setLastWinner(null);
-  
+
       showAlert(`Team ${team} wins!`);
     } catch (error) {
       console.error("Error updating points:", error);
@@ -193,19 +193,19 @@ const Series = () => {
         const response = await axios.put(`${API_BASE_URL}/api/team/revert`, {
           lastWinnerId: lastWinner,
         });
-  
+
         if (response.status === 200) {
           // 🔥 Re-fetch team data and update lastWinner based on isRevert
           const teamsResponse = await axios.get(`${API_BASE_URL}/api/teams`);
           const { team1, team2 } = teamsResponse.data || {};
-  
+
           setTeamA((prev) => ({ ...prev, ...team1 }));
           setTeamB((prev) => ({ ...prev, ...team2 }));
-  
+
           if (team1.isRevert) setLastWinner("team1");
           else if (team2.isRevert) setLastWinner("team2");
           else setLastWinner(null);
-  
+
           showAlert("Last result reverted successfully!");
         } else {
           showAlert("Error reverting latest result.", "error");
@@ -218,29 +218,29 @@ const Series = () => {
         setConfirmModal({ show: false, action: null, message: "" });
       }
     }, "Are you sure you want to revert the last result?");
-  };  
+  };
 
   const handleRevertLastMatch = async () => {
     if (!isAdmin) return;
-  
+
     confirmAction(async () => {
       setActionLoading(true);
       try {
         const response = await axios.post(`${API_BASE_URL}/api/uploadScorecard/revertscorecard`);
-  
+
         if (response.status === 200) {
           // 🔄 Re-fetch team data after revert
           const teamsResponse = await axios.get(`${API_BASE_URL}/api/teams`);
           const { team1, team2 } = teamsResponse.data || {};
-  
+
           setTeamA((prev) => ({ ...prev, ...team1 }));
           setTeamB((prev) => ({ ...prev, ...team2 }));
-  
+
           // Clear last winner info since match was deleted
           if (team1.isRevert) setLastWinner("team1");
           else if (team2.isRevert) setLastWinner("team2");
           else setLastWinner(null);
-  
+
           showAlert("✅ Last match, stats, and points successfully reverted!");
         } else {
           showAlert("❌ Failed to revert last match.", "error");
@@ -254,7 +254,7 @@ const Series = () => {
       }
     }, "Are you sure you want to completely revert the last match?");
   };
-  
+
   const formatResult = (result) => {
     if (!result) return '';
 
@@ -476,103 +476,112 @@ const Series = () => {
 
           {showAdminControls && (
             <div className="admin-controls">
-              {!showWinButtons ? (
+              {/* Update Points Without Scorecard */}
+              <div>
                 <button
                   className="update-score-btn"
-                  onClick={() => setShowWinButtons(true)}
+                  onClick={() => setShowWinButtons(!showWinButtons)}
                   disabled={loading || actionLoading}
                 >
-                  Update Score
+                  Update points without scorecard
                 </button>
-              ) : (
-                <div className="win-btns-container">
-                  <button
-                    className="match-btn win-btn"
-                    onClick={() => handleWin("A")}
-                    disabled={actionLoading}
-                  >
-                    Team A Wins
-                  </button>
-                  <button
-                    className="match-btn loss-btn"
-                    onClick={() => handleWin("B")}
-                    disabled={actionLoading}
-                  >
-                    Team B Wins
-                  </button>
-                  <button
-                    className="cancel-cross"
-                    onClick={() => setShowWinButtons(false)}
-                  >
-                    ❌
-                  </button>
-                </div>
-              )}
 
-              {!showWinButtons && (
-                <>
-                  <button
-                    className="reset-btn"
-                    onClick={handleResetLatestScore}
-                    disabled={!lastWinner || actionLoading}
-                  >
-                    Revert Last Result
-                  </button>
-                  <button
-                    className="end-btn"
-                    onClick={handleEndSeries}
-                    disabled={actionLoading}
-                  >
-                    End-Series
-                  </button>
-                  <button
-                    className="reset-btn"
-                    onClick={handleRevertLastMatch}
-                    disabled={!lastWinner || actionLoading}
-                  >
-                    Revert Last Result ScoreCard
-                  </button>
-                  <div className="scorecard-upload-container">
-                    {!showUploadOptions ? (
-                      <button onClick={() => setShowUploadOptions(true)} className="main-upload-btn">
-                        Upload Scorecard
-                      </button>
-                    ) : (
-                      <div className="scorecard-display-upload">
-                        <input
-                          type="file"
-                          accept="application/pdf"
-                          ref={fileInputRef}
-                          onChange={(e) => setFile(e.target.files[0])}
-                          disabled={uploading}
-                        />
-                        <button onClick={handleUpload} disabled={uploading || !file}>
-                          {uploading ? (
-                            <>
-                              <span className="score-spinner"></span>
-                              <p>Validating and Uploading</p>
-                            </>
-                          ) : (
-                            'Upload PDF'
-                          )}
-                        </button>
-                        <button
-                          onClick={() => {
-                            setShowUploadOptions(false);
-                            setFile(null);
-                          }}
-                          className="cancel-btn"
-                        >
-                          Cancel
-                        </button>
-                        {/* You can add a "Submit" button here as needed */}
-                      </div>
-                    )}
+                {showWinButtons && (
+                  <div className="win-btns-container">
+                    <button
+                      className="match-btn win-btn"
+                      onClick={() => handleWin("A")}
+                      disabled={actionLoading}
+                    >
+                      Team A Wins
+                    </button>
+                    <button
+                      className="match-btn loss-btn"
+                      onClick={() => handleWin("B")}
+                      disabled={actionLoading}
+                    >
+                      Team B Wins
+                    </button>
+                    <button
+                      className="reset-btn"
+                      onClick={handleResetLatestScore}
+                      disabled={!lastWinner || actionLoading}
+                    >
+                      Revert Last Result
+                    </button>
+                    <button
+                      className="cancel-cross"
+                      onClick={() => setShowWinButtons(false)}
+                    >
+                      ❌
+                    </button>
                   </div>
-                </>
-              )}
+                )}
+              </div>
+
+              {/* Update Points With Scorecard */}
+              <div>
+                <button
+                  className="update-score-btn"
+                  onClick={() => setShowUploadOptions(!showUploadOptions)}
+                  disabled={loading || actionLoading}
+                >
+                  Update points with scorecard
+                </button>
+
+                {showUploadOptions && (
+                  <div className="scorecard-display-upload">
+                    <button
+                      className="reset-btn"
+                      onClick={handleRevertLastMatch}
+                      disabled={!lastWinner || actionLoading}
+                    >
+                      Revert Last Result Scorecard
+                    </button>
+
+                    <input
+                      type="file"
+                      accept="application/pdf"
+                      ref={fileInputRef}
+                      onChange={(e) => setFile(e.target.files[0])}
+                      disabled={uploading}
+                    />
+                    <button onClick={handleUpload} disabled={uploading || !file}>
+                      {uploading ? (
+                        <>
+                          <span className="score-spinner"></span>
+                          <p>Validating and Uploading</p>
+                        </>
+                      ) : (
+                        'Upload PDF'
+                      )}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setShowUploadOptions(false);
+                        setFile(null);
+                      }}
+                      className="cancel-btn"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* End Series Button */}
+              <div>
+                <button
+                  className="end-btn"
+                  onClick={handleEndSeries}
+                  disabled={actionLoading}
+                >
+                  End-Series
+                </button>
+              </div>
             </div>
           )}
+
         </div>
       )}
 

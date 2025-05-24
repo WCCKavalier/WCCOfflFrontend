@@ -250,6 +250,12 @@
   .summary-section {
     margin-top: 10px;
   }
+
+  .dismissal-info {
+    color: #9ca3af; /* Tailwind’s gray-400 */
+    font-size: 14px;
+    font-style: italic;
+  }
   
   /* @media screen and (max-width: 800px) {
     .innings-container {

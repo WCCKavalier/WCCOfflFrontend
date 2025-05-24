@@ -1,0 +1,354 @@
+[
+    {
+        "_id": {
+            "$oid": "68130d667593d71112b7c032"
+        },
+        "matchInfo": {
+            "teams": [
+                "TEAM JAYANTH",
+                "TEAM SRIDHAR"
+            ],
+            "date": "12Apr2025",
+            "venue": "Nidhi",
+            "format": "ClubCricket",
+            "toss": "TEAMJAYANTH2025OptedToBat",
+            "result": "TEAMJAYANTH2025wonby14runs",
+            "playerOfMatch": "-"
+        },
+        "innings": [
+            {
+                "team": "TEAM JAYANTH",
+                "total": "22/1",
+                "overs": "2.0",
+                "runRate": "11.0",
+                "extras": "(LB1|WD1)2",
+                "batsmen": [
+                    {
+                        "name": "Sivaram",
+                        "runs": 11,
+                        "balls": 5,
+                        "fours": 1,
+                        "sixes": 1,
+                        "sr": 220,
+                        "outDesc": "notout",
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c034"
+                        }
+                    },
+                    {
+                        "name": "Anand",
+                        "runs": 2,
+                        "balls": 3,
+                        "fours": 0,
+                        "sixes": 0,
+                        "sr": 66.7,
+                        "outDesc": "bGucci",
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c035"
+                        }
+                    },
+                    {
+                        "name": "Aravind",
+                        "runs": 7,
+                        "balls": 4,
+                        "fours": 0,
+                        "sixes": 1,
+                        "sr": 175,
+                        "outDesc": "notout",
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c036"
+                        }
+                    }
+                ],
+                "bowlers": [
+                    {
+                        "name": "CFO",
+                        "overs": 1,
+                        "maidens": 0,
+                        "runs": 13,
+                        "wickets": 0,
+                        "eco": 13,
+                        "dots": 2,
+                        "fours": 1,
+                        "sixes": 1,
+                        "wd": 0,
+                        "nb": 0,
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c037"
+                        }
+                    },
+                    {
+                        "name": "Gucci",
+                        "overs": 1,
+                        "maidens": 0,
+                        "runs": 8,
+                        "wickets": 1,
+                        "eco": 8,
+                        "dots": 4,
+                        "fours": 0,
+                        "sixes": 1,
+                        "wd": 1,
+                        "nb": 0,
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c038"
+                        }
+                    }
+                ],
+                "fallOfWickets": [
+                    "4-1(Anand,1.1)"
+                ],
+                "_id": {
+                    "$oid": "68130d667593d71112b7c033"
+                }
+            },
+            {
+                "team": "TEAM SRIDHAR",
+                "total": "8/0",
+                "overs": "2.0",
+                "runRate": "4.0",
+                "extras": "(WD1)1",
+                "batsmen": [
+                    {
+                        "name": "Viv",
+                        "runs": 3,
+                        "balls": 7,
+                        "fours": 0,
+                        "sixes": 0,
+                        "sr": 42.9,
+                        "outDesc": "notout",
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c03a"
+                        }
+                    },
+                    {
+                        "name": "Dinesh",
+                        "runs": 4,
+                        "balls": 5,
+                        "fours": 0,
+                        "sixes": 0,
+                        "sr": 80,
+                        "outDesc": "notout",
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c03b"
+                        }
+                    }
+                ],
+                "bowlers": [
+                    {
+                        "name": "Danny",
+                        "overs": 1,
+                        "maidens": 0,
+                        "runs": 7,
+                        "wickets": 0,
+                        "eco": 7,
+                        "dots": 3,
+                        "fours": 0,
+                        "sixes": 0,
+                        "wd": 1,
+                        "nb": 0,
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c03c"
+                        }
+                    },
+                    {
+                        "name": "Adhavan",
+                        "overs": 1,
+                        "maidens": 0,
+                        "runs": 1,
+                        "wickets": 0,
+                        "eco": 1,
+                        "dots": 5,
+                        "fours": 0,
+                        "sixes": 0,
+                        "wd": 0,
+                        "nb": 0,
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c03d"
+                        }
+                    }
+                ],
+                "fallOfWickets": [],
+                "_id": {
+                    "$oid": "68130d667593d71112b7c039"
+                }
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "68130d667593d71112b7c032"
+        },
+        "matchInfo": {
+            "teams": [
+                "TEAM JAYANTH",
+                "TEAM SRIDHAR"
+            ],
+            "date": "12Apr2025",
+            "venue": "Nidhi",
+            "format": "ClubCricket",
+            "toss": "TEAMJAYANTH2025OptedToBat",
+            "result": "TEAMJAYANTH2025wonby14runs",
+            "playerOfMatch": "-"
+        },
+        "innings": [
+            {
+                "team": "TEAM JAYANTH",
+                "total": "22/1",
+                "overs": "2.0",
+                "runRate": "11.0",
+                "extras": "(LB1|WD1)2",
+                "batsmen": [
+                    {
+                        "name": "Sivaram",
+                        "runs": 11,
+                        "balls": 5,
+                        "fours": 1,
+                        "sixes": 1,
+                        "sr": 220,
+                        "outDesc": "notout",
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c034"
+                        }
+                    },
+                    {
+                        "name": "Anand",
+                        "runs": 2,
+                        "balls": 3,
+                        "fours": 0,
+                        "sixes": 0,
+                        "sr": 66.7,
+                        "outDesc": "bGucci",
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c035"
+                        }
+                    },
+                    {
+                        "name": "Aravind",
+                        "runs": 7,
+                        "balls": 4,
+                        "fours": 0,
+                        "sixes": 1,
+                        "sr": 175,
+                        "outDesc": "notout",
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c036"
+                        }
+                    }
+                ],
+                "bowlers": [
+                    {
+                        "name": "CFO",
+                        "overs": 1,
+                        "maidens": 0,
+                        "runs": 13,
+                        "wickets": 0,
+                        "eco": 13,
+                        "dots": 2,
+                        "fours": 1,
+                        "sixes": 1,
+                        "wd": 0,
+                        "nb": 0,
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c037"
+                        }
+                    },
+                    {
+                        "name": "Gucci",
+                        "overs": 1,
+                        "maidens": 0,
+                        "runs": 8,
+                        "wickets": 1,
+                        "eco": 8,
+                        "dots": 4,
+                        "fours": 0,
+                        "sixes": 1,
+                        "wd": 1,
+                        "nb": 0,
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c038"
+                        }
+                    }
+                ],
+                "fallOfWickets": [
+                    "4-1(Anand,1.1)"
+                ],
+                "_id": {
+                    "$oid": "68130d667593d71112b7c033"
+                }
+            },
+            {
+                "team": "TEAM SRIDHAR",
+                "total": "8/0",
+                "overs": "2.0",
+                "runRate": "4.0",
+                "extras": "(WD1)1",
+                "batsmen": [
+                    {
+                        "name": "Viv",
+                        "runs": 3,
+                        "balls": 7,
+                        "fours": 0,
+                        "sixes": 0,
+                        "sr": 42.9,
+                        "outDesc": "notout",
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c03a"
+                        }
+                    },
+                    {
+                        "name": "Dinesh",
+                        "runs": 4,
+                        "balls": 5,
+                        "fours": 0,
+                        "sixes": 0,
+                        "sr": 80,
+                        "outDesc": "notout",
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c03b"
+                        }
+                    }
+                ],
+                "bowlers": [
+                    {
+                        "name": "Danny",
+                        "overs": 1,
+                        "maidens": 0,
+                        "runs": 7,
+                        "wickets": 0,
+                        "eco": 7,
+                        "dots": 3,
+                        "fours": 0,
+                        "sixes": 0,
+                        "wd": 1,
+                        "nb": 0,
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c03c"
+                        }
+                    },
+                    {
+                        "name": "Adhavan",
+                        "overs": 1,
+                        "maidens": 0,
+                        "runs": 1,
+                        "wickets": 0,
+                        "eco": 1,
+                        "dots": 5,
+                        "fours": 0,
+                        "sixes": 0,
+                        "wd": 0,
+                        "nb": 0,
+                        "_id": {
+                            "$oid": "68130d667593d71112b7c03d"
+                        }
+                    }
+                ],
+                "fallOfWickets": [],
+                "_id": {
+                    "$oid": "68130d667593d71112b7c039"
+                }
+            }
+        ],
+        "__v": 0
+    }
+]
