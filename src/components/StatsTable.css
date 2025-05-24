@@ -1,7 +1,7 @@
 /* src/components/StatsTable.css */
 
 /* This container wraps the MaterialReactTable */
-.stats-table-container {
+/* .stats-table-container { */
   /* Inherit padding, max-width, margin from .stats-page-container or parent for consistency */
   /* Remove conflicting styles if already defined globally or by MRT */
   /*
@@ -10,7 +10,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   */
-}
+/* } */
 
 /* Style for the clickable player name link */
 /* This is important as it's defined within the component's CSS for direct control */
