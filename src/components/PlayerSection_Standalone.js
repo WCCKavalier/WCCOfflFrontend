@@ -9,6 +9,7 @@ function PlayerSection({ players }) {
   const [playerStats, setPlayerStats] = useState([]);
 
   useEffect(() => {
+    // Set the first player as selected by default if players array is not empty
     if (players.length > 0 && !selectedPlayer) {
       setSelectedPlayer(players[0]);
     }
@@ -77,14 +78,32 @@ function PlayerSection({ players }) {
               {matchedStats ? (
                 <div className="player-stats-summary">
                   <h3>Batting Stats</h3>
-                  <p><strong>Matches:</strong> {matchedStats.batting.matches}</p>
-                  <p><strong>Runs:</strong> {matchedStats.batting.runs}</p>
-                  <p><strong>Strike Rate:</strong> {matchedStats.batting.strikeRate}</p>
+                  <div className="stat-row"> {/* New wrapper for batting stats */}
+                    <div className="stat-item-pair">
+                      <strong>Matches:</strong> <span>{matchedStats.batting.matches}</span>
+                    </div>
+                    <div className="stat-item-pair">
+                      <strong>Runs:</strong> <span>{matchedStats.batting.runs}</span>
+                    </div>
+                    <div className="stat-item-pair">
+                      <strong>Strike Rate:</strong> <span>{matchedStats.batting.strikeRate}</span>
+                    </div>
+                    {/* Add more batting stats here if needed */}
+                  </div>
 
                   <h3>Bowling Stats</h3>
-                  <p><strong>Matches:</strong> {matchedStats.bowling.matches}</p>
-                  <p><strong>Wickets:</strong> {matchedStats.bowling.wickets}</p>
-                  <p><strong>Economy:</strong> {matchedStats.bowling.economy}</p>
+                  <div className="stat-row"> {/* New wrapper for bowling stats */}
+                    <div className="stat-item-pair">
+                      <strong>Matches:</strong> <span>{matchedStats.bowling.matches}</span>
+                    </div>
+                    <div className="stat-item-pair">
+                      <strong>Wickets:</strong> <span>{matchedStats.bowling.wickets}</span>
+                    </div>
+                    <div className="stat-item-pair">
+                      <strong>Economy:</strong> <span>{matchedStats.bowling.economy}</span>
+                    </div>
+                    {/* Add more bowling stats here if needed */}
+                  </div>
 
                   <div className="detailed-stats-link">
                     {/* Updated Link to include player name */}

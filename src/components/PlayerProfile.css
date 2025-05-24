@@ -1,100 +1,395 @@
-/* components/PlayerProfile.css */
+/* PlayerProfile.css */
 
+/* Base Container */
 .player-profile-container {
-  max-width: 900px; /* Slightly wider for more content */
-  margin: 25px auto; /* Centered with a bit more vertical margin */
-  padding: 30px; /* More generous padding */
-  background-color: #2c2c2c; /* Dark grey background for the profile card */
-  border-radius: 12px; /* Soft rounded corners */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); /* Stronger, darker shadow */
-  border: 1px solid #444; /* Subtle border for definition */
-  color: #e0e0e0; /* Light grey text for readability */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font */
+    max-width: 1000px; /* Wider for more content */
+    margin: 40px auto; /* More vertical margin */
+    padding: 40px; /* Generous padding */
+    background-color: #2c2c2c; /* Dark grey background */
+    border-radius: 20px; /* More pronounced rounded corners */
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6); /* Deeper, more dramatic shadow */
+    border: 1px solid #4f4f4f; /* Subtle, defined border */
+    color: #e0e0e0; /* Light grey text */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font */
+    position: relative; /* For potential absolute elements or pseudo-elements */
+    overflow: hidden; /* Ensure rounded corners clip content */
+    animation: fadeInScale 0.8s ease-out forwards; /* Entry animation */
 }
 
+/* Fallback/Error Container */
+.player-profile-container.fallback {
+    text-align: center;
+    padding: 60px 40px;
+}
+
+/* Back Button */
 .back-button {
-  background-color: #FFD700; /* Gold button background */
-  color: #1a1a1a; /* Dark text on gold */
-  border: none;
-  padding: 12px 25px; /* Larger padding for better touch targets */
-  border-radius: 30px; /* Pill-shaped button */
-  cursor: pointer;
-  margin-bottom: 30px; /* More space below the button */
-  font-size: 1em; /* Standard font size */
-  font-weight: 600; /* Bolder text */
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-  display: inline-block;
+    background-color: #FFD700; /* Gold button background */
+    color: #1a1a1a; /* Dark text on gold */
+    border: none;
+    padding: 14px 30px; /* Larger padding for better touch targets */
+    border-radius: 35px; /* More pill-shaped button */
+    cursor: pointer;
+    margin-bottom: 40px; /* More space below the button */
+    font-size: 1.1em; /* Standard font size */
+    font-weight: 700; /* Bolder text */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+    display: inline-block; /* Allow other elements next to it, if any */
+    letter-spacing: 0.5px;
 }
 
 .back-button:hover {
-  background-color: #FFEA00; /* Brighter gold on hover */
-  transform: translateY(-2px); /* Slight lift effect */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    background-color: #FFEA00; /* Brighter gold on hover */
+    transform: translateY(-3px) scale(1.02); /* More noticeable lift effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Profile Header */
+.profile-header {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
 }
 
 .profile-title {
-  text-align: center;
-  color: #FFD700; /* Gold color for the player's name */
-  margin-bottom: 35px; /* More space below title */
-  font-size: 2.5em; /* Larger title */
-  font-weight: 700; /* Bolder */
-  letter-spacing: 1.5px; /* Spacing for premium feel */
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3); /* Soft gold glow */
+    color: #FFD700; /* Gold for the player's name */
+    font-size: 3.2em; /* Much larger title */
+    font-weight: 800; /* Extra bold */
+    letter-spacing: 2px; /* Spacing for premium feel */
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.3); /* Stronger gold glow */
+    margin-top: 0;
+    margin-bottom: 10px; /* Closer to subtitle */
 }
 
+.profile-subtitle {
+    color: #b0b0b0; /* Softer grey for subtitle */
+    font-size: 1.2em;
+    font-style: italic;
+    margin-top: 0;
+}
+
+/* Profile Sections */
 .profile-section {
-  margin-bottom: 30px; /* Consistent spacing between sections */
-  border: 1px solid #3a3a3a; /* Darker grey border for sections */
-  border-radius: 10px; /* Rounded corners for sections */
-  padding: 20px; /* Padding inside sections */
-  background-color: #222222; /* Slightly darker background for sections */
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
+    margin-bottom: 35px; /* Consistent spacing between sections */
+    border: 1px solid #3a3a3a; /* Darker grey border for sections */
+    border-radius: 15px; /* More rounded corners for sections */
+    padding: 25px 30px; /* More padding inside sections */
+    background: linear-gradient(145deg, #2a2a2a, #353535); /* Subtle gradient for depth */
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3), 0 5px 20px rgba(0, 0, 0, 0.4); /* Inner and outer shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover transition */
+}
+
+.profile-section:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .profile-section:last-child {
-  margin-bottom: 0; /* No bottom margin for the last section */
+    margin-bottom: 0; /* No bottom margin for the last section */
 }
 
-.profile-section h3 {
-  color: #FFD700; /* Gold color for section headings */
-  margin-bottom: 20px; /* More space below heading */
-  border-bottom: 2px solid #555; /* Subtle grey line below heading */
-  padding-bottom: 10px;
-  font-size: 1.6em; /* Larger heading font */
-  font-weight: 600; /* Bolder heading */
-  letter-spacing: 0.5px;
+.profile-section .section-title {
+    color: #FFD700; /* Gold for section headings */
+    margin-bottom: 25px; /* More space below heading */
+    border-bottom: 2px solid #555; /* Subtle grey line below heading */
+    padding-bottom: 12px;
+    font-size: 2em; /* Larger heading font */
+    font-weight: 700; /* Bolder heading */
+    letter-spacing: 0.8px;
+    text-align: center; /* Center section titles */
 }
 
+/* Base Stat Grid Styles (for PC/Larger Screens) */
 .stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted min-width for stats */
-  gap: 15px 30px; /* More generous gap */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Flexible columns, min 180px */
+    gap: 25px; /* Generous gap between stat items */
 }
 
-.stat-grid p {
-  margin: 0;
-  padding: 5px 0;
-  font-size: 1.05em; /* Slightly larger font for stats */
-  color: #e0e0e0; /* Light grey text for stat values */
-  line-height: 1.5;
+/* Key Stats Grid (for PC/Larger Screens) */
+/* On PC, key-stats-grid behaves like a regular stat-grid, just with fewer items */
+.key-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+    margin-bottom: 25px; /* Default margin for PC */
 }
 
-.stat-grid p strong {
-  color: #FFD700; /* Gold color for stat labels */
-  min-width: 120px; /* Helps align values */
-  display: inline-block;
-  font-weight: 600; /* Bolder labels */
+/* full-stat-grid-wrapper is not needed on PC as items are in grid */
+.full-stat-grid-wrapper {
+    overflow-x: visible; /* Ensure no horizontal scroll on PC */
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.full-stat-grid { /* On PC, behaves like a normal stat-grid */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
 }
 
+
+.profile-stat-item {
+    background-color: #3e3e3e; /* Slightly lighter background for each stat item */
+    border-radius: 10px;
+    padding: 20px; /* More padding inside stat items */
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for each item */
+    border: 1px solid #555; /* Subtle border */
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.profile-stat-item:hover {
+    transform: translateY(-3px); /* Lift on hover */
+    background-color: #4a4a4a; /* Slightly lighter on hover */
+}
+
+.profile-stat-item .stat-label {
+    display: block;
+    font-size: 0.9em; /* Smaller label, less prominent */
+    color: #b0b0b0; /* Softer grey for labels */
+    margin-bottom: 8px; /* Space between label and value */
+    font-weight: 500;
+    text-transform: uppercase; /* Uppercase labels */
+    letter-spacing: 0.5px;
+}
+
+.profile-stat-item .stat-value {
+    display: block;
+    font-size: 2.2em; /* Large, prominent stat values */
+    color: #FFEA00; /* Bright gold for values */
+    font-weight: 800; /* Extra bold values */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4); /* Soft glow for values */
+    line-height: 1; /* Tight line height for numbers */
+}
+
+/* Specific styling for the career details section (not a grid) */
+.stat-list p {
+    margin: 10px 0;
+    font-size: 1.1em;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.stat-list p strong {
+    color: #FFD700; /* Gold for main labels */
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.stat-list p .detail-value {
+    color: #e0e0e0;
+}
+
+/* No Player Found Message */
 .no-player-found {
-  text-align: center;
-  padding: 25px;
-  color: #FFD700; /* Gold warning text */
-  font-weight: bold;
-  background-color: #3a3a3a; /* Dark grey background for warning */
-  border: 1px solid #FFD700; /* Gold border for warning */
-  border-radius: 8px;
-  font-size: 1.1em;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); /* Subtle gold glow for warning */
+    text-align: center;
+    padding: 30px;
+    color: #FFD700; /* Gold warning text */
+    font-weight: bold;
+    background-color: #3a3a3a; /* Dark grey background for warning */
+    border: 1px solid #FFD700; /* Gold border for warning */
+    border-radius: 10px;
+    font-size: 1.2em;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); /* More prominent gold glow for warning */
+    margin-top: 30px; /* Space below button */
+}
+
+/* Animations */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* --- Mobile Responsiveness (2 Data per Row & Condensed) --- */
+
+@media (max-width: 1024px) {
+    .player-profile-container {
+        padding: 30px;
+        margin: 30px auto;
+        border-radius: 15px;
+    }
+
+    .back-button {
+        padding: 12px 25px;
+        font-size: 1em;
+        ;
+    }
+
+    .profile-title {
+        font-size: 2.8em;
+    }
+
+    .profile-subtitle {
+        font-size: 1.1em;
+    }
+
+    .profile-section {
+        padding: 20px 25px;
+        border-radius: 12px;
+    }
+
+    .profile-section .section-title {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    /* All stat grids now default to 2 columns on tablets/larger phones */
+    .stat-grid,
+    .key-stats-grid,
+    .full-stat-grid {
+        grid-template-columns: repeat(2, 1fr); /* Exactly 2 columns */
+        gap: 15px; /* Reduced gap */
+    }
+
+    .profile-stat-item {
+        padding: 15px; /* Reduced padding */
+    }
+
+    .profile-stat-item .stat-value {
+        font-size: 1.8em; /* Slightly smaller values */
+    }
+
+    .profile-stat-item .stat-label {
+        font-size: 0.8em; /* Slightly smaller labels */
+    }
+
+    .stat-list p {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 768px) {
+    .player-profile-container {
+        padding: 20px;
+        margin: 20px auto;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .back-button {
+        padding: 10px 20px;
+        font-size: 0.9em;
+        margin-bottom: 25px;
+    }
+
+    .profile-title {
+        font-size: 2em;
+        letter-spacing: 1.2px;
+    }
+
+    .profile-subtitle {
+        font-size: 0.9em;
+    }
+
+    .profile-section {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .profile-section .section-title {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+
+    /* Force all stat grids to 2 columns */
+    .stat-grid,
+    .key-stats-grid,
+    .full-stat-grid {
+        grid-template-columns: repeat(2, 1fr); /* Exactly 2 columns, equal width */
+        gap: 10px; /* Reduced gap between items */
+    }
+
+    .profile-stat-item {
+        padding: 12px; /* Reduced padding for mobile */
+    }
+
+    .profile-stat-item .stat-label {
+        font-size: 0.75em; /* Smaller label font for mobile */
+        margin-bottom: 5px;
+    }
+
+    .profile-stat-item .stat-value {
+        font-size: 1.5em; /* Smaller value font for mobile */
+    }
+
+    .stat-list p {
+        font-size: 0.9em;
+        margin: 8px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .player-profile-container {
+        padding: 10px;
+        margin: 10px auto;
+        border-radius: 5px;
+    }
+
+    .back-button {
+        padding: 6px 12px;
+        font-size: 0.8em;
+        margin-bottom: 20px;
+    }
+
+    .profile-title {
+        font-size: 1.6em;
+        letter-spacing: 0.8px;
+        margin-bottom: 5px;
+    }
+
+    .profile-subtitle {
+        font-size: 0.8em;
+        margin-bottom: 20px;
+    }
+
+    .profile-section {
+        margin-bottom: 15px;
+        padding: 10px;
+    }
+
+    .profile-section .section-title {
+        font-size: 1.3em;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+    }
+
+    /* For very small screens, let's keep 2 columns but make everything tighter */
+    .stat-grid,
+    .key-stats-grid,
+    .full-stat-grid {
+        grid-template-columns: repeat(2, 1fr); /* Still 2 columns */
+        gap: 8px; /* Very small gap */
+    }
+
+    .profile-stat-item {
+        padding: 8px; /* Minimal padding */
+    }
+
+    .profile-stat-item .stat-label {
+        font-size: 0.65em; /* Smallest label font */
+        margin-bottom: 3px;
+    }
+
+    .profile-stat-item .stat-value {
+        font-size: 1.2em; /* Smallest value font */
+    }
+
+    .stat-list p {
+        font-size: 0.8em;
+        margin: 5px 0;
+    }
+
+    .no-player-found {
+        padding: 15px;
+        font-size: 0.9em;
+    }
 }

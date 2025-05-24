@@ -1,25 +1,19 @@
 /* src/components/StatsTable.css */
 
 /* This container wraps the MaterialReactTable */
-/* .stats-table-container { */
-  /* Inherit padding, max-width, margin from .stats-page-container or parent for consistency */
+.stats-table-container {
+  /* No specific styles needed here, as MRT handles its own layout */
   /* Remove conflicting styles if already defined globally or by MRT */
-  /*
-  margin: 20px;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  */
-/* } */
+}
 
 /* Style for the clickable player name link */
-/* This is important as it's defined within the component's CSS for direct control */
 .player-name-link {
   cursor: pointer;
   color: #FFD700; /* Gold color for player names */
   text-decoration: none; /* No underline by default for a cleaner look */
   font-weight: 700; /* Bolder name */
   transition: color 0.2s ease, text-decoration 0.2s ease;
+  font-size: 0.95rem; /* Increased font size for player names */
 }
 
 .player-name-link:hover {
@@ -27,18 +21,13 @@
   text-decoration: underline; /* Underline on hover for interactivity */
 }
 
-/* Material-React-Table's internal elements will largely be styled by the comprehensive
-   overrides in your main StatsPage.css or a global stylesheet.
-   You should generally avoid duplicating styles here unless absolutely necessary
-   for specificity reasons, or for styles truly unique to this component's wrapper. */
+/* Material-React-Table / Material UI Overrides for Dark Theme Visibility */
 
-   /* Add these styles to your StatsPage.css or global CSS file */
-
-/* --- Material-React-Table / Material UI Overrides for Dark Theme Visibility --- */
-
-/* Text color for headers (already somewhat covered, but ensure it's light/gold) */
+/* Text color for headers */
 .MuiTableHead-root .MuiTableCell-head {
   color: #FFD700 !important; /* Ensure header text is gold */
+  background-color: #000000 !important; /* Ensure header background is black */
+  white-space: nowrap; /* Prevent wrapping of header text */
 }
 
 /* Icons within table headers (e.g., sort arrows, filter icons) */
@@ -49,6 +38,7 @@
 /* Pagination text and icons */
 .MuiTablePagination-root {
   color: #e0e0e0 !important; /* Light grey for pagination text */
+  background-color: #000000 !important; /* Ensure pagination background is black */
 }
 
 .MuiTablePagination-root .MuiSvgIcon-root {
@@ -60,8 +50,6 @@
 }
 
 /* Global search input (if enabled and present) */
-/* The input itself might be styled by your .filter-label input styles,
-   but this specifically targets the text and placeholder. */
 .MuiInputBase-root {
   color: #FFD700 !important; /* Gold text in inputs */
 }
@@ -77,7 +65,7 @@
 }
 
 .MuiMenuItem-root {
-  color: #000000 !important; /* Light grey text for menu items */
+  color: #e0e0e0 !important; /* Light grey text for menu items */
 }
 
 .MuiMenuItem-root:hover {
@@ -112,4 +100,39 @@
 /* General button icon color (if any other buttons with icons appear) */
 .MuiButtonBase-root .MuiSvgIcon-root {
   color: #FFD700 !important;
+}
+
+/* Ensure the main table background is black */
+.MuiBox-root,
+.MuiTableContainer-root,
+.MuiTable-root {
+  background-color: #000000 !important;
+  color: #e0e0e0; /* Ensure text within the table is light grey */
+}
+
+/* Table body cells */
+.MuiTableCell-body {
+  background-color: #000000 !important; /* Dark background for table body cells */
+  color: #e0e0e0 !important; /* Light grey text for body cells */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+}
+
+/* Reduce padding and font size for all cells on small screens */
+@media (max-width: 600px) { /* Adjust breakpoint as needed for 'sm' */
+  .MuiTableCell-root {
+    padding: 6px 4px !important; /* Smaller padding for all cells */
+    font-size: 0.7rem !important; /* Smaller font size for all cells */
+  }
+
+  /* Specific adjustments for header cells on small screens */
+  .MuiTableHead-root .MuiTableCell-head {
+    font-size: 0.75rem !important; /* Slightly larger font for headers */
+  }
+
+  /* Keep player name larger on small screens too */
+  .player-name-link {
+    font-size: 0.9rem !important; /* Slightly smaller than desktop, but still larger than other text */
+  }
 }

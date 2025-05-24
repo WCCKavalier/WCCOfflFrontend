@@ -171,7 +171,6 @@ export function processMatchData(matches) {
     const bestBowlingStr = player.bowling.bestBowlingInnings.wickets > 0
       ? `${player.bowling.bestBowlingInnings.wickets}/${player.bowling.bestBowlingInnings.runs}`
       : '-';
-console.log("Matches Played: ", player.matchesPlayed);
     return {
       name: player.name,
       matchesPlayed: player.matchesPlayed, // Use the new overall match count
