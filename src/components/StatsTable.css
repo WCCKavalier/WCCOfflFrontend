@@ -136,3 +136,21 @@
     font-size: 0.9rem !important; /* Slightly smaller than desktop, but still larger than other text */
   }
 }
+.MuiMenu-list {
+  background-color: black !important; /* Ensure menu background is black */
+}
+
+.PrivateSwitchBase-input .MuiSwitch-input {
+  color: gold !important; /* Gold color for switch inputs */
+  background-color: gold !important; /* Gold background for switch inputs */
+}
+
+
+.MuiButtonBase-root {
+  color: gold !important; /* Gold color for button text */
+}
+/* MuiButton-root MuiButton-text MuiButton-textPrimary 
+MuiButton-sizeMedium MuiButton-textSizeMedium 
+MuiButton-colorPrimary MuiButton-root MuiButton-text 
+MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium
+MuiButton-colorPrimary css-1uent87-MuiButtonBase-root-MuiButton-root */
