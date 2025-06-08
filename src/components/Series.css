@@ -592,11 +592,12 @@ button:disabled {
   transition: all 0.2s ease;
   border: none;
   text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
 .update-score-btn {
-  background-color: var(--gold);
-  color: var(--dark-bg);
+  background-color: rgb(34, 23, 3);
+  color: wheat
 }
 
 .reset-btn {
