@@ -41,13 +41,13 @@ export const StatsTable = ({ data, view, onPlayerClick }) => {
     if (view === 'batting') {
       // For batting, show essential columns on mobile, others can be hidden or in a detail panel
       const battingColumns = [
-        { accessorKey: 'battingInnings', header: 'Innings', size: 80, enableHiding: true, },
+        { accessorKey: 'battingInnings', header: 'Innings', size: 80, enableHiding: false, },
         { accessorKey: 'runs', header: 'Runs', size: 70 },
         { accessorKey: 'average', header: 'Avg', size: 70 },
         { accessorKey: 'strikeRate', header: 'SR', size: 70 },
         // These columns can be hidden on small screens by default or moved to a detail panel
-        { accessorKey: 'highScore', header: 'HS', size: 70, enableHiding: true, },
-        { accessorKey: 'notOuts', header: 'NO', size: 60, enableHiding: true, },
+        { accessorKey: 'highScore', header: 'HS', size: 70, enableHiding: false, },
+        { accessorKey: 'notOuts', header: 'NO', size: 60, enableHiding: false, },
 
       ].filter(column => !isSmallScreen || !column.enableHiding); // Filter out columns that are enabled for hiding on small screens
 
@@ -55,12 +55,12 @@ export const StatsTable = ({ data, view, onPlayerClick }) => {
 
     } else if (view === 'bowling') {
       const bowlingColumns = [
-        { accessorKey: 'overs', header: 'Overs', size: 70, enableHiding: true },
+        { accessorKey: 'overs', header: 'Overs', size: 70, enableHiding: false },
         { accessorKey: 'wickets', header: 'Wickets', size: 80 },
         { accessorKey: 'economy', header: 'Economy', size: 80 },
         { accessorKey: 'runsConceded', header: 'Runs', size: 70 },
         // Hide less critical columns on mobile
-        { accessorKey: 'bestBowling', header: 'Best', size: 80, enableHiding: true },
+        { accessorKey: 'bestBowling', header: 'Best', size: 80, enableHiding: false },
         { accessorKey: 'maidens', header: 'Maidens', size: 80, enableHiding: true },
 
         // { accessorKey: 'bowlingInnings', header: 'Matches Bowlt', size: 80, enableHiding: true },
@@ -134,12 +134,12 @@ export const StatsTable = ({ data, view, onPlayerClick }) => {
         initialState={{
           columnVisibility: {
             // Initially hide some columns on small screens
-            highScore: !isSmallScreen,
+            // highScore: !isSmallScreen,
             notOuts: !isSmallScreen,
-            battingInnings: !isSmallScreen,
-            bestBowling: !isSmallScreen,
+            // battingInnings: !isSmallScreen,
+            // bestBowling: !isSmallScreen,
             maidens: !isSmallScreen,
-            overs: !isSmallScreen,
+            // overs: !isSmallScreen,
             bowlingInnings: !isSmallScreen,
           },
           density: 'compact', // Start with compact density on mobile
@@ -147,9 +147,9 @@ export const StatsTable = ({ data, view, onPlayerClick }) => {
         state={{
           columnVisibility: {
             // Dynamic visibility based on screen size
-            highScore: !isSmallScreen,
+            // highScore: !isSmallScreen,
             notOuts: !isSmallScreen,
-            battingInnings: !isSmallScreen,
+            // battingInnings: !isSmallScreen,
             bestBowling: !isSmallScreen,
             maidens: !isSmallScreen,
             overs: !isSmallScreen,

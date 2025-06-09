@@ -150,15 +150,15 @@ export const StatsPage = () => {
     switch (currentView) {
       case 'batting':
         specificColumns = [
-          { accessorKey: 'runs', header: 'Runs', size: isMobile ? 60 : 100, enableColumnFilter: false }, // Reduced width
-          { accessorKey: 'highScore', header: 'HS', size: isMobile ? 50 : 90, enableColumnFilter: false }, // Reduced width
-          { accessorKey: 'average', header: 'Avg', size: isMobile ? 60 : 100, enableColumnFilter: false }, // Reduced width
-          { accessorKey: 'strikeRate', header: 'SR', size: isMobile ? 60 : 100, enableColumnFilter: false }, // Reduced width
-          { accessorKey: 'notOuts', header: 'NO', size: isMobile ? 40 : 80, enableColumnFilter: false, enableHiding: true }, // Reduced, can be hidden
-          { accessorKey: 'fours', header: '4s', size: isMobile ? 40 : 80, enableColumnFilter: false, enableHiding: true }, // Reduced, can be hidden
-          { accessorKey: 'sixes', header: '6s', size: isMobile ? 40 : 80, enableColumnFilter: false, enableHiding: true }, // Reduced, can be hidden
-          { accessorKey: 'hundreds', header: '100s', size: isMobile ? 50 : 90, enableColumnFilter: false, enableHiding: true }, // Reduced, can be hidden
-          { accessorKey: 'fifties', header: '50s', size: isMobile ? 40 : 80, enableColumnFilter: false, enableHiding: true }, // Reduced, can be hidden
+          { accessorKey: 'runs', header: 'Runs', size: isMobile ? 60 : 100, enableColumnFilter: true }, // Reduced width
+          { accessorKey: 'highScore', header: 'HS', size: isMobile ? 50 : 90, enableColumnFilter: true }, // Reduced width
+          { accessorKey: 'average', header: 'Avg', size: isMobile ? 60 : 100, enableColumnFilter: true }, // Reduced width
+          { accessorKey: 'strikeRate', header: 'SR', size: isMobile ? 60 : 100, enableColumnFilter: true }, // Reduced width
+          { accessorKey: 'notOuts', header: 'NO', size: isMobile ? 40 : 80, enableColumnFilter: false}, // Reduced, can be hidden
+          { accessorKey: 'fours', header: '4s', size: isMobile ? 40 : 80, enableColumnFilter: false }, // Reduced, can be hidden
+          { accessorKey: 'sixes', header: '6s', size: isMobile ? 40 : 80, enableColumnFilter: false }, // Reduced, can be hidden
+          // { accessorKey: 'hundreds', header: '100s', size: isMobile ? 50 : 90, enableColumnFilter: false, enableHiding: true }, // Reduced, can be hidden
+          // { accessorKey: 'fifties', header: '50s', size: isMobile ? 40 : 80, enableColumnFilter: false, enableHiding: true }, // Reduced, can be hidden
           // Add other batting specific columns
         ];
         break;
