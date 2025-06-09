@@ -70,10 +70,17 @@ function PlayerSection({ players }) {
               />
               <h2>{selectedPlayer.name || "Unknown Player"}</h2>
               <div className="player-meta">
-                <p><strong>DOB:</strong> {selectedPlayer.dob || "--"}</p>
-                <p><strong>Feared For:</strong> {selectedPlayer.fearedFor || "--"}</p>
+                <div className="meta-row">
+                  <strong>DOB:</strong>
+                  <span>{selectedPlayer.dob || "--"}</span>
+                </div>
+                <div className="meta-row">
+                  <strong>Feared For:</strong>
+                  <span>{selectedPlayer.fearedFor || "--"}</span>
+                </div>
                 <p className="player-description">{selectedPlayer.details || "No description available."}</p>
               </div>
+
 
               {matchedStats ? (
                 <div className="player-stats-summary">
