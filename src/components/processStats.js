@@ -66,7 +66,7 @@ export function processMatchData(matches) {
         player.batting.innings += 1;
         player.batting.runs += runs;
         player.batting.balls += balls;
-        if (outDesc && outDesc.toLowerCase() !== 'notout') {
+        if (outDesc && outDesc.toLowerCase() !== 'notout' || outDesc.toLowerCase() !== 'not out') {
           player.batting.outs += 1;
         } else {
           player.batting.notOuts += 1;
@@ -101,7 +101,8 @@ export function processMatchData(matches) {
 
 
           // Run-out parsing (assuming a format like "runout (Fielder Name)")
-          const runoutRegex = /runout\s*\(([^)]+)\)/i;
+          const runoutRegex = /run\s*out\s*\(([^)]+)\)/i;
+          // Adjusted regex to capture run out description
           const runoutMatch = lowerCaseOutDesc.match(runoutRegex);
 
           if (runoutMatch && runoutMatch[1]) {
