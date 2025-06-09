@@ -41,27 +41,29 @@ export const StatsTable = ({ data, view, onPlayerClick }) => {
     if (view === 'batting') {
       // For batting, show essential columns on mobile, others can be hidden or in a detail panel
       const battingColumns = [
+        { accessorKey: 'battingInnings', header: 'Innings', size: 80, enableHiding: true, },
         { accessorKey: 'runs', header: 'Runs', size: 70 },
         { accessorKey: 'average', header: 'Avg', size: 70 },
         { accessorKey: 'strikeRate', header: 'SR', size: 70 },
         // These columns can be hidden on small screens by default or moved to a detail panel
-        { accessorKey: 'highScore', header: 'HS', size: 70, enableHiding: true,  },
-        { accessorKey: 'notOuts', header: 'NO', size: 60, enableHiding: true,  },
-        { accessorKey: 'battingInnings', header: 'Innings', size: 80, enableHiding: true, },
+        { accessorKey: 'highScore', header: 'HS', size: 70, enableHiding: true, },
+        { accessorKey: 'notOuts', header: 'NO', size: 60, enableHiding: true, },
+
       ].filter(column => !isSmallScreen || !column.enableHiding); // Filter out columns that are enabled for hiding on small screens
 
       return [...mobileCoreColumns, ...battingColumns];
 
     } else if (view === 'bowling') {
       const bowlingColumns = [
+        { accessorKey: 'overs', header: 'Overs', size: 70, enableHiding: true },
         { accessorKey: 'wickets', header: 'Wickets', size: 80 },
         { accessorKey: 'economy', header: 'Economy', size: 80 },
         { accessorKey: 'runsConceded', header: 'Runs', size: 70 },
         // Hide less critical columns on mobile
         { accessorKey: 'bestBowling', header: 'Best', size: 80, enableHiding: true },
         { accessorKey: 'maidens', header: 'Maidens', size: 80, enableHiding: true },
-        { accessorKey: 'overs', header: 'Overs', size: 70, enableHiding: true },
-        { accessorKey: 'bowlingInnings', header: 'Innings', size: 80, enableHiding: true },
+
+        // { accessorKey: 'bowlingInnings', header: 'Matches Bowlt', size: 80, enableHiding: true },
       ].filter(column => !isSmallScreen || !column.enableHiding);
 
       return [...mobileCoreColumns, ...bowlingColumns];
