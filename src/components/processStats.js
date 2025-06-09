@@ -66,7 +66,7 @@ export function processMatchData(matches) {
         player.batting.innings += 1;
         player.batting.runs += runs;
         player.batting.balls += balls;
-        if (outDesc && outDesc.toLowerCase() !== 'notout' || outDesc.toLowerCase() !== 'not out') {
+        if (outDesc && !/^\s*not\s*out\s*$/i.test(outDesc)) {
           player.batting.outs += 1;
         } else {
           player.batting.notOuts += 1;
