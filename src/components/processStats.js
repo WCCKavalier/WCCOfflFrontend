@@ -80,37 +80,45 @@ export function processMatchData(matches) {
 
         // Fielding from outDesc (Catches & Run Outs)
         if (outDesc) {
-          const lowerCaseOutDesc = outDesc.toLowerCase();
+          const lowerCaseOutDesc = outDesc;
 
           // Catch parsing
-          const catchRegex = /caught by\s(.+)/i;
+          const catchRegex = /^c\s+([a-z\s.]+?)(?:\s+b|$)/i;
           const catchMatch = lowerCaseOutDesc.match(catchRegex);
+
           if (catchMatch && catchMatch[1]) {
             const fielderName = catchMatch[1].trim();
             // Ensure fielder is initialized
             if (!allPlayerStats[fielderName]) {
               allPlayerStats[fielderName] = initializePlayerStats(fielderName);
             }
+
             playersInThisMatch.add(fielderName); // Fielder also played in this match
             allPlayerStats[fielderName].fielding.catches += 1;
             allPlayerStats[fielderName].seriesPlayed.add(series);
             allPlayerStats[fielderName].yearsPlayed.add(year);
           }
 
-          // Run-out parsing (assuming a format like "run out (Fielder Name)")
-          const runoutRegex = /run out \((.+)\)/i;
+
+          // Run-out parsing (assuming a format like "runout (Fielder Name)")
+          const runoutRegex = /runout\s*\(([^)]+)\)/i;
           const runoutMatch = lowerCaseOutDesc.match(runoutRegex);
+
           if (runoutMatch && runoutMatch[1]) {
-            const fielderName = runoutMatch[1].trim();
-            // Ensure fielder is initialized
-            if (!allPlayerStats[fielderName]) {
-              allPlayerStats[fielderName] = initializePlayerStats(fielderName);
-            }
-            playersInThisMatch.add(fielderName); // Fielder also played in this match
-            allPlayerStats[fielderName].fielding.runOuts += 1;
-            allPlayerStats[fielderName].seriesPlayed.add(series);
-            allPlayerStats[fielderName].yearsPlayed.add(year);
+            const fielderNames = runoutMatch[1].split('/').map(name => name.trim());
+
+            fielderNames.forEach(fielderName => {
+              if (!allPlayerStats[fielderName]) {
+                allPlayerStats[fielderName] = initializePlayerStats(fielderName);
+              }
+
+              playersInThisMatch.add(fielderName); // Fielder also played in this match
+              allPlayerStats[fielderName].fielding.runOuts += 1;
+              allPlayerStats[fielderName].seriesPlayed.add(series);
+              allPlayerStats[fielderName].yearsPlayed.add(year);
+            });
           }
+
         }
       });
 
@@ -129,7 +137,7 @@ export function processMatchData(matches) {
         // Bowling Stats
         player.bowling.innings += 1;
         // Use Number() for robust conversion, handles both strings and numbers
-        player.bowling.overs += Number(overs);
+        player.bowling.overs = addOvers(player.bowling.overs || 0, Number(overs));
         player.bowling.runs += runs;
         player.bowling.wickets += wickets;
         player.bowling.maidens += (maidens || 0);
@@ -148,10 +156,10 @@ export function processMatchData(matches) {
     // After processing all innings for the match, increment the match count
     // for all players who participated in this match.
     playersInThisMatch.forEach(playerName => {
-        // Player should always exist here due to prior initialization, but good for safety
-        if (allPlayerStats[playerName]) {
-            allPlayerStats[playerName].matchesPlayed++;
-        }
+      // Player should always exist here due to prior initialization, but good for safety
+      if (allPlayerStats[playerName]) {
+        allPlayerStats[playerName].matchesPlayed++;
+      }
     });
 
   }); // End of matches.forEach
@@ -224,4 +232,18 @@ export function getUniqueSeriesNames(matches) {
 
 export function getPlayerStats(playerName, overallPlayerStats) {
   return overallPlayerStats.find(player => player.name === playerName);
+}
+
+function addOvers(existingOvers, newOvers) {
+  const [eOver, eBalls] = existingOvers.toString().split('.').map(Number);
+  const [nOver, nBalls] = newOvers.toString().split('.').map(Number);
+
+  // Convert both to balls
+  const totalBalls = (eOver * 6 + (eBalls || 0)) + (nOver * 6 + (nBalls || 0));
+
+  // Convert back to overs format
+  const finalOvers = Math.floor(totalBalls / 6);
+  const remainingBalls = totalBalls % 6;
+
+  return Number(`${finalOvers}.${remainingBalls}`);
 }

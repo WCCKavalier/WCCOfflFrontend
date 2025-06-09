@@ -57,6 +57,11 @@ const Series = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showUploadOptions, setShowUploadOptions] = useState(false);
   const fileInputRef = useRef(null);
+  const [activeSection, setActiveSection] = useState(null);
+
+  const toggleSection = (section) => {
+    setActiveSection(prev => (prev === section ? null : section));
+  };
 
   const [alert, setAlert] = useState({
     message: "",
@@ -80,6 +85,8 @@ const Series = () => {
     const handleNewScorecard = () => {
       console.log('📥 New scorecard received');
       fetchScorecards();
+      fetchAllSeriesHistory();
+      fetchTeams();
     };
 
     socket.on('connect', () => {
@@ -477,99 +484,108 @@ const Series = () => {
           {showAdminControls && (
             <div className="admin-controls">
               {/* Update Points Without Scorecard */}
+              {/* Update points WITHOUT scorecard */}
               <div>
                 <button
                   className="update-score-btn"
-                  onClick={() => setShowWinButtons(!showWinButtons)}
+                  onClick={() => toggleSection("win")}
                   disabled={loading || actionLoading}
                 >
-                  Update points without scorecard
+                  Update points only
                 </button>
 
-                {showWinButtons && (
+                {activeSection === "win" && (
                   <div className="win-btns-container">
-                    <button
-                      className="match-btn win-btn"
-                      onClick={() => handleWin("A")}
-                      disabled={actionLoading}
-                    >
-                      Team A Wins
-                    </button>
-                    <button
-                      className="match-btn loss-btn"
-                      onClick={() => handleWin("B")}
-                      disabled={actionLoading}
-                    >
-                      Team B Wins
-                    </button>
-                    <button
-                      className="reset-btn"
-                      onClick={handleResetLatestScore}
-                      disabled={!lastWinner || actionLoading}
-                    >
-                      Revert Last Result
-                    </button>
-                    <button
-                      className="cancel-cross"
-                      onClick={() => setShowWinButtons(false)}
-                    >
-                      ❌
-                    </button>
+                    <div className="upload-container">
+                      <button
+                        className="match-btn winA-btn"
+                        onClick={() => handleWin("A")}
+                        disabled={actionLoading}
+                      >
+                        Team A Wins
+                      </button>
+                      <button
+                        className="match-btn lossA-btn"
+                        onClick={() => handleWin("B")}
+                        disabled={actionLoading}
+                      >
+                        Team B Wins
+                      </button>
+                      <button
+                        className="cancel-series-btn"
+                        onClick={handleResetLatestScore}
+                        disabled={!lastWinner || actionLoading}
+                      >
+                        Revert Last Result
+                      </button>
+                      <button
+                        className="cancel-cross"
+                        onClick={() => setActiveSection(null)}
+                      >
+                        ❌
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
-
-              {/* Update Points With Scorecard */}
+              {/* Update Points WITH Scorecard */}
               <div>
                 <button
                   className="update-score-btn"
-                  onClick={() => setShowUploadOptions(!showUploadOptions)}
+                  onClick={() => toggleSection("upload")}
                   disabled={loading || actionLoading}
                 >
                   Update points with scorecard
                 </button>
 
-                {showUploadOptions && (
+                {activeSection === "upload" && (
                   <div className="scorecard-display-upload">
-                    <button
-                      className="reset-btn"
-                      onClick={handleRevertLastMatch}
-                      disabled={!lastWinner || actionLoading}
-                    >
-                      Revert Last Result Scorecard
-                    </button>
-
-                    <input
-                      type="file"
-                      accept="application/pdf"
-                      ref={fileInputRef}
-                      onChange={(e) => setFile(e.target.files[0])}
-                      disabled={uploading}
-                    />
-                    <button onClick={handleUpload} disabled={uploading || !file}>
-                      {uploading ? (
-                        <>
-                          <span className="score-spinner"></span>
-                          <p>Validating and Uploading</p>
-                        </>
-                      ) : (
-                        'Upload PDF'
-                      )}
-                    </button>
-                    <button
-                      onClick={() => {
-                        setShowUploadOptions(false);
-                        setFile(null);
-                      }}
-                      className="cancel-btn"
-                    >
-                      Cancel
-                    </button>
+                    <div className="upload-container">
+                      <input
+                        type="file"
+                        accept="application/pdf"
+                        className="custom-file-input"
+                        ref={fileInputRef}
+                        onChange={(e) => setFile(e.target.files[0])}
+                        disabled={uploading}
+                      />
+                      <button
+                        className="dark-upload-btn"
+                        onClick={handleUpload}
+                        disabled={uploading || !file}
+                      >
+                        {uploading ? (
+                          <div className="flex items-center gap-2">
+                            <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-white" />
+                            <p>Validating and Uploading</p>
+                          </div>
+                        ) : (
+                          <span>Upload Scorecard</span>
+                        )}
+                      </button>
+                      <button
+                        className="cancel-series-btn"
+                        onClick={handleRevertLastMatch}
+                        disabled={!lastWinner || actionLoading}
+                      >
+                        Revert Last Result & Scorecard
+                      </button>
+                      <button
+                        className="cancel-cross"
+                        onClick={() => {
+                          setActiveSection(null);
+                          setFile(null);
+                        }}
+                        disabled={uploading}
+                      >
+                        ❌
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
 
-              {/* End Series Button */}
+              {/* End-Series */}
               <div>
                 <button
                   className="end-btn"
@@ -581,102 +597,100 @@ const Series = () => {
               </div>
             </div>
           )}
-
         </div>
       )}
+          <div className="results-section">
+            <h2>Match Results</h2>
 
-      <div className="results-section">
-        <h2>Match Results</h2>
+            <div className="results-grid">
+              {allScorecards.slice(0, 3).map((card, index) => (
+                <div
+                  key={index}
+                  className="result-card"
+                  onClick={() => setSelectedScorecard(card)}
+                >
+                  <div className="teams">
+                    <span>{formatResult(card.matchInfo?.teams?.[0])}</span>
+                    <span className="vs">vs</span>
+                    <span>{formatResult(card.matchInfo?.teams?.[1])}</span>
+                  </div>
+                  <div className="result-summary">{formatResult(card.matchInfo?.result)}</div>
+                  <div className="match-meta">{card.matchInfo?.venue?.trim() || 'Nidhi'} | {card.matchInfo?.date}</div>
+                </div>
+              ))}
 
-        <div className="results-grid">
-          {allScorecards.slice(0, 3).map((card, index) => (
-            <div
-              key={index}
-              className="result-card"
-              onClick={() => setSelectedScorecard(card)}
-            >
-              <div className="teams">
-                <span>{formatResult(card.matchInfo?.teams?.[0])}</span>
-                <span className="vs">vs</span>
-                <span>{formatResult(card.matchInfo?.teams?.[1])}</span>
+              {allScorecards.length > 3 && (
+                <div className="view-all-wrapper">
+                  <button className="view-all-button" onClick={() => setShowAllPopup(true)}>
+                    View All Matches
+                  </button>
+                </div>
+              )}
+
+            </div>
+
+            {/* All Results Popup */}
+            {showAllPopup && (
+              <div className="popup-overlay">
+                <div className="popup-box">
+                  <button className="close-popup" onClick={() => setShowAllPopup(false)}>✖</button>
+                  <h2 className="popup-title">All Matches</h2>
+                  <div className="popup-results-grid">
+                    {allScorecards.map((card, index) => (
+                      <div
+                        key={index}
+                        className="result-card"
+                        onClick={() => {
+                          setSelectedScorecard(card);
+                          setShowAllPopup(false);
+                        }}
+                      >
+                        <div className="teams">
+                          <span>{card.matchInfo?.teams?.[0]}</span>
+                          <span className="vs">vs</span>
+                          <span>{card.matchInfo?.teams?.[1]}</span>
+                        </div>
+                        <div className="result-summary">{formatResult(card.matchInfo?.result)}</div>
+                        <div className="match-meta">{card.matchInfo?.venue} | {card.matchInfo?.date}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <div className="result-summary">{formatResult(card.matchInfo?.result)}</div>
-              <div className="match-meta">{card.matchInfo?.venue?.trim() || 'Nidhi'} | {card.matchInfo?.date}</div>
-            </div>
-          ))}
+            )}
 
-          {allScorecards.length > 3 && (
-            <div className="view-all-wrapper">
-              <button className="view-all-button" onClick={() => setShowAllPopup(true)}>
-                View All Matches
-              </button>
-            </div>
+            {/* Scorecard Details */}
+            {selectedScorecard && (
+              <ScoreCard currentMatch={selectedScorecard} onClose={() => setSelectedScorecard(null)} />
+            )}
+          </div>
+
+
+          <div className="match-coverage-container">
+            {loading && <p>Loading series history...</p>}
+            {seriesHistory.length === 0 ? (
+              <p>No series history found.</p>
+            ) : (
+              <>
+                <div>
+                  <button onClick={toggleCollapse} className="collapsible-header">
+                    Past series Scorelines: {isOpen ? "▲" : "▼"}
+                  </button>
+                  <FilterSeries initialData={seriesHistory} isOpen={isOpen} key={filterTableRefreshKey} />
+                </div>
+              </>
+            )}
+          </div>
+          {confirmModal.show && (
+            <ConfirmModal
+              message={confirmModal.message}
+              onConfirm={confirmModal.action}
+              onCancel={() => setConfirmModal({ show: false, action: null, message: "" })}
+            />
           )}
 
         </div>
-
-        {/* All Results Popup */}
-        {showAllPopup && (
-          <div className="popup-overlay">
-            <div className="popup-box">
-              <button className="close-popup" onClick={() => setShowAllPopup(false)}>✖</button>
-              <h2 className="popup-title">All Matches</h2>
-              <div className="popup-results-grid">
-                {allScorecards.map((card, index) => (
-                  <div
-                    key={index}
-                    className="result-card"
-                    onClick={() => {
-                      setSelectedScorecard(card);
-                      setShowAllPopup(false);
-                    }}
-                  >
-                    <div className="teams">
-                      <span>{card.matchInfo?.teams?.[0]}</span>
-                      <span className="vs">vs</span>
-                      <span>{card.matchInfo?.teams?.[1]}</span>
-                    </div>
-                    <div className="result-summary">{formatResult(card.matchInfo?.result)}</div>
-                    <div className="match-meta">{card.matchInfo?.venue} | {card.matchInfo?.date}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Scorecard Details */}
-        {selectedScorecard && (
-          <ScoreCard currentMatch={selectedScorecard} onClose={() => setSelectedScorecard(null)} />
-        )}
-      </div>
-
-
-      <div className="match-coverage-container">
-        {loading && <p>Loading series history...</p>}
-        {seriesHistory.length === 0 ? (
-          <p>No series history found.</p>
-        ) : (
-          <>
-            <div>
-              <button onClick={toggleCollapse} className="collapsible-header">
-                Past series Scorelines: {isOpen ? "▲" : "▼"}
-              </button>
-              <FilterSeries initialData={seriesHistory} isOpen={isOpen} key={filterTableRefreshKey} />
-            </div>
-          </>
-        )}
-      </div>
-      {confirmModal.show && (
-        <ConfirmModal
-          message={confirmModal.message}
-          onConfirm={confirmModal.action}
-          onCancel={() => setConfirmModal({ show: false, action: null, message: "" })}
-        />
-      )}
-
-    </div>
-  );
+      );
 };
 
-export default Series;
+      export default Series;
