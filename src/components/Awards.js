@@ -5,6 +5,7 @@ import NotificationAlert from "./NotificationAlert";
 import FilterAwards from "./FilterAwards";
 import kavaHistoryData from "./data";
 import { Link, useNavigate } from "react-router-dom";
+import FieldPositionSelector from './FieldPositionSelector';
 
 const PICTURE_API = "https://wccbackendoffl.onrender.com/api";
 
@@ -36,6 +37,9 @@ const Awards = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [fieldingPosition, setFieldingPosition] = useState('');
+    const [showFieldSelector, setShowFieldSelector] = useState(false);
+
     const navigate = useNavigate();
 
     const fetchData = async () => {
@@ -87,7 +91,7 @@ const Awards = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            const fileType = file.type.split('/')[0]; 
+            const fileType = file.type.split('/')[0];
             if (fileType !== 'image') {
                 alert('Please upload only image files!');
                 e.target.value = '';
@@ -166,20 +170,20 @@ const Awards = () => {
     const [alert, setAlert] = useState(null);
 
     const displayNotification = (message, type = 'success') => {
-      setAlert({ message, type });
-      setTimeout(() => {
-        setAlert(null); // Hide the notification after 4 seconds
-      }, 4000);
+        setAlert({ message, type });
+        setTimeout(() => {
+            setAlert(null); // Hide the notification after 4 seconds
+        }, 4000);
     };
-    
+
     return (
         <>
-        {alert && <NotificationAlert message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
+            {alert && <NotificationAlert message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
 
             {/* Main Title */}
             <div className="awards-container">
                 <h2>Kava Awards</h2>
-                
+
                 {/* Award Section */}
                 <div className="award-container">
                     <div className="award-section">
@@ -250,15 +254,28 @@ const Awards = () => {
                                     className="form-control"
                                     required
                                 />
-                                <input
-                                    type="text"
-                                    name="position"
-                                    placeholder="Enter position"
-                                    value={newData.position}
-                                    onChange={handleChange}
-                                    className="form-control"
-                                    required
-                                />
+                                <div style={{ margin: '20px 0' }}>
+                                    <h4>Select Fielding Position</h4>
+                                    <button
+                                        type="button"
+                                        className="field-toggle-btn"
+                                        onClick={() => setShowFieldSelector(prev => !prev)}
+                                    >
+                                        {showFieldSelector ? 'Hide Field Selector' : 'Pick from Field Map'}
+                                    </button>
+
+                                    {showFieldSelector && (
+                                        <div className="field-selector-wrapper">
+                                            <FieldPositionSelector onSelect={(pos) => {
+                                                setFieldingPosition(pos);
+                                                setNewData(prev => ({ ...prev, position: pos }));
+                                                setShowFieldSelector(false);
+                                            }} />
+                                        </div>
+                                    )}
+                                    <p>Selected Position: <strong>{fieldingPosition}</strong></p>
+                                </div>
+
                                 <input
                                     type="text"
                                     name="team"

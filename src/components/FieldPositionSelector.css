@@ -1,0 +1,47 @@
+.field-container {
+  position: relative;
+  width: 90vw;
+  max-width: 400px;
+  height: 90vw;
+  max-height: 400px;
+  margin: auto;
+  background-image: url('../../public/cricket-ground.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.field-button {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 2px 6px;
+  font-size: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.field-button:hover {
+  background-color: #000000;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.field-button.selected {
+  background-color: #0a8d0a;
+  color: white;
+  font-weight: bold;
+  border: 2px solid #2e7d32;
+}
+
+/* Responsive enhancements */
+@media (max-width: 500px) {
+  .field-button {
+    font-size: 8px;
+    padding: 1px 4px;
+  }
+}
