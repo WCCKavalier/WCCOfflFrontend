@@ -45,11 +45,6 @@ export const StatsPage = () => {
     fetchScorecard();
   }, []);
 
-  const { overallPlayerStats, uniqueSeriesNames, uniqueYears } = useMemo(
-    () => processMatchData(allScorecards),
-    [allScorecards]
-  );
-
   const query = useQuery();
   const playerNameToLoad = query.get('player');
 
@@ -59,6 +54,11 @@ export const StatsPage = () => {
   const [playerSearchTerm, setPlayerSearchTerm] = useState('');
   const [selectedPlayerName, setSelectedPlayerName] = useState(playerNameToLoad || null);
   // Removed showFilters state as filters will always be visible
+const { overallPlayerStats, uniqueSeriesNames, uniqueYears } = useMemo(
+  () => processMatchData(allScorecards, seriesFilter, yearFilter),
+  [allScorecards, seriesFilter, yearFilter] // ✅ include seriesFilter here
+);
+
 
   const filteredTableData = useMemo(() => {
     if (selectedPlayerName) return [];
