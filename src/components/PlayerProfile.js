@@ -88,7 +88,8 @@ export const PlayerProfile = ({ player, onBack }) => {
                         <StatItem label="Innings Bowled" value={player.bowlingInnings} />
                         <StatItem label="Overs Bowled" value={formatStat(player.overs)} />
                         <StatItem label="Runs Conceded" value={player.runsConceded} />
-                        <StatItem label="4-Wkt Hauls" value={player.fourWicketHauls || '0'} />
+                        <StatItem label="3-Wkt Hauls" value={player.threeWicketHauls} />
+
                         {/* <StatItem label="5-Wkt Hauls" value={player.fiveWicketHauls || '0'} /> */}
                     </div>
                 </div>

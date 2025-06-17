@@ -54,10 +54,10 @@ export const StatsPage = () => {
   const [playerSearchTerm, setPlayerSearchTerm] = useState('');
   const [selectedPlayerName, setSelectedPlayerName] = useState(playerNameToLoad || null);
   // Removed showFilters state as filters will always be visible
-const { overallPlayerStats, uniqueSeriesNames, uniqueYears } = useMemo(
-  () => processMatchData(allScorecards, seriesFilter, yearFilter),
-  [allScorecards, seriesFilter, yearFilter] // ✅ include seriesFilter here
-);
+  const { overallPlayerStats, uniqueSeriesNames, uniqueYears } = useMemo(
+    () => processMatchData(allScorecards, seriesFilter, yearFilter),
+    [allScorecards, seriesFilter, yearFilter] // ✅ include seriesFilter here
+  );
 
 
   const filteredTableData = useMemo(() => {
@@ -154,7 +154,7 @@ const { overallPlayerStats, uniqueSeriesNames, uniqueYears } = useMemo(
           { accessorKey: 'highScore', header: 'HS', size: isMobile ? 50 : 90, enableColumnFilter: true }, // Reduced width
           { accessorKey: 'average', header: 'Avg', size: isMobile ? 60 : 100, enableColumnFilter: true }, // Reduced width
           { accessorKey: 'strikeRate', header: 'SR', size: isMobile ? 60 : 100, enableColumnFilter: true }, // Reduced width
-          { accessorKey: 'notOuts', header: 'NO', size: isMobile ? 40 : 80, enableColumnFilter: false}, // Reduced, can be hidden
+          { accessorKey: 'notOuts', header: 'NO', size: isMobile ? 40 : 80, enableColumnFilter: false }, // Reduced, can be hidden
           { accessorKey: 'fours', header: '4s', size: isMobile ? 40 : 80, enableColumnFilter: false }, // Reduced, can be hidden
           { accessorKey: 'sixes', header: '6s', size: isMobile ? 40 : 80, enableColumnFilter: false }, // Reduced, can be hidden
           // { accessorKey: 'hundreds', header: '100s', size: isMobile ? 50 : 90, enableColumnFilter: false, enableHiding: true }, // Reduced, can be hidden
