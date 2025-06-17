@@ -7,11 +7,11 @@ export function processMatchData(matches, selectedSeries = '', selectedYear = ''
     name,
     matchesPlayed: 0,
     batting: {
-      innings: 0, runs: 0, balls: 0, outs: 0, highScore: 0, fifties: 0, hundreds: 0, notOuts: 0,
+      innings: 0, runs: 0, balls: 0, outs: 0, highScore: 0, fifties: 0, hundreds: 0, notOuts: 0, ducks: 0,
     },
     bowling: {
       innings: 0, overs: 0, runs: 0, wickets: 0, maidens: 0,
-      bestBowlingInnings: { wickets: 0, runs: Infinity },
+      bestBowlingInnings: { wickets: 0, runs: Infinity }, wi3: 0, // 3-wicket hauls
     },
     fielding: { catches: 0, runOuts: 0 },
     seriesPlayed: new Set(),
@@ -27,9 +27,9 @@ export function processMatchData(matches, selectedSeries = '', selectedYear = ''
     uniqueYears.add(year);
 
     // Skip match if it's not in selected series or year
-if ((selectedSeries && series !== selectedSeries) || (selectedYear && year !== selectedYear)) {
-  return;
-}
+    if ((selectedSeries && series !== selectedSeries) || (selectedYear && year !== selectedYear)) {
+      return;
+    }
 
     const playersInThisMatch = new Set();
 
@@ -46,6 +46,7 @@ if ((selectedSeries && series !== selectedSeries) || (selectedYear && year !== s
 
         if (outDesc && !/^\s*not\s*out\s*$/i.test(outDesc)) {
           player.batting.outs += 1;
+          if (runs === 0) player.batting.ducks = (player.batting.ducks || 0) + 1; // Count ducks
         } else {
           player.batting.notOuts += 1;
         }
@@ -96,6 +97,7 @@ if ((selectedSeries && series !== selectedSeries) || (selectedYear && year !== s
         player.bowling.runs += runs;
         player.bowling.wickets += wickets;
         player.bowling.maidens += maidens || 0;
+        if (wickets > 2) { player.bowling.wi3 += 1; }
 
         const best = player.bowling.bestBowlingInnings;
         if (wickets > best.wickets || (wickets === best.wickets && runs < best.runs)) {
@@ -139,6 +141,7 @@ if ((selectedSeries && series !== selectedSeries) || (selectedYear && year !== s
       hundreds: player.batting.hundreds,
       average: battingAvg,
       strikeRate: battingSR,
+      ducks: player.batting.ducks || 0,
 
       bowlingInnings: player.bowling.innings,
       overs: totalOvers,
@@ -147,6 +150,7 @@ if ((selectedSeries && series !== selectedSeries) || (selectedYear && year !== s
       maidens: player.bowling.maidens,
       bestBowling,
       economy: bowlingEco,
+      threeWicketHauls: player.bowling.wi3 || 0,
 
       catches: player.fielding.catches,
       runOuts: player.fielding.runOuts,
