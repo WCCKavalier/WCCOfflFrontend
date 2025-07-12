@@ -229,6 +229,34 @@ input:-internal-autofill-selected {
     color: white;
 }
 
+/* Player Select Box */
+.player-select {
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #232323;
+    color: #FFD700;
+    border: 1px solid #FFD700;
+    box-sizing: border-box;
+    display: block;
+    overflow-y: auto;
+}
+
+.player-select option {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background: #232323;
+}
+
+.player-select option:checked, .player-select option[selected] {
+    background-color: #FFD700 !important;
+    color: #232323 !important;
+}
+
 /* Responsive Adjustments */
 @media screen and (max-width: 768px) {
     .modal-content, .table-container, .history-container {
