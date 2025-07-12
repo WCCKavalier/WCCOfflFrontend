@@ -21,7 +21,7 @@ export function processMatchData(matches, selectedSeries = '', selectedYear = ''
   matches.forEach((match) => {
     const { matchInfo, innings } = match;
     const year = matchInfo.date.slice(-4);
-    const series = matchInfo.teams.join(' vs ');
+    const series = matchInfo.teams.slice().sort().join(' vs ');
 
     uniqueSeriesNames.add(series);
     uniqueYears.add(year);
@@ -173,7 +173,7 @@ export function processMatchData(matches, selectedSeries = '', selectedYear = ''
 export function getUniqueSeriesNames(matches) {
   const uniqueSeries = new Set();
   matches.forEach(match => {
-    uniqueSeries.add(match.matchInfo.teams.join(' vs '));
+    uniqueSeries.add(match.matchInfo.teams.slice().sort().join(' vs '));
   });
   return Array.from(uniqueSeries);
 }
