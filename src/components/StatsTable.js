@@ -79,16 +79,25 @@ export const StatsTable = ({ data, view, onPlayerClick }) => {
     return [];
   }, [view, onPlayerClick, isSmallScreen]); // Add isSmallScreen to dependency array
 
+  // Filter data for bowling view to show only players with overs > 0
+  // Filter data for fielding view to show only players with catches or run outs > 0
+  const filteredData =
+    view === 'bowling'
+      ? data.filter(player => player.overs > 0)
+      : view === 'fielding'
+      ? data.filter(player => (player.catches > 0 || player.runOuts > 0))
+      : data;
+
   return (
     <Box className="stats-table-container">
       <MaterialReactTable
         columns={columns}
-        data={data}
-        enableColumnOrdering={false} // Disable column ordering on mobile for simplicity
-        enableGlobalFilter={false}
+        data={filteredData}
+        enableColumnOrdering={true} // Disable column ordering on mobile for simplicity
+        enableGlobalFilter={true}
         enableColumnResizing={false} // Disable column resizing on mobile
-        enableColumnActions={!isSmallScreen} // Hide column actions menu on small screens
-        enableColumnFilters={false} // Disable column filters on mobile
+        enableColumnActions={true} // Always show column actions menu (show/hide columns)
+        enableColumnFilters={true} // Disable column filters on mobile
         enablePagination={true} // Keep pagination for navigation
         enableDensityToggle={false} // Hide density toggle on mobile
         enableFullScreenToggle={false} // Hide full screen toggle on mobile
@@ -132,29 +141,7 @@ export const StatsTable = ({ data, view, onPlayerClick }) => {
           },
         }}
         initialState={{
-          columnVisibility: {
-            // Initially hide some columns on small screens
-            // highScore: !isSmallScreen,
-            notOuts: !isSmallScreen,
-            // battingInnings: !isSmallScreen,
-            // bestBowling: !isSmallScreen,
-            maidens: !isSmallScreen,
-            // overs: !isSmallScreen,
-            bowlingInnings: !isSmallScreen,
-          },
           density: 'compact', // Start with compact density on mobile
-        }}
-        state={{
-          columnVisibility: {
-            // Dynamic visibility based on screen size
-            // highScore: !isSmallScreen,
-            notOuts: !isSmallScreen,
-            // battingInnings: !isSmallScreen,
-            bestBowling: !isSmallScreen,
-            maidens: !isSmallScreen,
-            overs: !isSmallScreen,
-            bowlingInnings: !isSmallScreen,
-          },
         }}
       />
     </Box>

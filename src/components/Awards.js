@@ -188,6 +188,9 @@ const Awards = () => {
         }, 4000);
     };
 
+    // Sort playerList in ascending order before using in form
+    const sortedPlayerList = [...playerList].sort();
+
     return (
         <>
             {alert && <NotificationAlert message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
@@ -253,11 +256,11 @@ const Awards = () => {
                                     name="winner"
                                     value={newData.winner}
                                     onChange={handleChange}
-                                    className="field-toggle-btn"
+                                    className="form-control player-select"
                                     required
                                 >
                                     <option value="">Select winner</option>
-                                    {playerList.map((name, idx) => (
+                                    {sortedPlayerList.map((name, idx) => (
                                         <option key={idx} value={name}>{name}</option>
                                     ))}
                                 </select>
@@ -300,7 +303,7 @@ const Awards = () => {
                                     className="form-control"
                                     required
                                 />
-                                <button disabled={loading} type="submit" className="update-btn">
+                                <button disabled={loading} type="submit" className="update-btn" style={{marginRight: '18px'}}>
                                     Update Award
                                 </button>
                                 <button
