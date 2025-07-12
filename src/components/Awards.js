@@ -39,6 +39,7 @@ const Awards = () => {
     const [loading, setLoading] = useState(false);
     const [fieldingPosition, setFieldingPosition] = useState('');
     const [showFieldSelector, setShowFieldSelector] = useState(false);
+    const [playerList, setPlayerList] = useState([]);
 
     const navigate = useNavigate();
 
@@ -61,12 +62,23 @@ const Awards = () => {
 
     useEffect(() => {
         fetchData();
+        fetchPlayers();
         const adminStatus = sessionStorage.getItem("admin") === "Y";
         const userLoggedIn = sessionStorage.getItem("username") !== null;
         setIsAdmin(adminStatus);
         setIsLoggedIn(userLoggedIn);
     }, []);
 
+    const fetchPlayers = async () => {
+        try {
+            const res = await fetch('https://wccbackendoffl.onrender.com/api/uploadScorecard/playerstat');
+            const data = await res.json();
+            // Assuming data is an array of player objects with a 'name' property
+            setPlayerList(data.map(player => player.name));
+        } catch (err) {
+            setPlayerList([]);
+        }
+    };
     const toggleForm = () => {
         setShowForm(!showForm);
         setNewData({
@@ -237,15 +249,18 @@ const Awards = () => {
                                         className="image-preview responsive-img"
                                     />
                                 )}
-                                <input
-                                    type="text"
+                                <select
                                     name="winner"
-                                    placeholder="Enter winner name"
                                     value={newData.winner}
                                     onChange={handleChange}
-                                    className="form-control"
+                                    className="field-toggle-btn"
                                     required
-                                />
+                                >
+                                    <option value="">Select winner</option>
+                                    {playerList.map((name, idx) => (
+                                        <option key={idx} value={name}>{name}</option>
+                                    ))}
+                                </select>
                                 <input
                                     type="date"
                                     name="date"
