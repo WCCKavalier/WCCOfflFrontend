@@ -308,7 +308,7 @@ const Awards = () => {
                                     className="form-control"
                                     required
                                 />
-                                <button disabled={loading} type="submit" className="update-btn" style={{marginRight: '18px'}}>
+                                <button disabled={loading} type="submit" className="update-btn" style={{marginRight: '10px'}}>
                                     Update Award
                                 </button>
                                 <button
