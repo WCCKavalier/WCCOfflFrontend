@@ -243,7 +243,6 @@ const Awards = () => {
                                     accept="image/*"
                                     onChange={handleFileChange}
                                     className="form-control"
-                                    required
                                 />
                                 {imagePreview && (
                                     <img
@@ -264,14 +263,20 @@ const Awards = () => {
                                         <option key={idx} value={name}>{name}</option>
                                     ))}
                                 </select>
-                                <input
-                                    type="date"
-                                    name="date"
-                                    value={newData.date}
-                                    onChange={handleChange}
-                                    className="form-control"
-                                    required
-                                />
+                                <div className="date-input-wrapper">
+                                    {!newData.date ? (
+                                        <span className="date-placeholder">Select date</span>
+                                    ) : null}
+                                    <input
+                                        type="date"
+                                        name="date"
+                                        value={newData.date}
+                                        onChange={handleChange}
+                                        className="form-control"
+                                        required
+                                        style={{ position: 'relative', zIndex: 1, background: 'transparent' }}
+                                    />
+                                </div>
                                 <div style={{ margin: '20px 0' }}>
                                     <h4>Select Fielding Position</h4>
                                     <button
@@ -303,7 +308,7 @@ const Awards = () => {
                                     className="form-control"
                                     required
                                 />
-                                <button disabled={loading} type="submit" className="update-btn" style={{marginRight: '18px'}}>
+                                <button disabled={loading} type="submit" className="update-btn" style={{marginRight: '10px'}}>
                                     Update Award
                                 </button>
                                 <button

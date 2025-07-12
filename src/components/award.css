@@ -232,6 +232,8 @@ input:-internal-autofill-selected {
 /* Player Select Box */
 .player-select {
     width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     padding-top: 16px;
     padding-bottom: 16px;
     margin-top: 12px;
@@ -241,9 +243,12 @@ input:-internal-autofill-selected {
     background-color: #232323;
     color: #FFD700;
     border: 1px solid #FFD700;
-    box-sizing: border-box;
     display: block;
+    max-height: 320px;
     overflow-y: auto;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .player-select option {
@@ -256,6 +261,15 @@ input:-internal-autofill-selected {
     background-color: #FFD700 !important;
     color: #232323 !important;
 }
+
+/* Date Input Styling */
+.date-input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 12px;
+    margin-top: 16px;
+}
+
 
 /* Responsive Adjustments */
 @media screen and (max-width: 768px) {
