@@ -77,6 +77,18 @@ const Home2 = () => {
 
     const trimScores = (scores) => scores?.slice(-4) || [];
 
+    // helper to map a result to className for Home2 (supports 'D' or 'draw')
+    const getResultClassH2 = (res) => {
+        if (res === null || res === undefined) return 'neutralh2';
+        const r = String(res).trim();
+        if (!r) return 'neutralh2';
+        const ru = r.toUpperCase();
+        if (ru === 'W') return 'winh2';
+        if (ru === 'L') return 'lossh2';
+        if (ru === 'D' || r.toLowerCase() === 'draw') return 'drawh2';
+        return 'neutralh2';
+    };
+
     // Navigation handlers
     const handleTeamClick = () => {
         navigate("/teams"); // Redirect to /teams when clicking anywhere inside home2-teams
@@ -100,7 +112,7 @@ const Home2 = () => {
                             </div>
                             <div className="home2-score-history">
                                 {trimScores(teams?.team1?.score).map((result, index) => (
-                                    <span key={index} className={result === "W" ? "winh2" : result === "L" ? "lossh2" : "neutralh2"}>
+                                    <span key={index} className={getResultClassH2(result)}>
                                         {result}
                                     </span>
                                 ))}
@@ -114,7 +126,7 @@ const Home2 = () => {
                             </div>
                             <div className="home2-score-history">
                                 {trimScores(teams?.team2?.score).map((result, index) => (
-                                    <span key={index} className={result === "W" ? "winh2" : result === "L" ? "lossh2" : "neutralh2"}>
+                                    <span key={index} className={getResultClassH2(result)}>
                                         {result}
                                     </span>
                                 ))}

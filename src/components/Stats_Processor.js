@@ -13,7 +13,7 @@ export function processMatchData(matches, selectedSeries = '', selectedYear = ''
       innings: 0, overs: 0, runs: 0, wickets: 0, maidens: 0,
       bestBowlingInnings: { wickets: 0, runs: Infinity }, wi3: 0, // 3-wicket hauls
     },
-    fielding: { catches: 0, runOuts: 0 },
+    fielding: { catches: 0, runOuts: 0, stumpings: 0 },
     seriesPlayed: new Set(),
     yearsPlayed: new Set(),
   });
@@ -60,15 +60,41 @@ export function processMatchData(matches, selectedSeries = '', selectedYear = ''
 
         // Fielding from outDesc
         if (outDesc) {
-          const catchRegex = /^c\s+([a-z\s.]+?)(?:\s+b|$)/i;
-          const catchMatch = outDesc.match(catchRegex);
-          if (catchMatch && catchMatch[1]) {
-            const fielderName = catchMatch[1].trim();
-            if (!allPlayerStats[fielderName]) allPlayerStats[fielderName] = initializePlayerStats(fielderName);
-            playersInThisMatch.add(fielderName);
-            allPlayerStats[fielderName].fielding.catches += 1;
-            allPlayerStats[fielderName].seriesPlayed.add(series);
-            allPlayerStats[fielderName].yearsPlayed.add(year);
+          // Handle 'c & b <bowlerName>' (caught and bowled) — credit the bowler with a catch
+          // Accept formats like 'c & b Bowler', 'c&b Bowler', 'c&bBowler' (case-insensitive)
+          const cAndBRegex = /^\s*c\s*&\s*b\s*([A-Za-z.\s]+?)\s*$/i;
+          const cAndBMatch = outDesc.match(cAndBRegex);
+          if (cAndBMatch && cAndBMatch[1]) {
+            const bowlerName = cAndBMatch[1].trim();
+            if (!allPlayerStats[bowlerName]) allPlayerStats[bowlerName] = initializePlayerStats(bowlerName);
+            playersInThisMatch.add(bowlerName);
+            allPlayerStats[bowlerName].fielding.catches += 1;
+            allPlayerStats[bowlerName].seriesPlayed.add(series);
+            allPlayerStats[bowlerName].yearsPlayed.add(year);
+          } else {
+            const catchRegex = /^c\s+([a-z\s.]+?)(?:\s+b|$)/i;
+            const catchMatch = outDesc.match(catchRegex);
+            if (catchMatch && catchMatch[1]) {
+              const fielderName = catchMatch[1].trim();
+              if (!allPlayerStats[fielderName]) allPlayerStats[fielderName] = initializePlayerStats(fielderName);
+              playersInThisMatch.add(fielderName);
+              allPlayerStats[fielderName].fielding.catches += 1;
+              allPlayerStats[fielderName].seriesPlayed.add(series);
+              allPlayerStats[fielderName].yearsPlayed.add(year);
+            }
+          }
+
+          // Stumping: st <keeperName> b <bowlerName>
+          // Accept 'st' or 'stumped' (case-insensitive) and capture keeper name
+          const stumpingRegex = /\bst(?:umped)?\s+([A-Za-z.\s]+?)\s+b\s+[A-Za-z.\s]+/i;
+          const stumpingMatch = outDesc.match(stumpingRegex);
+          if (stumpingMatch && stumpingMatch[1]) {
+            const keeperName = stumpingMatch[1].trim();
+            if (!allPlayerStats[keeperName]) allPlayerStats[keeperName] = initializePlayerStats(keeperName);
+            playersInThisMatch.add(keeperName);
+            allPlayerStats[keeperName].fielding.stumpings += 1;
+            allPlayerStats[keeperName].seriesPlayed.add(series);
+            allPlayerStats[keeperName].yearsPlayed.add(year);
           }
 
           const runoutRegex = /run\s*out\s*\(([^)]+)\)/i;
@@ -154,6 +180,7 @@ export function processMatchData(matches, selectedSeries = '', selectedYear = ''
 
       catches: player.fielding.catches,
       runOuts: player.fielding.runOuts,
+      stumpings: player.fielding.stumpings || 0,
 
       seriesPlayed: Array.from(player.seriesPlayed),
       yearsPlayed: Array.from(player.yearsPlayed),
