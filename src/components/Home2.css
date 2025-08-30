@@ -142,14 +142,21 @@
   
   
   
-  .neutralh2 {
+  .drawh2 {
     background: linear-gradient(135deg, #b89400, #7f7200);
     color: white;
     box-shadow: 0 0 10px 3px rgba(255, 215, 0, 0.4);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
   }
+
+    .neutralh2 {
+    background: linear-gradient(135deg, #434342, #22221e);
+    color: white;
+    box-shadow: 0 0 10px 3px rgba(74, 74, 73, 0.4);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  }
   
-  .winh2, .lossh2, .neutralh2 {
+  .winh2, .lossh2, .neutralh2 .drawh2 {
     border-radius: 12px;
     font-weight: 600;
     transition: transform 0.3s ease, box-shadow 0.3s ease;

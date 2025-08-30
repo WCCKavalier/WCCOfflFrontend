@@ -74,6 +74,7 @@ export const StatsTable = ({ data, view, onPlayerClick }) => {
         matchesPlayedColumn,
         { accessorKey: 'catches', header: 'Catches', size: 80 },
         { accessorKey: 'runOuts', header: 'Run Outs', size: 80 },
+        { accessorKey: 'stumpings', header: 'Stumpings', size: 80, enableHiding: true }
       ];
     }
     return [];

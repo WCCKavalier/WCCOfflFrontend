@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import { processMatchData } from './processStats';
+import { processMatchData } from './Stats_Processor';
 import { StatsTable } from './StatsTable'; // Assuming StatsTable internally handles column definitions
 import { PlayerProfile } from './PlayerProfile';
 import './StatsPage.css'; // Make sure this CSS file is correctly linked and contains the mobile overrides

@@ -167,7 +167,13 @@ const Series = () => {
     if (!isAdmin) return;
     setActionLoading(true);
     try {
-      await axios.put(`${API_BASE_URL}/api/team/update-points`, { winnerId: team === "A" ? "team1" : "team2" });
+      // determine winnerId (support draw)
+      let winnerId;
+      if (team === "A") winnerId = "team1";
+      else if (team === "B") winnerId = "team2";
+      else winnerId = "draw";
+
+      await axios.put(`${API_BASE_URL}/api/team/update-points`, { winnerId });
 
       const response = await axios.get(`${API_BASE_URL}/api/teams`);
       const { team1, team2 } = response.data || {};
@@ -180,7 +186,8 @@ const Series = () => {
       else if (team2.isRevert) setLastWinner("team2");
       else setLastWinner(null);
 
-      showAlert(`Team ${team} wins!`);
+      // Show appropriate message for draw
+      showAlert(team === "draw" ? "Match recorded as a draw." : `Team ${team} wins!`);
     } catch (error) {
       console.error("Error updating points:", error);
       showAlert("Error updating points.", "error");
@@ -512,6 +519,13 @@ const Series = () => {
                         Team B Wins
                       </button>
                       <button
+                        className="match-btn draw"
+                        onClick={() => handleWin("draw")}
+                        disabled={actionLoading}
+                      >
+                        Draw
+                      </button>
+                      <button
                         className="cancel-series-btn"
                         onClick={handleResetLatestScore}
                         disabled={!lastWinner || actionLoading}
@@ -599,98 +613,98 @@ const Series = () => {
           )}
         </div>
       )}
-          <div className="results-section">
-            <h2>Match Results</h2>
+      <div className="results-section">
+        <h2>Match Results</h2>
 
-            <div className="results-grid">
-              {allScorecards.slice(0, 3).map((card, index) => (
-                <div
-                  key={index}
-                  className="result-card"
-                  onClick={() => setSelectedScorecard(card)}
-                >
-                  <div className="teams">
-                    <span>{formatResult(card.matchInfo?.teams?.[0])}</span>
-                    <span className="vs">vs</span>
-                    <span>{formatResult(card.matchInfo?.teams?.[1])}</span>
-                  </div>
-                  <div className="result-summary">{formatResult(card.matchInfo?.result)}</div>
-                  <div className="match-meta">{card.matchInfo?.venue?.trim() || 'Nidhi'} | {card.matchInfo?.date}</div>
-                </div>
-              ))}
-
-              {allScorecards.length > 3 && (
-                <div className="view-all-wrapper">
-                  <button className="view-all-button" onClick={() => setShowAllPopup(true)}>
-                    View All Matches
-                  </button>
-                </div>
-              )}
-
-            </div>
-
-            {/* All Results Popup */}
-            {showAllPopup && (
-              <div className="popup-overlay">
-                <div className="popup-box">
-                  <button className="close-popup" onClick={() => setShowAllPopup(false)}>✖</button>
-                  <h2 className="popup-title">All Matches</h2>
-                  <div className="popup-results-grid">
-                    {allScorecards.map((card, index) => (
-                      <div
-                        key={index}
-                        className="result-card"
-                        onClick={() => {
-                          setSelectedScorecard(card);
-                          setShowAllPopup(false);
-                        }}
-                      >
-                        <div className="teams">
-                          <span>{card.matchInfo?.teams?.[0]}</span>
-                          <span className="vs">vs</span>
-                          <span>{card.matchInfo?.teams?.[1]}</span>
-                        </div>
-                        <div className="result-summary">{formatResult(card.matchInfo?.result)}</div>
-                        <div className="match-meta">{card.matchInfo?.venue} | {card.matchInfo?.date}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+        <div className="results-grid">
+          {allScorecards.slice(0, 3).map((card, index) => (
+            <div
+              key={index}
+              className="result-card"
+              onClick={() => setSelectedScorecard(card)}
+            >
+              <div className="teams">
+                <span>{formatResult(card.matchInfo?.teams?.[0])}</span>
+                <span className="vs">vs</span>
+                <span>{formatResult(card.matchInfo?.teams?.[1])}</span>
               </div>
-            )}
+              <div className="result-summary">{formatResult(card.matchInfo?.result)}</div>
+              <div className="match-meta">{card.matchInfo?.venue?.trim() || 'Nidhi'} | {card.matchInfo?.date}</div>
+            </div>
+          ))}
 
-            {/* Scorecard Details */}
-            {selectedScorecard && (
-              <ScoreCard currentMatch={selectedScorecard} onClose={() => setSelectedScorecard(null)} />
-            )}
-          </div>
-
-
-          <div className="match-coverage-container">
-            {loading && <p>Loading series history...</p>}
-            {seriesHistory.length === 0 ? (
-              <p>No series history found.</p>
-            ) : (
-              <>
-                <div>
-                  <button onClick={toggleCollapse} className="collapsible-header">
-                    Past series Scorelines: {isOpen ? "▲" : "▼"}
-                  </button>
-                  <FilterSeries initialData={seriesHistory} isOpen={isOpen} key={filterTableRefreshKey} />
-                </div>
-              </>
-            )}
-          </div>
-          {confirmModal.show && (
-            <ConfirmModal
-              message={confirmModal.message}
-              onConfirm={confirmModal.action}
-              onCancel={() => setConfirmModal({ show: false, action: null, message: "" })}
-            />
+          {allScorecards.length > 3 && (
+            <div className="view-all-wrapper">
+              <button className="view-all-button" onClick={() => setShowAllPopup(true)}>
+                View All Matches
+              </button>
+            </div>
           )}
 
         </div>
-      );
+
+        {/* All Results Popup */}
+        {showAllPopup && (
+          <div className="popup-overlay">
+            <div className="popup-box">
+              <button className="close-popup" onClick={() => setShowAllPopup(false)}>✖</button>
+              <h2 className="popup-title">All Matches</h2>
+              <div className="popup-results-grid">
+                {allScorecards.map((card, index) => (
+                  <div
+                    key={index}
+                    className="result-card"
+                    onClick={() => {
+                      setSelectedScorecard(card);
+                      setShowAllPopup(false);
+                    }}
+                  >
+                    <div className="teams">
+                      <span>{card.matchInfo?.teams?.[0]}</span>
+                      <span className="vs">vs</span>
+                      <span>{card.matchInfo?.teams?.[1]}</span>
+                    </div>
+                    <div className="result-summary">{formatResult(card.matchInfo?.result)}</div>
+                    <div className="match-meta">{card.matchInfo?.venue} | {card.matchInfo?.date}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Scorecard Details */}
+        {selectedScorecard && (
+          <ScoreCard currentMatch={selectedScorecard} onClose={() => setSelectedScorecard(null)} />
+        )}
+      </div>
+
+
+      <div className="match-coverage-container">
+        {loading && <p>Loading series history...</p>}
+        {seriesHistory.length === 0 ? (
+          <p>No series history found.</p>
+        ) : (
+          <>
+            <div>
+              <button onClick={toggleCollapse} className="collapsible-header">
+                Past series Scorelines: {isOpen ? "▲" : "▼"}
+              </button>
+              <FilterSeries initialData={seriesHistory} isOpen={isOpen} key={filterTableRefreshKey} />
+            </div>
+          </>
+        )}
+      </div>
+      {confirmModal.show && (
+        <ConfirmModal
+          message={confirmModal.message}
+          onConfirm={confirmModal.action}
+          onCancel={() => setConfirmModal({ show: false, action: null, message: "" })}
+        />
+      )}
+
+    </div>
+  );
 };
 
-      export default Series;
+export default Series;

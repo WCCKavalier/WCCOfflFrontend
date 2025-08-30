@@ -131,6 +131,13 @@ h2 {
   box-shadow: 0 0 10px #555;
 }
 
+.draw {
+  background: #4a4703;
+  color: #e3d106;
+  text-shadow: 0 0 8px #aaa;
+  box-shadow: 0 0 10px #555;
+}
+
 ul {
   list-style: none;
   padding: 0;

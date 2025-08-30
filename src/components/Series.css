@@ -628,6 +628,32 @@ button:disabled {
   color: white;
 }
 
+/* Draw button - styled similar to .lossA-btn */
+.draw-btn{
+  background-color: transparent;
+  color: #b88f0b; /* same tone as loss */
+  border: 2px solid #b88f0b;
+  border-radius: 8px;
+}
+.match-btn.draw-btn {
+  background-color: transparent;
+  color: #b88f0b; /* same tone as loss */
+  border: 2px solid #b88f0b;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.draw-btn:hover {
+  background-color: #b88f0b;
+  color: rgb(8, 1, 1);
+}
+
+.draw-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 .cancel-cross {
   background: none;
   border: none;

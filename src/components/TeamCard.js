@@ -59,6 +59,18 @@ const TeamCard = ({
     return true;
   };
 
+  // helper to map result value to CSS class (supports 'D' or 'draw')
+  const getResultClass = (res) => {
+    if (!res && res !== 0) return 'neutral';
+    const r = String(res).trim();
+    if (!r) return 'neutral';
+    const ru = r.toUpperCase();
+    if (ru === 'W') return 'win';
+    if (ru === 'L') return 'loss';
+    if (ru === 'D' || r.toLowerCase() === 'draw') return 'draw';
+    return 'neutral';
+  };
+
   const handleSave = async () => {
     if (!validateInputs()) {
       return; // Stop saving if validation fails
@@ -148,9 +160,7 @@ const TeamCard = ({
             {(score || []).slice(-4).map((result, index) => (
               <span
                 key={index}
-                className={`result ${
-                  result === "W" ? "win" : result === "L" ? "loss" : "neutral"
-                }`}
+                className={`result ${getResultClass(result)}`}
               >
                 {result}
               </span>
